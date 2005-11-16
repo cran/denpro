@@ -1,0 +1,17 @@
+mix3<-function(m1,m2,mar,plkm){
+#
+#source("mix3.R") 
+#tul<-mix3(m1=-2,m2=2,mar=2,plkm=60)
+#plot(tul$x,tul$y)
+#
+start<-m1-mar
+end<-m2+mar
+len<-end-start
+#
+x<-start+c(0:plkm)*len/plkm
+y1<-exp(-x^2/2)/(2*pi)^(1/2)
+y2<-exp(-(x-m1)^2/2)/(2*pi)^(1/2)
+y3<-exp(-(x-m2)^2/2)/(2*pi)^(1/2)
+y<-(y1+y2+y3)/3
+return(list(x=x,y=y))
+}

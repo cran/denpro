@@ -1,0 +1,16 @@
+export(
+branchmap,    excmas,      lstseq.kern,  pcf.kern,       
+plotmodet,  profgene,    simmix,
+draw.levset,  exmap,       modecent,     plotbary,       
+plottree,   profhist,    treedisc,
+draw.pcf,     leafsfirst,  modegraph,     plotbranchmap,  
+plotvolu,   profkern,
+eval.func,    locofmax,    paracoor,     plotexmap,      
+scaletable,
+sim.exa,
+hgrid
+)
+
+useDynLib(denpro)
+
+
