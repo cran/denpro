@@ -1,0 +1,256 @@
+plotvolu<-function(lst,length=NULL,
+toplot=T,data=F,crit=NULL,orderrule="distcenter",
+modelabel=TRUE,ptext=0,leimat=NULL,symbo=NULL,
+info=NULL,infolift=0,infopos=0,
+xmarginleft=0,xmarginright=0,ymargin=0,
+xlim=NULL,ylim=NULL,
+col="black",col.axis="black",
+cutlev=NULL,xaxt="n",
+exmavisu=NULL,bg="transparent",tyyppi="n",
+lty="solid",colo=F,lowest="dens")
+{
+
+parents<-lst$parent
+levels<-lst$level
+length<-lst$volume
+center<-lst$center
+
+mut<-multitree(parents)
+if (is.null(lst$roots)) roots<-mut$roots else roots<-lst$roots
+child<-mut$child
+sibling<-mut$sibling
+
+d<-dim(center)[1]
+if (is.null(crit)){
+   crit<-rep(0,d)          #order so that 1st closest to origo
+   if (d==1) crit<-max(center)
+   if (!is.null(lst$refe)) crit<-lst$refe
+}
+
+if (orderrule=="distcenter") sibord<-siborder(mut,crit,lst$distcenter)
+else sibord<-siborder(mut,crit,center)
+
+itemnum<-length(parents)
+vecs<-matrix(NA,itemnum,4)
+vecs<-alloroot(vecs,roots,sibord,levels,length)
+vecs<-plotdata(roots,child,sibling,sibord,levels,length,vecs)
+orivecs<-vecs
+
+if (!(is.null(cutlev))){
+  cm<-cutmut(mut,cutlev,levels)              # cut the tree
+  roots<-cm$roots
+  sibling<-cm$sibling
+  mut$roots<-roots
+  if (orderrule=="distcenter") sibord<-siborder(mut,crit,lst$distcenter)
+  else sibord<-siborder(mut,crit,center)
+  rootnum<-length(roots) 
+  apuvecs<-matrix(NA,itemnum,4)
+  for (i in 1:rootnum){
+     inde<-roots[i]
+     apuvecs[inde,]<-vecs[inde,]
+     if (i==1) miniroot<-apuvecs[inde,1]
+     else if (apuvecs[inde,1]<=miniroot) miniroot<-apuvecs[inde,1]
+  }
+  vecs<-apuvecs          #we give for the roots the previous positions
+  vecs<-plotdata(roots,child,sibling,sibord,levels,length,vecs)
+}
+
+#####################################
+
+depths<-NULL
+segme<-T
+lift<-NULL
+modetest<-NULL
+alpha<-NULL
+axes<-T
+modecolors<-NULL
+modethickness<-1
+leafcolors<-NULL
+leaflift<-0
+leafsymbo<-20
+modelabels<-NULL
+yaxt<-"s"
+log<-""
+xaxt<-"s"
+
+nodenum<-length(vecs[,1])
+xcoor<-matrix(0,2*nodenum,1)
+ycoor<-matrix(0,2*nodenum,1)
+
+for (i in 1:nodenum){
+ xcoor[2*i-1]<-vecs[i,1]
+ xcoor[2*i]<-vecs[i,3]
+ ycoor[2*i-1]<-vecs[i,2]
+ ycoor[2*i]<-vecs[i,4]
+}
+
+oriminnu<-min(orivecs[,1],na.rm=T)
+minnu<-min(xcoor,na.rm=T)
+if (is.null(cutlev)) xcoor<-xcoor-minnu
+else xcoor<-xcoor-oriminnu
+
+#xlim<-c(min(vecs[,1],na.rm=T)-xmarginleft,max(vecs[,3],na.rm=T)+xmarginright)
+if (is.null(ylim)) ylim<-c(0,max(ycoor,na.rm=T)+ptext+ymargin)
+if (!is.null(cutlev)) ylim<-c(cutlev,max(ycoor,na.rm=T)+ptext+ymargin)
+
+if (toplot){
+par(bg=bg)
+plot(xcoor[order(xcoor)],ycoor[order(xcoor)],  #xcoor,ycoor,
+xlab="",ylab="",axes=axes,xlim=xlim,ylim=ylim,xaxt=xaxt,
+col=col,col.axis=col.axis,yaxt=yaxt,log=log,
+type=tyyppi,lty=lty)
+}
+###########################################################
+
+if ((tyyppi=="n") && (toplot)){
+
+thick<-1
+col<-col #"black"
+
+if (lowest=="dens") lowest<-0 else lowest<-min(lst$level)
+
+for (i in 1:nodenum){
+if (!is.na(ycoor[2*i-1])){
+
+    yc<-ycoor[2*i-1]
+
+    pare<-parents[i]
+    if (pare==0) lowlev<-lowest else lowlev<-levels[pare]
+
+    segments(xcoor[2*i-1],lowlev,xcoor[2*i-1],yc,col=col,lwd=thick)
+    segments(xcoor[2*i],lowlev,xcoor[2*i],yc,col=col,lwd=thick)
+
+    if (child[i]==0){  #we are in leaf
+
+       segments(xcoor[2*i-1],yc,xcoor[2*i],yc,col=col,lwd=thick)
+
+    }
+    else{
+
+       yc<-ycoor[2*i-1]
+
+       childnum<-1
+       curchi<-child[i]
+       while (sibling[curchi]!=0){
+           curchi<-sibling[curchi]
+           childnum<-childnum+1
+       }
+
+       sibpointer<-matrix(0,childnum,1)
+       curchi<-child[i]
+       sibpointer[sibord[curchi]]<-curchi
+       while (sibling[curchi]!=0){
+           curchi<-sibling[curchi]
+           sibpointer[sibord[curchi]]<-curchi
+       }
+
+       curchi<-sibpointer[1]
+       x1<-xcoor[2*curchi-1]      
+       segments(xcoor[2*i-1],yc,x1,yc,col=col,lwd=thick)
+       x0<-xcoor[2*curchi] 
+
+       cn<-2
+       while (cn<=childnum){
+             curchi<-sibpointer[cn]
+             x1<-xcoor[2*curchi-1] 
+             segments(x0,yc,x1,yc,col=col,lwd=thick)
+             x0<-xcoor[2*curchi] 
+             cn<-cn+1
+       }
+
+       segments(x0,yc,xcoor[2*i],yc,col=col,lwd=thick)
+
+    }
+}
+}
+
+for (i in 1:nodenum){
+   if (is.null(cutlev)){
+     orivecs[i,1]<-orivecs[i,1]-minnu
+     orivecs[i,3]<-orivecs[i,3]-minnu
+   }
+   else{
+     orivecs[i,1]<-orivecs[i,1]-oriminnu
+     orivecs[i,3]<-orivecs[i,3]-oriminnu
+   }
+}   
+if (modelabel) modelab<-plottext(parents,orivecs,ptext,leimat,symbo=symbo)  
+
+
+}  #tyyppi = "n"
+
+
+############################################# exmavisu start
+
+if (colo) exmavisu<-1
+
+if (!is.null(exmavisu)){
+
+if (colo){
+  paletti<-c("red","blue","green",
+  "orange","navy","darkgreen",
+  "orchid","aquamarine","turquoise",
+  "pink","violet","magenta","chocolate","cyan",
+  colors()[50:657],colors()[50:657])
+
+  col<-colobary(lst$parent,paletti)
+}
+else col<-rep("blue",length(lst$parent))
+
+for (i in 1:length(exmavisu)){
+
+node<-exmavisu[i]
+
+x1<-xcoor[2*node-1] 
+x2<-xcoor[2*node]
+lev<-levels[node]
+if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-0
+polygon(c(x1,x2,x2,x1),c(lev0,lev0,lev,lev),col=col[node],lty="blank")
+
+pino<-matrix(0,nodenum,1)
+pino[1]<-child[node]
+if (child[node]>0) pinoin<-1 else pinoin<-0
+
+while (pinoin>0){
+   node<-pino[pinoin]
+   pinoin<-pinoin-1   
+
+   x1<-xcoor[2*node-1] 
+   x2<-xcoor[2*node]
+   lev<-levels[node]
+   if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-0
+   polygon(c(x1,x2,x2,x1),c(lev0,lev0,lev,lev),col=col[node],lty="blank")
+
+   if (sibling[node]>0){
+         pinoin<-pinoin+1
+         pino[pinoin]<-sibling[node] 
+   }
+
+   while (child[node]>0){    #go to left and put right nodes to stack
+         node<-child[node]
+
+         x1<-xcoor[2*node-1] 
+         x2<-xcoor[2*node]
+         lev<-levels[node]
+         if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-0
+         polygon(c(x1,x2,x2,x1),c(lev0,lev0,lev,lev),col=col[node],lty="blank")
+
+         if (sibling[node]>0){
+            pinoin<-pinoin+1
+            pino[pinoin]<-sibling[node] 
+         }
+   }
+}
+}
+}
+####################### exmavisu end
+
+if (data) return(list(xcoor=xcoor,ycoor=ycoor))
+
+
+}
+
+
+
+
+
