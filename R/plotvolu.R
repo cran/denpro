@@ -1,18 +1,19 @@
 plotvolu<-function(lst,length=NULL,
-toplot=T,data=F,crit=NULL,orderrule="distcenter",
-modelabel=TRUE,ptext=0,leimat=NULL,symbo=NULL,
+toplot=TRUE,data=FALSE,crit=NULL,orderrule="distcenter",
+modelabel=FALSE,ptext=0,leimat=NULL,symbo=NULL,
 info=NULL,infolift=0,infopos=0,
 xmarginleft=0,xmarginright=0,ymargin=0,
 xlim=NULL,ylim=NULL,
 col="black",col.axis="black",
 cutlev=NULL,xaxt="n",
 exmavisu=NULL,bg="transparent",tyyppi="n",
-lty="solid",colo=F,lowest="dens")
+lty="solid",colo=FALSE,lowest="dens",proba=FALSE)
 {
 
 parents<-lst$parent
 levels<-lst$level
 length<-lst$volume
+if (proba) length<-lst$proba
 center<-lst$center
 
 mut<-multitree(parents)

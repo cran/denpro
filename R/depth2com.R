@@ -14,5 +14,5 @@ if (direc==1){
 else{
   depind<-dep-cusu[direc-1]
 }
-return(direc=direc,depind=depind)
+return(list(direc=direc,depind=depind))
 }

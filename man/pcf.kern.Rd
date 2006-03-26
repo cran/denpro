@@ -37,14 +37,14 @@ a piecewise constant function object, see the web site
 }
 
 \examples{
-dendat<-sim.exa(n=100)
+dendat<-sim.data(n=100,type="mulmod")
 
 pcf<-pcf.kern(dendat,h=1,N=c(32,32))
 
 dp<-draw.pcf(pcf)
 contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
 
-pcf<-pcf.kern(dendat,h=1,N=c(25,25),hw=60)
+pcf<-pcf.kern(dendat,h=1,N=c(32,32),hw=60)
 
 dp<-draw.pcf(pcf)
 contour(dp$x,dp$y,dp$z,drawlabels=FALSE)

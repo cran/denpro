@@ -10,8 +10,9 @@ scale of multivariate estimates and to inspect the shape of the estimates.
 Takes as an input a scale of estimates. 
 }
 \usage{
-scaletable(estiseq, paletti = NULL, shift = 0, ptext = 0, ptextst = 0,
-bm = NULL, levnum = 60, levnumst = 60, redu=T)
+scaletable(estiseq, paletti = NULL, shift = 0, ptext = 0, 
+ptextst = 0, bm = NULL, levnum = 60, levnumst = 60, 
+redu=T)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -88,8 +89,9 @@ at the control frame.
 %\note{}
 
 \seealso{\code{\link{lstseq.kern}}}
+
 \examples{
-dendat<-sim.exa(n=200)
+dendat<-sim.data(n=200,type="mulmod")
 
 h1<-0.9
 h2<-2.2
@@ -99,7 +101,7 @@ hseq<-hgrid(h1,h2,lkm)
 N<-c(16,16)
 estiseq<-lstseq.kern(dendat,hseq,N) 
 
-#scaletable(estiseq)
+# scaletable(estiseq)
 
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS

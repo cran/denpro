@@ -1,6 +1,8 @@
 /* 
-R17 CMD SHLIB -o /home/jsk/kerCeva /home/jsk/denpro/src/kereva.c
+R CMD SHLIB -o /home/jsk/kerCeva /home/jsk/denpro/src/kereva.c
 dyn.load("/home/jsk/kerCeva")
+
+
 kg<-.C("kergridC",
                as.integer(extMaxnode),
                as.integer(extMaxvals),
@@ -41,15 +43,13 @@ outappu9 = double(1))
 #include <math.h>
 #include <stdlib.h> 
 
-static double const omapi = 3.141592653589;
-/*3.14159265358979323846264338;*/
+double epane(double *x, double hs, int d);
+double gauss(double *x, double hs, int d);
+int digit(int luku, int* base, int d, int* inde);
+int depth2com(int dep, int* N, int d, int* hacku);
+/*int *direc, int *depthInDirec);*/
 
-#define maxdim 4
-#define maxn 1001
-#define maxnode 100000
-#define maxpositive 100000
-
-void kergridC(int *extMaxnode,
+void kergrid(int *extMaxnode,
               int *extMaxvals,
               double *indendat,
               double *h,
@@ -87,57 +87,104 @@ double *outappu9)
 */
 
 {
- double dendat[(maxn)+1][(maxdim)+1];
- double value[maxpositive+1];
- double minim[maxdim+1], maxim[maxdim+1], point[maxdim+1], delta[maxdim+1];
- int gridlow[maxdim+1], gridupp[maxdim+1], base[maxdim+1], inde[maxdim+1];
+
+ /*double value[*extMaxvals+1];*/
+ double *value = (double *)malloc(sizeof(double) * (*extMaxvals+1));
+
+ /*double minim[*d+1], maxim[*d+1], point[*d+1], delta[*d+1];*/
+ double *minim = (double *)malloc(sizeof(double) * (*d+1));
+ double *maxim = (double *)malloc(sizeof(double) * (*d+1));
+ double *point = (double *)malloc(sizeof(double) * (*d+1));
+ double *delta = (double *)malloc(sizeof(double) * (*d+1));
+ /*int gridlow[*d+1], gridupp[*d+1], base[*d+1], inde[*d+1];*/
+ int *gridlow = (int *)malloc(sizeof(int) * (*d+1));
+ int *gridupp = (int *)malloc(sizeof(int) * (*d+1));
+ int *base = (int *)malloc(sizeof(int) * (*d+1));
+ int *inde = (int *)malloc(sizeof(int) * (*d+1));
+
  int i, j, k, hrun, nodeloc, gridcard, pointer;
  int numpositive, numnode;
  double hmax, val, curval, hcur;
+ int apu;
  int curre, curdep;
  /* digit:iin */
- int digitdigi[maxdim+1], digitjako[maxdim+1], digitapu[maxdim+1];
- int luku, vah, di, dj;
+ /* int digitdigi[*d+1], digitjako[*d+1]; */
+ int *digitjako = (int *)malloc(sizeof(int) * (*d+1));
+ int *digitdigi = (int *)malloc(sizeof(int) * (*d+1));
+ 
  /* epane:en */
- double epaarg[maxdim+1], x[maxdim+1];
- int ei, ej;
- double eres, hs, norvak, kersig; 
+ /*double epaarg[*d+1];*/
+ double *epaarg = (double *)malloc(sizeof(double) * (*d+1));
+
+ double hs; 
  /* findend */
  int current, dep;
  int exists;        /*  BOOLEAN */
  int chil, chir;
  div_t mid;
  /* depth2com */
- int d2clogn[maxdim+1], d2ccusu[maxdim+1];
  int d2cdirrec, d2cdepind;      /* components of result */
- int d2cj, d2ck;
  /* addnode */
  int curdir, depatd, ind;
- int depit[maxdim+1];
+ /* int depit[*d+1]; */
+ int *depit = (int *)malloc(sizeof(int) * (*d+1));
  int anj;
- /* depth2com */
- int d2cdep;
 
-/* globals */
-int left[maxnode+1]; 
-int right[maxnode+1]; 
-int parent[maxnode+1];
-int low[maxnode+1]; 
-int upp[maxnode+1];
-/* findendResult */
-int feExistiert;   /*logical */ 
-int feLocation; 
-int feDeepness; 
-/* addnodeResult */
-int adNumberOfNodes; 
-int adNodeLocation; 
+/* globals 
+ int left[*extMaxnode+1]; 
+ int right[*extMaxnode+1]; 
+ int parent[*extMaxnode+1];
+ int low[*extMaxnode+1]; 
+ int upp[*extMaxnode+1];
+ */
+ int *left = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+ int *right = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+ int *parent = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+ int *low = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+ int *upp = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+
+
+ /* findendResult */
+ int feExistiert;   /*logical */ 
+ int feLocation; 
+ int feDeepness; 
+ /* addnodeResult */
+ int adNumberOfNodes; 
+ int adNodeLocation; 
  /* apput */
-/* double appu1, appu2, appu3, appu4, appu5, appu6, appu7, appu8, appu9; */
+ /* double appu1, appu2, appu3, appu4, appu5, appu6, appu7, appu8, appu9; */
 
-/*double omapi;*/
-/* int rint();*/
+  int hacku[3];
 
- /*omapi = 4.0*atan(1.0);*/
+ /*double dendat[(*n)+1][(*d)+1];*/
+ double ** dendat;
+ dendat = (double **)malloc((*n+1) * sizeof(double *));
+ if (NULL == dendat) exit(1);
+ for (i = 0; i <= *n; i++) {
+     dendat[i] = (double *)malloc((*d+1) * sizeof(double));
+     if (NULL == dendat[i]) exit(1);
+ }
+
+ if (value == NULL) exit(1); 
+ if (minim == NULL) exit(1); 
+ if (maxim == NULL) exit(1); 
+ if (point == NULL) exit(1); 
+ if (delta == NULL) exit(1); 
+ if (gridlow == NULL) exit(1); 
+ if (gridupp == NULL) exit(1); 
+ if (base == NULL) exit(1); 
+ if (inde == NULL) exit(1); 
+ if (epaarg == NULL) exit(1); 
+ if (left == NULL) exit(1); 
+ if (right == NULL) exit(1); 
+ if (parent == NULL) exit(1); 
+ if (low == NULL) exit(1); 
+ if (upp == NULL) exit(1); 
+
+ if (digitjako == NULL) exit(1); 
+ if (digitdigi == NULL) exit(1); 
+
+ if (depit == NULL) exit(1); 
 
   adNumberOfNodes=1; 
 
@@ -222,39 +269,7 @@ int adNodeLocation;
                  }
              }      
              else{
-		 /* 1. inde=digit(k,base); */
-                 /* 2. apu=digit(k,base); */  /* inde is d-vector */
-
-/* begin DIGIT */
-/* int digitdigi[*d], digitjako[*d], digitapu[*d]; */
-
- luku=k;
- digitjako[*d]=base[1];
- di=*d-1;
- while (di >= 1){
-     digitjako[di]=base[*d-di+1]*digitjako[di+1];
-     di=di-1;
- }
- vah=0;
- di=1;
- while (di<=((*d)-1)){
-     digitdigi[di]=floor((luku-vah)/digitjako[di+1]);
-     vah=vah+digitdigi[di]*digitjako[di+1];
-     di=di+1;
- }
- digitdigi[*d]=luku-vah;
- di=1;
- while (di<=(*d)){
-     digitapu[di]=digitdigi[(*d)-di+1];
-     di=di+1;
- }
- /* inde=digitapu; */
- for (dj=1; dj<=(*d); dj++){
-     inde[dj]=digitapu[dj];
- }
-
-/* END DIGIT */
-
+                 apu=digit(k,base,*d,inde); 
 
                  /* inde=inde+gridlow; */
                  for (j=1; j<=*d; j++){
@@ -280,47 +295,19 @@ int adNodeLocation;
         	  epaarg[j]=point[j]-dendat[i][j];
              }
 
-/* val=epane(epaarg,h[hrun],*d); */
+             if (*hnum==1){
+                   hs=*h;
+             }
+             else{
+                   hs=h[hrun];
+             }
+             if (*kertype==1){
+                   val=epane(epaarg,hs,*d);
+             }
+             else{
+	           val=gauss(epaarg,hs,*d);
+             }
 
-/* START EPANE */
-
-/* x=epaarg; */
-for (ej=1; ej<=(*d); ej++){
-     x[ej]=epaarg[ej];
-}
- if (*hnum==1){
-    hs=*h;
- }
- else{
-    hs=h[hrun];
- }
-
- if (*kertype==1){
-    eres=1;
-    ei=1;
-    while (ei<=*d){
-        eres=eres*3*(1-pow((x[ei]/hs),2))/(4*hs);
-        ei=ei+1;
-    }
- }
- else{
-
-     kersig=1/(*trunc);      /*0.33333333;    1/sig */
-     norvak= 0.9973002;   /* sig<-3; 1-2*pnorm(-3) */ 
-  
-    eres=1;
-    ei=1;
-    while (ei<=*d){
-        eres=eres*
-          exp(-pow((x[ei]/(hs*kersig)),2)/2)/(hs*kersig*norvak*sqrt(2*omapi));
-        ei=ei+1;
-    }
-
- }
-
-val=eres;
-
-/* END EPANE */
 
 	     /* find whether gridpoint is already in tree */
              /* Obs. findend need inde */
@@ -346,52 +333,13 @@ if (val>=(*threshold)){
 
      mid=div((low[current]+upp[current]),2); 
 
-/* BEGIN depth2com */
-/*
- direc=depth2com(dep,N,*d).direktio; 
-direc=depth2com(dep,N,d);
- direc=direktio; 
-*/
-
-/*input:   int dep, int *N, int d */
-
-  /* d2clogn=log(N,base=2); */
- for (d2cj=1; d2cj<=*d; d2cj++){
-     d2clogn[d2cj]=rint(log(N[d2cj])/log(2));  /* log(N[i],base=2) */ 
- }
-
- /* d2ccusu=cumsum(d2clogn); */
- for (d2cj=1; d2cj<=*d; d2cj++){
-     d2ccusu[d2cj]=0;
-     for (d2ck=1; d2ck<=d2cj; d2ck++){
-        d2ccusu[d2cj]=d2ccusu[d2cj]+d2clogn[d2ck];
-     }
- }
-
- d2cdirrec=1;
- while ((d2cdirrec<=*d) && ((dep-d2ccusu[d2cdirrec])>0)){
-     d2cdirrec=d2cdirrec+1;
- }
-
- /* d2cdirrec=min(d2cdirrec,d) */
-
- if (d2cdirrec>=(*d)){
-     d2cdirrec=*d;
- }
-
- if (d2cdirrec==1){
-     d2cdepind=dep;
- }
- else{
-     d2cdepind=dep-d2ccusu[d2cdirrec-1];
- }
-
- /* direktio=d2cdirrec; */
- /* depthInDirec=d2cdepind; */
-/* return */
-/* direc=d2cdirrec; */
-
-/* END depth2com */
+     apu=depth2com(dep, N, *d, hacku); /* direc, depthInDirec);*/
+     d2cdirrec=hacku[1]; 
+     d2cdepind=hacku[2];
+     /*
+     d2cdirrec=*direc; 
+     d2cdepind=*depthInDirec;
+     */
 
      if (inde[d2cdirrec]<=mid.quot){
            chil=left[current];
@@ -451,14 +399,16 @@ curdir=direktio;
 depatd=depthInDirec;
 */
 
-/*input:   int curdep, int *N, int d */
+     apu=depth2com(curdep, N, *d, hacku); /* direc, depthInDirec);*/
+     curdir=hacku[1]; 
+     depatd=hacku[2];
+
+/*
  d2cdep=curdep;
 
- /* d2clogn=log(N,base=2); */
  for (d2cj=1; d2cj<=*d; d2cj++){
-     d2clogn[d2cj]=rint(log(N[d2cj])/log(2));  /* log(N[i],base=2) */ 
+     d2clogn[d2cj]=rint(log(N[d2cj])/log(2));  
  }
- /* d2ccusu=cumsum(d2clogn); */
  for (d2cj=1; d2cj<=*d; d2cj++){
      d2ccusu[d2cj]=0;
      for (d2ck=1; d2ck<=d2cj; d2ck++){
@@ -469,7 +419,6 @@ depatd=depthInDirec;
  while ((d2cdirrec<=*d) && ((d2cdep-d2ccusu[d2cdirrec])>0)){
      d2cdirrec=d2cdirrec+1;
  }
- /* d2cdirrec=min(d2cdirrec,d) */
  if (d2cdirrec>*d){
      d2cdirrec=*d;
  }
@@ -479,14 +428,11 @@ depatd=depthInDirec;
  else{
      d2cdepind=d2cdep-d2ccusu[d2cdirrec-1];
  }
- /* direktio=d2cdirrec; */
- /* depthInDirec=d2cdepind; */
-
-/* return */
 
 curdir=d2cdirrec;
 depatd=d2cdepind;
 
+*/
 /* END depth2com */
 
  /* depit=log(N,base=2) */
@@ -623,9 +569,168 @@ adNodeLocation=numnode;
 
 	  */
 
+
+free(value);
+ free(minim); 
+ free(maxim); 
+ free(point); 
+ free(delta); 
+ free(gridlow); 
+ free(gridupp); 
+ free(base); 
+ free(inde); 
+ free(epaarg); 
+ free(left); 
+ free(right); 
+ free(parent); 
+ free(low); 
+ free(upp); 
+
+ for(i = 0; i <= *n; i++) free(dendat[i]);
+ free(dendat);
+
+ free(digitjako);
+ free(digitdigi);
+
+ free(depit);
+
 }
 
 
+double epane(double *x, double hs, int d)
+{
+    int i;
+    double eres;
+
+    eres=1;
+    for (i=1; i<=d; i++) eres=eres*3*(1-pow((x[i]/hs),2))/(4*hs);
+
+    return (eres);
+}
+
+double gauss(double *x, double hs, int d)
+{
+    int i;
+    double eres, kersig, trunc, norvak;
+
+    trunc=3;
+    kersig=1/trunc;      /*0.33333333;    1/sig */
+    norvak= 0.9973002;   /* sig<-3; 1-2*pnorm(-3) */ 
+ 
+    eres=1;
+    for (i=1; i<=d; i++)  eres=eres*
+          exp(-pow((x[i]/(hs*kersig)),2)/2)/(hs*kersig*norvak*sqrt(2*M_PI)); 
+
+    return (eres);
+}
+
+
+int digit(int luku, int* base, int d, int* inde)
+{
+/* returns inde (d-vector of integers)
+   luku is a natural number >=0
+   base is d-vector of integers >=2, d>=2,
+   base[d] tarvitaan vain tarkistamaan onko luku rajoissa
+   example: digit(52,c(10,10)), returns vector (2,5)
+*/
+    int di, vah, apu;
+    /*int digitjako[d+1], digitdigi[d+1];*/
+    int *digitjako = (int *)malloc(sizeof(int) * (d+1));
+    int *digitdigi = (int *)malloc(sizeof(int) * (d+1));
+
+    if (digitjako == NULL) exit(1); 
+    if (digitdigi == NULL) exit(1); 
+
+    digitjako[d]=base[1];
+    di=d-1;
+    while (di >= 1){
+       digitjako[di]=base[d-di+1]*digitjako[di+1];
+       di=di-1;
+    }
+    vah=0;
+    di=1;
+    while (di<=(d-1)){
+        digitdigi[di]=floor((luku-vah)/digitjako[di+1]);
+        vah=vah+digitdigi[di]*digitjako[di+1];
+        di=di+1;
+    }
+    digitdigi[d]=luku-vah;
+    di=1;
+    while (di<=d){
+        inde[di]=digitdigi[d-di+1];
+        di=di+1;
+    }
+    
+    apu=1;
+    return apu;
+
+    free(digitjako);
+    free(digitdigi);
+      
+
+}
+
+int depth2com(int dep, int* N, int d, int* hacku)
+/*  *direc, int *depthInDirec) */
+{
+/* output direc, depthInDirec*/
+
+    int d2cj, d2ck, d2cdirrec, d2cdepind, apu;
+   /*double d2clogn[d+1], d2ccusu[d+1];*/
+    double *d2clogn = (double *)malloc(sizeof(double) * (d+1));
+    double *d2ccusu = (double *)malloc(sizeof(double) * (d+1));
+
+    if (d2clogn == NULL) exit(1); 
+    if (d2ccusu == NULL) exit(1); 
+
+
+
+    /* d2clogn=log(N,base=2); */
+    for (d2cj=1; d2cj<=d; d2cj++){
+        d2clogn[d2cj]=rint(log(N[d2cj])/log(2));  /* log(N[i],base=2) */ 
+    }
+
+    /* d2ccusu=cumsum(d2clogn); */
+    for (d2cj=1; d2cj<=d; d2cj++){
+       d2ccusu[d2cj]=0;
+       for (d2ck=1; d2ck<=d2cj; d2ck++){
+          d2ccusu[d2cj]=d2ccusu[d2cj]+d2clogn[d2ck];
+       }
+    }
+
+    d2cdirrec=1;
+    while ((d2cdirrec<=d) && ((dep-d2ccusu[d2cdirrec])>0)){
+        d2cdirrec=d2cdirrec+1;
+    }
+
+    /* d2cdirrec=min(d2cdirrec,d) */
+    if (d2cdirrec>=d){
+         d2cdirrec=d;
+    }
+
+    if (d2cdirrec==1){
+        d2cdepind=dep;
+    }
+    else{
+        d2cdepind=dep-d2ccusu[d2cdirrec-1];
+    }
+
+    /* return */
+    /*
+    *direc=d2cdirrec; 
+    *depthInDirec=d2cdepind; 
+    */
+    hacku[1]=d2cdirrec;
+    hacku[2]=d2cdepind;
+
+    apu=1;
+    return apu;
+
+    free(d2clogn); 
+    free(d2ccusu); 
+
+
+}
 
 
 

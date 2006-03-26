@@ -1,13 +1,13 @@
 plotbary<-function(lst,coordi=1,
-plot=T,data=F,crit=NULL,orderrule="distcenter",
-modelabel=TRUE,ptext=0,leimat=NULL,symbo=NULL,
+plot=TRUE,data=FALSE,crit=NULL,orderrule="distcenter",
+modelabel=FALSE,ptext=0,leimat=NULL,symbo=NULL,
 info=NULL,infolift=0,infopos=0,
 xmarginleft=0,xmarginright=0,ymargin=0,
 xlim=NULL,ylim=NULL,
 nodesymbo=20,col=NULL,col.axis="black",collines=NULL,paletti=NULL,
 shift=0,shiftindex=NULL,
-modlabret=F,modecolo=NULL,modepointer=NULL,colometh="lst",
-colothre=min(lst$level)
+modlabret=FALSE,modecolo=NULL,modepointer=NULL,colometh="lst",
+colothre=min(lst$level),lines=TRUE,wedge=FALSE,lty.wedge=2
 )
 {
 
@@ -33,6 +33,7 @@ if (is.null(collines)) collines<-col
 nodenum<-length(parent)
 xcoordinate<-center[coordi,]
 
+if (is.null(xlim))
 xlim<-c(min(xcoordinate)-xmarginleft,max(xcoordinate)+xmarginright)
 ylim<-c(0,max(level)+ptext+ymargin)
 
@@ -40,19 +41,31 @@ plot(xcoordinate,level,xlab="",ylab="",xlim=xlim,ylim=ylim,
 pch=nodesymbo,col=col,col.axis=col.axis) 
 title(sub=paste("coordinate",as.character(coordi)))
 
-
-for (i in 1:nodenum){
-    if (parent[i]>0){
-        xchild<-xcoordinate[i]
-        ychild<-level[i]
-        xparent<-xcoordinate[parent[i]]
-        yparent<-level[parent[i]]
-        if (length(collines)>1) colli<-collines[i] else colli<-collines
-        segments(xparent,yparent,xchild,ychild,col=colli) 
-     }
+if (lines){
+   for (i in 1:nodenum){
+       if (parent[i]>0){
+           xchild<-xcoordinate[i]
+           ychild<-level[i]
+           xparent<-xcoordinate[parent[i]]
+           yparent<-level[parent[i]]
+           if (length(collines)>1) colli<-collines[i] else colli<-collines
+           segments(xparent,yparent,xchild,ychild,col=colli) 
+        }
+   }
 }
+
+if (wedge){
+  maxx<-max(xcoordinate)
+  minx<-min(xcoordinate)
+  righthigh<-maxx-lst$refe[coordi]
+  lefthigh<-lst$refe[coordi]-minx
+  segments(lst$refe[coordi],0,maxx,righthigh,lty=lty.wedge)
+  segments(lst$refe[coordi],0,minx,lefthigh,lty=lty.wedge)
+}
+
 #########
 #########
+if (modlabret) modelabel<-TRUE
 if (modelabel){
 
 data<-plotprof(lst,plot=F,data=T,cutlev=NULL,ptext=NULL,info=NULL,

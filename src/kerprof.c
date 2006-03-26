@@ -1,6 +1,7 @@
 /* 
 R CMD SHLIB -o kerCprof kerprof.c
 dyn.load("/home/jsk/kerle/kerCprof")
+
 kg<-.C("kerprofC",as.integer(extMaxnode),
                   as.integer(extMaxvals),
                   as.double(dendat),
@@ -29,35 +30,25 @@ outappu1 = double(1),
 #define nodenumOfDyakerIntern 1000000
 #define maxdim 4 
 
-#define maxn 1001
-#define maxnode 100000      /* *extMaxnode */
-#define maxpositive 100000  /* *extMaxvals */
-#define maxlevnum 10000      /* *levnum */
-#define maxnumofallR 100000      /* *numofall */
-#define maxterminalnum 100000
-#define maxnodenumOfDyaker 100000
-#define maxm 40
-
-int AtomlistNext[numofallIntern+1];
-int AtomlistAtom[numofallIntern+1]; 
+int AtomlistNextx[numofallIntern+1];
+int AtomlistAtomx[numofallIntern+1]; 
 /* point to value,..: values in 1,...,atomnum */
 
-int begsSepaNext[atomnumIntern+1];
-int begsSepaBegs[atomnumIntern+1];
-int atomsSepaNext[atomnumIntern+1];
-int atomsSepaAtom[atomnumIntern+1];
+int begsSepaNextx[atomnumIntern+1];
+int begsSepaBegsx[atomnumIntern+1];
+int atomsSepaNextx[atomnumIntern+1];
+int atomsSepaAtomx[atomnumIntern+1];
 
-int begsLeftBoun[atomnumIntern+1];
-int begsRighBoun[atomnumIntern+1];
-int atomsLBounNext[atomnumIntern+1];
-int atomsRBounNext[atomnumIntern+1];
+int begsLeftBounx[atomnumIntern+1];
+int begsRighBounx[atomnumIntern+1];
+int atomsLBounNextx[atomnumIntern+1];
+int atomsRBounNextx[atomnumIntern+1];
 
-int separy[nodenumOfDyakerIntern+1];
+int separyx[nodenumOfDyakerIntern+1];
 
-int begs[atomnumIntern+1];
+int begsx[atomnumIntern+1];
 
-int indeks[atomnumIntern+1][maxdim+1];
-
+int indeksx[atomnumIntern+1][maxdim+1];
 
 int listchangeC(int totbegSepary,
                 int beg);
@@ -113,20 +104,14 @@ void kerprofC(int *extMaxnode,
               int *efek)   /* gives effective length of level,... */
 
 {
- double dendat[(maxn)+1][(maxdim)+1];
- double value[maxpositive+1];
- double minim[maxdim+1], maxim[maxdim+1], point[maxdim+1], delta[maxdim+1];
- int gridlow[maxdim+1], gridupp[maxdim+1], base[maxdim+1], inde[maxdim+1];
- int infopointer[maxnode+1]; 
+
  int i, j, k, hrun, nodeloc, gridcard, pointer;
  int numpositive, numnode;
  double hmax, val, curval, hcur;
  int curre, curdep;
  /* digit:iin */
- int digitdigi[maxdim+1], digitjako[maxdim+1], digitapu[maxdim+1];
  int luku, vah, di, dj;
  /* epane:en */
- double epaarg[maxdim+1], x[maxdim+1];
  int ei, ej;
  double eres, hs; 
  /* findend */
@@ -135,22 +120,16 @@ void kerprofC(int *extMaxnode,
  int chil, chir;
  div_t mid;
  /* depth2com */
- int d2clogn[maxdim+1], d2ccusu[maxdim+1];
  int d2cdirrec, d2cdepind;      /* components of result */
  int d2cj, d2ck;
  /* addnode */
  int curdir, depatd, ind;
- int depit[maxdim+1];
  int anj;
  /* depth2com */
  int d2cdep;
 
 /* previous globals */
-int left[maxnode+1]; 
-int right[maxnode+1]; 
-int parentKer[maxnode+1];
-int low[maxnode+1]; 
-int upp[maxnode+1];
+
 /* findendResult */
 int feExistiert;   /*logical */ 
 int feLocation; 
@@ -164,33 +143,121 @@ int adNodeLocation;
 /* from input of decomdyaC to variable definitions  */
 
 int numofall;
-int levfrekv[maxlevnum];
-double levseq[maxlevnum], step;
+double step;
 double volofatom, maxval, minval;
 int nodenumOfDyaker;
 
-int nodefinder[maxpositive+1];
+/*
+double levseq[*levnum]; 
+int nodefinder[*extMaxvals+1];
+int levfrekv[*levnum];
+*/
+ double *levseq = (double *)malloc(sizeof(double) * (*levnum+1));
+ int *nodefinder = (int *)malloc(sizeof(int) * (*extMaxvals+1));
+ int *levfrekv = (int *)malloc(sizeof(int) * (*levnum+1));
 
 /* katkaisukohta */
 
   int totbegSepary;
-
-  int pinoComponent[maxnumofallR+1];  /* pointer to component, level,... */
-  int pinoTaso[maxnumofallR+1];       /* ordinal of level (pointer to levseq) */
-
   int componum, beghigher;
   int beg, koko, pinind, levind, partlevsetbeg;  /* i,j,ind,apu */
   int listEnd, PrevlistEnd;
   int terminalnum, addnum, removenum, runner, origiListEnd, atom;
   double arvo, higlev;
   int lokalefek;
-  /*  int indeks[(*atomnum)+1][(maxdim)+1]; */
+  /*  int indeks[(*atomnum)+1][(*d)+1]; */
  
   int componentnum, numofatoms, zeiger; /* for cvolumdya */
-  double curcente[maxdim+1];                   /* for ccentedya */
   int atompointer;
 
+  /*  
+  int pinoComponent[*numofallR+1];  pointer to component, level,... 
+  int pinoTaso[*numofallR+1];       ordinal of level (pointer to levseq) 
+  double curcente[*d+1];                   used in ccentedya 
+  */
+  int *pinoComponent = (int *)malloc(sizeof(int) * (*numofallR+1));
+  int *pinoTaso = (int *)malloc(sizeof(int) * (*numofallR+1));
+  double *curcente = (double *)malloc(sizeof(double) * (*d+1));
+ 
+ /*
+ double value[*extMaxvals+1];
+ double minim[*d+1], maxim[*d+1], point[*d+1], delta[*d+1];
+ int gridlow[*d+1], gridupp[*d+1], base[*d+1], inde[*d+1];
+ int infopointer[*extMaxnode+1]; 
+ int digitdigi[*d+1], digitjako[*d+1], digitapu[*d+1];
+ double epaarg[*d+1], x[*d+1];
+ int d2clogn[*d+1], d2ccusu[*d+1];
+ int depit[*d+1];
+ int left[*extMaxnode+1]; 
+ int right[*extMaxnode+1]; 
+ int parentKer[*extMaxnode+1];
+ int low[*extMaxnode+1]; 
+ int upp[*extMaxnode+1];
+ double dendat[(*n)+1][(*d)+1];
+ */
+ double *value = (double *)malloc(sizeof(double) * (*extMaxvals+1));
+ int *digitjako = (int *)malloc(sizeof(int) * (*d+1));
+ int *digitdigi = (int *)malloc(sizeof(int) * (*d+1));
+ int *digitapu = (int *)malloc(sizeof(int) * (*d+1));
+ double *d2clogn = (double *)malloc(sizeof(double) * (*d+1));
+ double *d2ccusu = (double *)malloc(sizeof(double) * (*d+1));
+ int *depit = (int *)malloc(sizeof(int) * (*d+1));
+ double *minim = (double *)malloc(sizeof(double) * (*d+1));
+ double *maxim = (double *)malloc(sizeof(double) * (*d+1));
+ double *point = (double *)malloc(sizeof(double) * (*d+1));
+ double *delta = (double *)malloc(sizeof(double) * (*d+1));
+ /*int gridlow[*d+1], gridupp[*d+1], base[*d+1], inde[*d+1];*/
+ int *gridlow = (int *)malloc(sizeof(int) * (*d+1));
+ int *gridupp = (int *)malloc(sizeof(int) * (*d+1));
+ int *base = (int *)malloc(sizeof(int) * (*d+1));
+ int *inde = (int *)malloc(sizeof(int) * (*d+1));
+ double *epaarg = (double *)malloc(sizeof(double) * (*d+1));
+ double *x = (double *)malloc(sizeof(double) * (*d+1));
+ int *left = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+ int *right = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+ int *parentKer = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+ int *low = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+ int *upp = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+ int *infopointer = (int *)malloc(sizeof(int) * (*extMaxnode+1));
+ double ** dendat;
+ dendat = (double **)malloc((*n+1) * sizeof(double *));
+ if (NULL == dendat) exit(1);
+ for (i = 0; i <= *n; i++) {
+     dendat[i] = (double *)malloc((*d+1) * sizeof(double));
+     if (NULL == dendat[i]) exit(1);
+ }
 
+ if (value == NULL) exit(1); 
+ if (minim == NULL) exit(1); 
+ if (maxim == NULL) exit(1); 
+ if (point == NULL) exit(1); 
+ if (delta == NULL) exit(1); 
+ if (gridlow == NULL) exit(1); 
+ if (gridupp == NULL) exit(1); 
+ if (base == NULL) exit(1); 
+ if (inde == NULL) exit(1); 
+ if (epaarg == NULL) exit(1); 
+ if (left == NULL) exit(1); 
+ if (right == NULL) exit(1); 
+ if (parentKer == NULL) exit(1); 
+ if (low == NULL) exit(1); 
+ if (upp == NULL) exit(1); 
+    if (digitjako == NULL) exit(1); 
+    if (digitdigi == NULL) exit(1); 
+    if (depit == NULL) exit(1); 
+    if (d2clogn == NULL) exit(1); 
+    if (d2ccusu == NULL) exit(1); 
+  if (infopointer == NULL) exit(1); 
+  if (value == NULL) exit(1); 
+  if (digitapu == NULL) exit(1); 
+
+ if (levseq == NULL) exit(1); 
+ if (nodefinder == NULL) exit(1); 
+ if (levfrekv == NULL) exit(1); 
+
+ if (pinoComponent == NULL) exit(1); 
+ if (pinoTaso == NULL) exit(1); 
+ if (curcente == NULL) exit(1); 
 
   adNumberOfNodes=1; 
 
@@ -614,7 +681,7 @@ adNodeLocation=numnode;
                 /* indeks[(*numpositive),]=inde; */
                 for (j=1; j<=*d; j++){
                        /* indeks[(numpositive-1)*(*d)+j]=inde[j]; */
-                       indeks[numpositive][j]=inde[j]; 
+                       indeksx[numpositive][j]=inde[j]; 
                 }
                 nodefinder[numpositive]=nodeloc;
 	     }
@@ -696,20 +763,20 @@ adNodeLocation=numnode;
   /* Initialize the global variables */
 
   for (i=1; i<=atomnumIntern; i++){
-    begsSepaNext[i]=0;
-    begsSepaBegs[i]=0;
-    atomsSepaNext[i]=0;
-    atomsSepaAtom[i]=0;
+    begsSepaNextx[i]=0;
+    begsSepaBegsx[i]=0;
+    atomsSepaNextx[i]=0;
+    atomsSepaAtomx[i]=0;
 
-    begsLeftBoun[i]=0;
-    begsRighBoun[i]=0;
-    atomsLBounNext[i]=0;
-    atomsRBounNext[i]=0;
-    begs[i]=0;
+    begsLeftBounx[i]=0;
+    begsRighBounx[i]=0;
+    atomsLBounNextx[i]=0;
+    atomsRBounNextx[i]=0;
+    begsx[i]=0;
   }
 
   for (i=1; i<=nodenumOfDyakerIntern; i++)
-     separy[i]=0;
+     separyx[i]=0;
 
   /* end of initializing */
   /* initialize the local vectors */
@@ -726,12 +793,12 @@ adNodeLocation=numnode;
   /* Initilize the lists */
   i=1;
   while (i<=numpositive){
-    AtomlistAtom[i]=i;
-    AtomlistNext[i]=i+1;
+    AtomlistAtomx[i]=i;
+    AtomlistNextx[i]=i+1;
     i=i+1;
   }
   listEnd=numpositive;
-  AtomlistNext[listEnd]=0;
+  AtomlistNextx[listEnd]=0;
 
   /* Let us divide the lowest level set to disconnected parts */
 
@@ -756,7 +823,7 @@ adNodeLocation=numnode;
  /* Talletetaan osat */ 
  i=1;
  while (i<=koko){
-    component[i]=begs[i];
+    component[i]=begsx[i];
     level[i]=levseq[1];     /* arvo toistuu */
     /* Laitetaan kaikki osat pinoon */
     pinoComponent[i]=i;     /* 1,2,...,koko */
@@ -783,23 +850,23 @@ if (*levnum>1){  while (pinind>=1){
     /* value=kg$value */
 
     while ((runner>0) && (runner<=origiListEnd)){
-      atom=AtomlistAtom[runner];
+      atom=AtomlistAtomx[runner];
       arvo=value[atom];
       if (arvo>=higlev){
 	  listEnd=listEnd+1;    
-	  AtomlistAtom[listEnd]=atom;
-	  AtomlistNext[listEnd]=listEnd+1; 
+	  AtomlistAtomx[listEnd]=atom;
+	  AtomlistNextx[listEnd]=listEnd+1; 
 	  addnum=addnum+1;     
       }
       else{           
           removenum=removenum+1;
       }                                
-      runner=AtomlistNext[runner]; 
+      runner=AtomlistNextx[runner]; 
     }
-    AtomlistNext[listEnd]=0;      /* we have to correct the end to terminate */
+    AtomlistNextx[listEnd]=0;      /* we have to correct the end to terminate */
 
     if (addnum>0){
-      AtomlistNext[PrevlistEnd]=0;
+      AtomlistNextx[PrevlistEnd]=0;
       beghigher=PrevlistEnd+1;
     }
     if (removenum==0){ /* jos leikkaus ei muuta, niin tasoj sailyy samana  */
@@ -835,7 +902,7 @@ if (*levnum>1){  while (pinind>=1){
       while (i<=(lokalefek+koko)){
         level[i]=levseq[levind+1]; /* arvo toistuu */
         parent[i]=ind;
-        component[i]=begs[i-lokalefek];
+        component[i]=begsx[i-lokalefek];
         i=i+1;
       }
       lokalefek=lokalefek+koko;
@@ -871,7 +938,7 @@ for (i=1; i<=componentnum; i++){
   zeiger=component[i];
    while (zeiger>0){
      numofatoms=numofatoms+1;
-     zeiger=AtomlistNext[zeiger];
+     zeiger=AtomlistNextx[zeiger];
    }
    volume[i]=numofatoms*(volofatom);
 }
@@ -881,7 +948,7 @@ for (i=1; i<=componentnum; i++){
 */                                                
 
 /*
-ccentedya<-function(volofatom,component,AtomlistNext,AtomlistAtom,
+ccentedya<-function(volofatom,component,AtomlistNextx,AtomlistAtomx,
 volume,minim,h,delta,indeks,d){
 */
 
@@ -891,10 +958,10 @@ for (i=1; i<=componentnum; i++){
   for (j=1; j<=*d; j++) curcente[j]=0;
   zeiger=component[i];
    while (zeiger>0){
-     atompointer=AtomlistAtom[zeiger];
+     atompointer=AtomlistAtomx[zeiger];
      for (j=1; j<=*d; j++)
-       curcente[j]=curcente[j]+minim[j]-*h+delta[j]*indeks[atompointer][j];
-     zeiger=AtomlistNext[zeiger];
+       curcente[j]=curcente[j]+minim[j]-*h+delta[j]*indeksx[atompointer][j];
+     zeiger=AtomlistNextx[zeiger];
    }
    for (j=1; j<=*d; j++)
      center[(i-1)*(*d)+j]=(volofatom)*curcente[j]/volume[i];
@@ -912,9 +979,44 @@ apu[i]=appuva[i];
 */
 
 /*     
-AtomlistAtomReturn=AtomlistAtom;
+AtomlistAtomxReturn=AtomlistAtomx;
 AtomlistNextReturn=AtomlistNext; 
 */
+
+ free(value);
+ free(minim); 
+ free(maxim); 
+ free(point); 
+ free(delta); 
+ free(gridlow); 
+ free(gridupp); 
+ free(base); 
+ free(inde); 
+ free(epaarg); 
+ free(left); 
+ free(right); 
+ free(parentKer); 
+ free(low); 
+ free(upp); 
+ for(i = 0; i <= *n; i++) free(dendat[i]);
+ free(dendat);
+    free(digitjako);
+    free(digitdigi);
+    free(depit);
+    free(d2clogn); 
+    free(d2ccusu); 
+ free(infopointer); 
+ free(value); 
+ free(digitapu); 
+
+ free(levseq); 
+ free(nodefinder); 
+ free(levfrekv); 
+
+ free(pinoComponent); 
+ free(pinoTaso); 
+ free(curcente); 
+
 
 }
 
@@ -945,21 +1047,21 @@ int listchangeC(int totbegSepary,
  sepalkm=0;
  while (runnerBegs>0){
    sepalkm=sepalkm+1;
-   runnerAtoms=begsSepaBegs[runnerBegs];
-   begs[sepalkm]=runnerOrigi;
+   runnerAtoms=begsSepaBegsx[runnerBegs];
+   begsx[sepalkm]=runnerOrigi;
    /* first step (in order to get also runnerOrigiprev to play) */
-   AtomlistAtom[runnerOrigi]=atomsSepaAtom[runnerAtoms];
+   AtomlistAtomx[runnerOrigi]=atomsSepaAtomx[runnerAtoms];
    runnerOrigiprev=runnerOrigi;
-   runnerOrigi=AtomlistNext[runnerOrigi];
-   runnerAtoms=atomsSepaNext[runnerAtoms];
+   runnerOrigi=AtomlistNextx[runnerOrigi];
+   runnerAtoms=atomsSepaNextx[runnerAtoms];
    while (runnerAtoms>0){
-     AtomlistAtom[runnerOrigi]=atomsSepaAtom[runnerAtoms];
+     AtomlistAtomx[runnerOrigi]=atomsSepaAtomx[runnerAtoms];
      runnerOrigiprev=runnerOrigi;
-     runnerOrigi=AtomlistNext[runnerOrigi];
-     runnerAtoms=atomsSepaNext[runnerAtoms];
+     runnerOrigi=AtomlistNextx[runnerOrigi];
+     runnerAtoms=atomsSepaNextx[runnerAtoms];
    }
-   AtomlistNext[runnerOrigiprev]=0;  /* mark the end of the list */
-   runnerBegs=begsSepaNext[runnerBegs];
+   AtomlistNextx[runnerOrigiprev]=0;  /* mark the end of the list */
+   runnerBegs=begsSepaNextx[runnerBegs];
  }
  /* begs=begs[1:sepalkm] */
  return sepalkm;
@@ -988,32 +1090,41 @@ int declevdyaC(int beg,
 	       int terminalnum,
                int d)
 {
- int nextFloor[maxterminalnum+1];
- int currFloor[maxterminalnum+1];
- int already[maxnodenumOfDyaker+1];
- 
+    /*
+ int nextFloor[terminalnum+1];
+ int currFloor[terminalnum+1];
+ int already[nodenumOfDyaker+1];
+    */
+ int *nextFloor = (int *)malloc(sizeof(int) * (terminalnum+1));
+ int *currFloor = (int *)malloc(sizeof(int) * (terminalnum+1));
+ int *already = (int *)malloc(sizeof(int) * (nodenumOfDyaker+1));
+
  int i, k, r, lkm, nexlkm, curlkm, curre, atom, node, note;
  int exists, Lempty, Rempty;
  int leftbeg, rightbeg, direction, akku, totbegSepary, apu;
  int j;
 
+ if (nextFloor == NULL) exit(1);
+ if (currFloor == NULL) exit(1);
+ if (already == NULL) exit(1);
+
   /* Initialize the global variables */
 
   for (i=1; i<=atomnumIntern; i++){
-    begsSepaNext[i]=0;
-    begsSepaBegs[i]=0;
-    atomsSepaNext[i]=0;
-    atomsSepaAtom[i]=0;
+    begsSepaNextx[i]=0;
+    begsSepaBegsx[i]=0;
+    atomsSepaNextx[i]=0;
+    atomsSepaAtomx[i]=0;
 
-    begsLeftBoun[i]=0;
-    begsRighBoun[i]=0;
-    atomsLBounNext[i]=0;
-    atomsRBounNext[i]=0;
-    begs[i]=0;
+    begsLeftBounx[i]=0;
+    begsRighBounx[i]=0;
+    atomsLBounNextx[i]=0;
+    atomsRBounNextx[i]=0;
+    begsx[i]=0;
   }
 
   for (i=1; i<=nodenumOfDyakerIntern; i++)
-     separy[i]=0;
+     separyx[i]=0;
 
   /* end of initializing */
 
@@ -1036,11 +1147,11 @@ int declevdyaC(int beg,
  curre=beg;
  while(curre>0){
    lkm=lkm+1;
-   atom=AtomlistAtom[curre];
+   atom=AtomlistAtomx[curre];
    node=nodefinder[atom];
     
-   separy[node]=lkm;
-   atomsSepaAtom[lkm]=atom;
+   separyx[node]=lkm;
+   atomsSepaAtomx[lkm]=atom;
     
    exists=parent[node];
    if (already[exists]==0){
@@ -1049,13 +1160,13 @@ int declevdyaC(int beg,
      already[exists]=1;
    }
     
-   curre=AtomlistNext[curre];
+   curre=AtomlistNextx[curre];
  }   /* obs terminalnum=lkm */
  /* initialize the rest */
  for (r=1; r<=terminalnum; r++){
-       begsSepaBegs[r]=r;
-       begsLeftBoun[r]=r;
-       begsRighBoun[r]=r;
+       begsSepaBegsx[r]=r;
+       begsLeftBounx[r]=r;
+       begsRighBounx[r]=r;
  }
  /* obs: we need not change 
     begsSepaNext, atomsSepaNext, atomsLBounNext, atomsRBounNext
@@ -1098,17 +1209,17 @@ int declevdyaC(int beg,
    }
    /* now we move to the next direction, correct boundaries */
    /*   
-   begsLeftBoun=begsSepaBegs;
-   begsRighBoun=begsSepaBegs;
+   begsLeftBounx=begsSepaBegs;
+   begsRighBounx=begsSepaBegs;
    
    atomsLBounNext=atomsSepaNext;
    atomsRBounNext=atomsSepaNext; 
    */
  
-   for (r=1; r<=atomnumIntern; r++) begsLeftBoun[r]=begsSepaBegs[r];
-   for (r=1; r<=atomnumIntern; r++) begsRighBoun[r]=begsSepaBegs[r];
-   for (r=1; r<=atomnumIntern; r++) atomsLBounNext[r]=atomsSepaNext[r];
-   for (r=1; r<=atomnumIntern; r++) atomsRBounNext[r]=atomsSepaNext[r];
+   for (r=1; r<=atomnumIntern; r++) begsLeftBounx[r]=begsSepaBegsx[r];
+   for (r=1; r<=atomnumIntern; r++) begsRighBounx[r]=begsSepaBegsx[r];
+   for (r=1; r<=atomnumIntern; r++) atomsLBounNextx[r]=atomsSepaNextx[r];
+   for (r=1; r<=atomnumIntern; r++) atomsRBounNextx[r]=atomsSepaNextx[r];
 
    i=i-1;
 }
@@ -1158,51 +1269,51 @@ int declevdyaC(int beg,
    /* if (right[parent[node]]==node)  if node is right child */ 
    leftbeg=left[node];
    rightbeg=right[node];
-            if ((leftbeg==0) || (separy[leftbeg]==0)){
+            if ((leftbeg==0) || (separyx[leftbeg]==0)){
 	      /* if left child does not exist */
-	      separy[node]=separy[rightbeg];
+	      separyx[node]=separyx[rightbeg];
             }
             else{   /* eka else */
-                if ((rightbeg==0) || (separy[rightbeg]==0)){  
+                if ((rightbeg==0) || (separyx[rightbeg]==0)){  
 		  /* right child does not exist */
-		  separy[node]=separy[leftbeg];
+		  separyx[node]=separyx[leftbeg];
                 } 
                 else{   /* toka else: both children exist */
 		  /* check whether left boundary of right child is empty */
 		  Lempty=1;        /* TRUE */
-                  note=separy[rightbeg];
+                  note=separyx[rightbeg];
                   while (note>0){
-                        if (begsLeftBoun[note]>0){
+                        if (begsLeftBounx[note]>0){
 			  Lempty=0;   /* FALSE */
                         }
-                        note=begsSepaNext[note];
+                        note=begsSepaNextx[note];
                      }
 		  /* check whether right bound of left child is empty */
 		  Rempty=1;    /* TRUE */
-		  note=separy[leftbeg];
+		  note=separyx[leftbeg];
                   while (note>0){
-                          if (begsRighBoun[note]>0){
+                          if (begsRighBounx[note]>0){
 			    Rempty=0;  /* FALSE */
                           }
-                          note=begsSepaNext[note];
+                          note=begsSepaNextx[note];
                      }
 		  /* check whether one of boundaries is empty */
                      if (Lempty || Rempty){
 		       /* one of boundaries is empty */
 /* concatenating separate parts  */
 
-akku=separy[leftbeg];
-while (begsSepaNext[akku]>0){
-  akku=begsSepaNext[akku];
+akku=separyx[leftbeg];
+while (begsSepaNextx[akku]>0){
+  akku=begsSepaNextx[akku];
 }                           
-begsSepaNext[akku]=separy[rightbeg];
-separy[node]=separy[leftbeg];
+begsSepaNextx[akku]=separyx[rightbeg];
+separyx[node]=separyx[leftbeg];
 
 /* end of concatenating, handle next boundaries */
                     }
 		     else{ /* both children exist, both boundaries non-empty */
 		       direction=i;
-                       separy[node]=joinconneC(leftbeg,
+                       separyx[node]=joinconneC(leftbeg,
                                                rightbeg,
                                                direction,
                                                /* indeks, */
@@ -1215,13 +1326,18 @@ separy[node]=separy[leftbeg];
 /* end of child joining */
 /* END of ROOT */
 
- totbegSepary=separy[node];
+ totbegSepary=separyx[node];
  return totbegSepary;
 
  /* we have changed the vectors
  begsSepaNext=begsSepaNext,begsSepaBegs=begsSepaBegs,
  atomsSepaNext=atomsSepaNext,atomsSepaAtom=atomsSepaAtom
  */
+
+ free(nextFloor);
+ free(currFloor);
+ free(already);
+
 }
 
 
@@ -1246,83 +1362,83 @@ int joingeneC(int node,
   int Lempty, Rempty;
   int akku, note, apu;
 
-  if ((leftbeg==0) || (separy[leftbeg]==0)){
+  if ((leftbeg==0) || (separyx[leftbeg]==0)){
     /* if left child does not exist    
        note that since we consider subsets of the
        terminal nodes of the original tree, it may happen
        that leftbeg>0 but left child does not exist */
-    separy[node]=separy[rightbeg];
+    separyx[node]=separyx[rightbeg];
     /* we need that all lists contain as many members
        left boundary is empty, but we will make it a list
        of empty lists */
-    note=separy[node];
+    note=separyx[node];
     while (note>0){
-      begsLeftBoun[note]=0;
-      note=begsSepaNext[note];
+      begsLeftBounx[note]=0;
+      note=begsSepaNextx[note];
     }
     /* right boundary stays same as for rightbeg */
   }
   else{   /* eka else */
-    if ((rightbeg==0) || (separy[rightbeg]==0)){  
+    if ((rightbeg==0) || (separyx[rightbeg]==0)){  
       /* right child does not exist */
-      separy[node]=separy[leftbeg];
+      separyx[node]=separyx[leftbeg];
       /* left boundary stays same as for leftbeg right boundary is empty */
-      note=separy[node];
+      note=separyx[node];
       while (note>0){
-	begsRighBoun[note]=0;
-	note=begsSepaNext[note];
+	begsRighBounx[note]=0;
+	note=begsSepaNextx[note];
       }
     } 
     else{   /* toka else: both children exist */
 	    /* check whether left boundary of right child is empty */
       Lempty=1;    /* TRUE */
-      note=separy[rightbeg];
+      note=separyx[rightbeg];
       while (note>0){
-        if (begsLeftBoun[note]>0){
+        if (begsLeftBounx[note]>0){
 	  Lempty=0;     /* FALSE */
         }
-        note=begsSepaNext[note];
+        note=begsSepaNextx[note];
       }
       /* check whether right bound of left child is empty */
       Rempty=1;    /* TRUE */
-      note=separy[leftbeg];
+      note=separyx[leftbeg];
       while (note>0){
-        if (begsRighBoun[note]>0){
+        if (begsRighBounx[note]>0){
 	  Rempty=0;    /* FALSE */
         }
-        note=begsSepaNext[note];
+        note=begsSepaNextx[note];
       }
       /* check whether one of boundaries is empty */
       if (Lempty || Rempty){ /* one of boundaries is empty */
 	/* concatenating separate parts */
 	/* and updating boundaries for the separate parts */
-        akku=separy[leftbeg];
-	begsRighBoun[akku]=0; 
+        akku=separyx[leftbeg];
+	begsRighBounx[akku]=0; 
         /* right boundaries of sets in left child are empty */
-	/* begsLeftBoun[akku] does not change */
-        while (begsSepaNext[akku]>0){
-          akku=begsSepaNext[akku];
-          begsRighBoun[akku]=0;
+	/* begsLeftBounx[akku] does not change */
+        while (begsSepaNextx[akku]>0){
+          akku=begsSepaNextx[akku];
+          begsRighBounx[akku]=0;
         }                           
-        begsSepaNext[akku]=separy[rightbeg]; 
+        begsSepaNextx[akku]=separyx[rightbeg]; 
         /* concatenate list of separate sets */
-        separy[node]=separy[leftbeg];
-        akku=separy[rightbeg];
-        begsLeftBoun[akku]=0; 
+        separyx[node]=separyx[leftbeg];
+        akku=separyx[rightbeg];
+        begsLeftBounx[akku]=0; 
         /* left boundaries of sets in right child are empty */
-        while (begsSepaNext[akku]>0){
-          akku=begsSepaNext[akku];
-          begsLeftBoun[akku]=0;
+        while (begsSepaNextx[akku]>0){
+          akku=begsSepaNextx[akku];
+          begsLeftBounx[akku]=0;
         }        
         /* end of concatenating */
       }
       else{  /* both children exist, both boundaries non-empty */  
-        separy[node]=joinconneC(leftbeg, 
+        separyx[node]=joinconneC(leftbeg, 
                                 rightbeg,
                                 direction,
                                 /* indeks, */
                                 d); 
-        /* separy[node]<-jc$totbegSepary */
+        /* separyx[node]<-jc$totbegSepary */
       }
     } /* toka else */
  } /* eka else */
@@ -1343,14 +1459,14 @@ int joingeneC(int node,
 #define componumInt 20
 
 /* variables for startpoints */
-int startpointsS[induksiInt+1];
-int startpointsB[induksiInt+1];
-int startpointsNewBleft[induksiInt+1];
-int startpointsNewBright[induksiInt+1];
-int m, mleft, mright;
+int startpointsSx[induksiInt+1];
+int startpointsBx[induksiInt+1];
+int startpointsNewBleftx[induksiInt+1];
+int startpointsNewBrightx[induksiInt+1];
+int mx, mleftx, mrightx;
 
-int linkit[componumInt+1][componumInt+1];
-int res[componumInt+1][componumInt+1];
+int linkitx[componumInt+1][componumInt+1];
+int resx[componumInt+1][componumInt+1];
 
 int joinconneC(int leftbeg,
                int rightbeg, 
@@ -1364,21 +1480,21 @@ int joinconneC(int leftbeg,
   /* Initialize the global variables */
 
   for (i=1; i <= induksiInt; i++){
-     startpointsS[i]=0;
-     startpointsB[i]=0;
-     startpointsNewBleft[i]=0;
-     startpointsNewBright[i]=0; 
+     startpointsSx[i]=0;
+     startpointsBx[i]=0;
+     startpointsNewBleftx[i]=0;
+     startpointsNewBrightx[i]=0; 
   }
 
   for (i=1; i<=componumInt; i++)
      for (j=1; j<=componumInt; j++){
-        linkit[i][j]=0;
-        res[i][j]=0;
+        linkitx[i][j]=0;
+        resx[i][j]=0;
      }
   
-  m=0;
-  mleft=0;
-  mright=0;
+  mx=0;
+  mleftx=0;
+  mrightx=0;
 
 
  /* 1. new boundary: left bound. of left child, right b. of right child */
@@ -1389,18 +1505,18 @@ int joinconneC(int leftbeg,
   /* 2. We make "links" matrix and apply declev */
 
   apu=makelinks(direction,
-		/* mleft, m, indeks, */
+		/* mleftx, m, indeks, */
                 d);
   sepnum=declevnewC();  /* tulos will be filled */
 
-   /* res is sepnum*m-matrix, 1 in some row indicates that set (atom) */
+   /* resx is sepnum*m-matrix, 1 in some row indicates that set (atom) */
    /* belongs to this component, 0 in other positions */
 
    /* 3. We join the sets  */
 
    /* We join the sets whose startpoints are in */
-   /* startpointsS and startpointsNewBleft, startpointsNewBright */
-   /* We have pointers separy[leftbeg] and separy[rightbeg] */
+   /* startpointsSx and startpointsNewBleftx, startpointsNewBrightx */
+   /* We have pointers separyx[leftbeg] and separyx[rightbeg] */
    /* which contain pointers to lists which we can utilize */
    /* to make a new list (these two lists contain together at most as many */ 
    /* elements as we need) */
@@ -1429,36 +1545,36 @@ int startpoints(int leftbeg,
   int anfang, apu;
   int induksi=1;
 
- anfang=separy[leftbeg];
- startpointsS[induksi]=anfang;
- startpointsB[induksi]=begsRighBoun[anfang];
- startpointsNewBleft[induksi]=begsLeftBoun[anfang];
- while (begsSepaNext[anfang]>0){
-   anfang=begsSepaNext[anfang];
+ anfang=separyx[leftbeg];
+ startpointsSx[induksi]=anfang;
+ startpointsBx[induksi]=begsRighBounx[anfang];
+ startpointsNewBleftx[induksi]=begsLeftBounx[anfang];
+ while (begsSepaNextx[anfang]>0){
+   anfang=begsSepaNextx[anfang];
    induksi=induksi+1;
-   startpointsS[induksi]=begsSepaBegs[anfang];
-   startpointsB[induksi]=begsRighBoun[anfang];
-   startpointsNewBleft[induksi]=begsLeftBoun[anfang];  
+   startpointsSx[induksi]=begsSepaBegsx[anfang];
+   startpointsBx[induksi]=begsRighBounx[anfang];
+   startpointsNewBleftx[induksi]=begsLeftBounx[anfang];  
  }
- mleft=induksi;
+ mleftx=induksi;
  induksi=induksi+1;
- anfang=separy[rightbeg];
- startpointsS[induksi]=anfang;
- startpointsB[induksi]=begsLeftBoun[anfang];
- startpointsNewBright[induksi]=begsRighBoun[anfang];
- while (begsSepaNext[anfang]>0){
-   anfang=begsSepaNext[anfang];
+ anfang=separyx[rightbeg];
+ startpointsSx[induksi]=anfang;
+ startpointsBx[induksi]=begsLeftBounx[anfang];
+ startpointsNewBrightx[induksi]=begsRighBounx[anfang];
+ while (begsSepaNextx[anfang]>0){
+   anfang=begsSepaNextx[anfang];
    induksi=induksi+1;
-   startpointsS[induksi]=begsSepaBegs[anfang];
-   startpointsB[induksi]=begsLeftBoun[anfang];
-   startpointsNewBright[induksi]=begsRighBoun[anfang];  
+   startpointsSx[induksi]=begsSepaBegsx[anfang];
+   startpointsBx[induksi]=begsLeftBounx[anfang];
+   startpointsNewBrightx[induksi]=begsRighBounx[anfang];  
  }
- /* startpointsS=startpointsS[1:induksi]
- startpointsB=startpointsB[1:induksi]
- startpointsNewBleft=startpointsNewBleft[1:induksi]
- startpointsNewBright=startpointsNewBright[1:induksi] */
- m=induksi;
- mright=m-mleft;
+ /* startpointsSx=startpointsSx[1:induksi]
+ startpointsBx=startpointsBx[1:induksi]
+ startpointsNewBleftx=startpointsNewBleftx[1:induksi]
+ startpointsNewBrightx=startpointsNewBrightx[1:induksi] */
+ mx=induksi;
+ mrightx=mx-mleftx;
  apu=1;  
  return apu;
 }
@@ -1466,7 +1582,7 @@ int startpoints(int leftbeg,
 
 
 
-/* fills the linkit-matrix */
+/* fills the linkitx-matrix */
 int makelinks(int direction,
               /* int *indeks[], */
               int d)
@@ -1479,79 +1595,79 @@ int makelinks(int direction,
  int i, apu;
 
  dod=1;
- while (dod <= mleft){
-   beg1=startpointsB[dod];    /* could be 0 */
-   re=mleft+1;
-   while (re <= m){
-     beg2=startpointsB[re];    /* could be 0 */
+ while (dod <= mleftx){
+   beg1=startpointsBx[dod];    /* could be 0 */
+   re=mleftx+1;
+   while (re <= mx){
+     beg2=startpointsBx[re];    /* could be 0 */
      conne=0;     /* FALSE */
      begbeg1=beg1;
      while (begbeg1>0){
        begbeg2=beg2;
        while (begbeg2>0){
-	 atom1=atomsSepaAtom[begbeg1];
-	 atom2=atomsSepaAtom[begbeg2];
+	 atom1=atomsSepaAtomx[begbeg1];
+	 atom2=atomsSepaAtomx[begbeg2];
          /* dotouch ?? */
          /* d=length(inde1) */
 	   touch=1;  /* TRUE */
 	   i=direction;
            while (i <= d){
-             if ((indeks[atom1][i]>(indeks[atom2][i]+1)) || 
-                 (indeks[atom1][i]<indeks[atom2][i]-1)){
+             if ((indeksx[atom1][i]>(indeksx[atom2][i]+1)) || 
+                 (indeksx[atom1][i]<indeksx[atom2][i]-1)){
 	       touch=0;  /* FALSE */
              }
 	     i=i+1;
            }                
            if (touch) conne=1;   /* TRUE */
-	   begbeg2=atomsLBounNext[begbeg2];
+	   begbeg2=atomsLBounNextx[begbeg2];
        }
-       begbeg1=atomsRBounNext[begbeg1];
+       begbeg1=atomsRBounNextx[begbeg1];
      }                
      if (conne){
-       linkit[dod][re]=1;
+       linkitx[dod][re]=1;
      }
      re=re+1;
    }
    dod=dod+1;
  }
- dod=mleft+1;
- while (dod <= m){
-   beg1=startpointsB[dod];
+ dod=mleftx+1;
+ while (dod <= mx){
+   beg1=startpointsBx[dod];
    re=1;
-   while (re <= mleft){
-     beg2=startpointsB[re];
+   while (re <= mleftx){
+     beg2=startpointsBx[re];
      conne=0;    /* FALSE */
      begbeg1=beg1;
      while (begbeg1>0){
        begbeg2=beg2;
        while (begbeg2>0){
-	 atom1=atomsSepaAtom[begbeg1];
-	 atom2=atomsSepaAtom[begbeg2];
+	 atom1=atomsSepaAtomx[begbeg1];
+	 atom2=atomsSepaAtomx[begbeg2];
          /* do touch ?? */
          /* d=length(inde1) */
 	   touch=1;  /* TRUE */
 	   i=direction;
            while (i <= d){
-             if ((indeks[atom1][i]>indeks[atom2][i]+1) || 
-                 (indeks[atom1][i]<indeks[atom2][i]-1)){
+             if ((indeksx[atom1][i]>indeksx[atom2][i]+1) || 
+                 (indeksx[atom1][i]<indeksx[atom2][i]-1)){
 	       touch=0;  /* FALSE */
              }
 	     i=i+1;
            }                
            if (touch) conne=1;   /* TRUE */
-           begbeg2=atomsRBounNext[begbeg2];
+           begbeg2=atomsRBounNextx[begbeg2];
        }
-       begbeg1=atomsLBounNext[begbeg1];
+       begbeg1=atomsLBounNextx[begbeg1];
      }                
      if (conne){
-	 linkit[dod][re]=1;
+	 linkitx[dod][re]=1;
      }
      re=re+1;
    }
    dod=dod+1;
  }
  /* huom ylla on nopeutettu, koska tiedetaan, etta atomit */
- /* 1,...,mleft eivat koske toisiaan ja samoin atomit mleft+1,...,m */
+ /* 1,...,mleftx eivat koske toisiaan ja samoin atomit mleftx+1,...,m */
  apu=1;
  return apu;
 } 
@@ -1564,31 +1680,36 @@ int makelinks(int direction,
 
 
 
-/* linkit m*m-matrix */
+/* linkitx m*m-matrix */
 /* return m*m-matrix tulos and integer tulospit */
 /* (first tulospit rows contain information */
 int declevnewC()   /* int m */
 {
-  int pino[maxm];
-  /* pino<-matrix(0,m,1) 
-     pinoon laitetaan aina jos koskettaa, max kosketuksia m */
+  int *pino = (int *)malloc(sizeof(int) * (mx+1));
+  /* int pino[mx];
+     pino<-matrix(0,mx,1) 
+     pinoon laitetaan aina jos koskettaa, max kosketuksia mx */
   int pinind;
   /* pinossa viitataan rindeksin elementteihin */
   int i, j, k, curleima; 
   /* i ja j viittavat rindeksit-vektoriin, jonka alkiot viittavat atomeihin */
-  int merkatut[maxm];
+  int *merkatut = (int *)malloc(sizeof(int) * (mx+1));
+  /*int merkatut[mx];*/
   int curpallo, tulospit;
   int touch;  
   /*  resultat.tulos=malloc(m*sizeof(int));  */
 
+ if (pino == NULL) exit(1);
+ if (merkatut == NULL) exit(1);
+
   /* initialize merkatut */
-  for (k=1; k<=m; k++)
+  for (k=1; k<=mx; k++)
     merkatut[k]=0;
 
   curleima=1;
   pinind=0;
   i=1;
-  while (i<=m){
+  while (i<=mx){
     if (merkatut[i]==0){  /* jos ei viela merkattu niin pannaan pinoon */ 
       pinind=pinind+1;    
       pino[pinind]=i;    
@@ -1597,12 +1718,12 @@ int declevnewC()   /* int m */
         pinind=pinind-1;  
          /* otetaan pinosta viite rindeksit-vektoriin 
             jossa puolestaan viitteet itse palloihin  */
-        res[curleima][curpallo]=1;    
+        resx[curleima][curpallo]=1;    
         /* laitetaan pallo ko tasojoukkoon */
         j=1;
-        while (j<=m){        /* pannnaan linkeista pinoon */
+        while (j<=mx){        /* pannnaan linkeista pinoon */
 	   /* kaydaan ko tasojoukon atomit lapi */
-           touch=(linkit[curpallo][j]==1);
+           touch=(linkitx[curpallo][j]==1);
            if ((touch) && (merkatut[j]==0)){
              pinind=pinind+1;      
              pino[pinind]=j;  
@@ -1615,8 +1736,13 @@ int declevnewC()   /* int m */
     }
     i=i+1;
   }
+
   tulospit=curleima-1;
   return tulospit;
+  
+  free(pino);
+  free(merkatut);
+
 }
 
 
@@ -1635,69 +1761,78 @@ int joinSets(int leftbeg,
              int sepnum)
 {
   int tavoite, hiihtaja, nykyinen, i, j, k;
-  int osoittajaS[maxm];  /* make vector of pointers to the begs of sets */
-  int osoittajaNewBleft[maxm];
-  int osoittajaNewBright[maxm];
+  int *osoittajaS = (int *)malloc(sizeof(int) * (mx+1));
+  int *osoittajaNewBleft = (int *)malloc(sizeof(int) * (mx+1));
+  int *osoittajaNewBright = (int *)malloc(sizeof(int) * (mx+1));
+  /*
+  int osoittajaS[m];   make vector of pointers to the begs of sets 
+  int osoittajaNewBleft[m];
+  int osoittajaNewBright[m];
+  */
   int sol, len, laskuri, TotalBeg, curre, kL, kR;
 
-  TotalBeg=separy[leftbeg];
+  if (osoittajaS == NULL) exit(1);
+  if (osoittajaNewBleft == NULL) exit(1);
+  if (osoittajaNewBright == NULL) exit(1);
+
+  TotalBeg=separyx[leftbeg];
 
  tavoite=1;
  hiihtaja=TotalBeg;
- while ((begsSepaNext[hiihtaja]>0) && (tavoite<sepnum)){
-   hiihtaja=begsSepaNext[hiihtaja];
+ while ((begsSepaNextx[hiihtaja]>0) && (tavoite<sepnum)){
+   hiihtaja=begsSepaNextx[hiihtaja];
    tavoite=tavoite+1;
  }  
  if (tavoite<sepnum){ /* now hiihtaja points to the end of the first list */
    /* join the lists */
-   begsSepaNext[hiihtaja]=separy[rightbeg];
+   begsSepaNextx[hiihtaja]=separyx[rightbeg];
    /* we continue */
-   hiihtaja=separy[rightbeg];
+   hiihtaja=separyx[rightbeg];
    tavoite=tavoite+1;
-   while ((begsSepaNext[hiihtaja]>0) && (tavoite<sepnum)){
-     hiihtaja=begsSepaNext[hiihtaja];
+   while ((begsSepaNextx[hiihtaja]>0) && (tavoite<sepnum)){
+     hiihtaja=begsSepaNextx[hiihtaja];
      tavoite=tavoite+1;
    }    
-   begsSepaNext[hiihtaja]=0;
+   begsSepaNextx[hiihtaja]=0;
 }
  else{  /* we have reached goal, cut without joining */
-   begsSepaNext[hiihtaja]=0;
+   begsSepaNextx[hiihtaja]=0;
 }
 
  nykyinen=TotalBeg;
  i=1;
  while (i<=sepnum){
-   /* len=sum(res[i,]) number of sets to be joined <= m */
+   /* len=sum(resx[i,]) number of sets to be joined <= m */
    len=0;
    sol=1;
-   while (sol<=m){
-     if (res[i][sol]==1) len=len+1;   
+   while (sol<=mx){
+     if (resx[i][sol]==1) len=len+1;   
      sol=sol+1;
    }
    /* we find vectors which contain pointer to the beginnings */
    /* of lists of atoms */
   
    laskuri=1;
-  for (j=1; j<=m; ++j){
-     if (res[i][j]==1){
-       osoittajaS[laskuri]=startpointsS[j];  
-       osoittajaNewBleft[laskuri]=startpointsNewBleft[j];   /* could be 0 */
-       osoittajaNewBright[laskuri]=startpointsNewBright[j];  /* could be 0 */
+  for (j=1; j<=mx; ++j){
+     if (resx[i][j]==1){
+       osoittajaS[laskuri]=startpointsSx[j];  
+       osoittajaNewBleft[laskuri]=startpointsNewBleftx[j];   /* could be 0 */
+       osoittajaNewBright[laskuri]=startpointsNewBrightx[j];  /* could be 0 */
        laskuri=laskuri+1;
      }    
   }
   
-  /* handle separy */ 
+  /* handle separyx */ 
   
-  begsSepaBegs[nykyinen]=osoittajaS[1];    /* always non-zero */
+  begsSepaBegsx[nykyinen]=osoittajaS[1];    /* always non-zero */
   
   k=1;
   while (k<=(len-1)){    
     curre=osoittajaS[k];
-    while (atomsSepaNext[curre]>0){    /* find the end */
-      curre=atomsSepaNext[curre];
+    while (atomsSepaNextx[curre]>0){    /* find the end */
+      curre=atomsSepaNextx[curre];
     }
-    atomsSepaNext[curre]=osoittajaS[k+1];
+    atomsSepaNextx[curre]=osoittajaS[k+1];
     k=k+1;
   }
   
@@ -1711,11 +1846,11 @@ int joinSets(int leftbeg,
   }
   if (k>len){   /* all zero */
     kL=0;
-    begsLeftBoun[nykyinen]=0;
+    begsLeftBounx[nykyinen]=0;
   }
   else{         /* kL is first non zero */
     kL=k;
-    begsLeftBoun[nykyinen]=osoittajaNewBleft[kL];
+    begsLeftBounx[nykyinen]=osoittajaNewBleft[kL];
   
     /* update the list of left boundaries */
     /* concatenate the lists of atoms */
@@ -1723,8 +1858,8 @@ int joinSets(int leftbeg,
     k=kL;
   while (k<=(len-1)){    
     curre=osoittajaNewBleft[k];         /* curre is not zero */
-      while (atomsLBounNext[curre]>0){    /*find the end */
-	curre=atomsLBounNext[curre];
+      while (atomsLBounNextx[curre]>0){    /*find the end */
+	curre=atomsLBounNextx[curre];
       }
       /* find the next non zero */
       k=k+1;
@@ -1732,10 +1867,10 @@ int joinSets(int leftbeg,
 	k=k+1;
       }
       if (k>len){
-	atomsLBounNext[curre]=0;
+	atomsLBounNextx[curre]=0;
       }
       else{  /* found nonzero */
-	atomsLBounNext[curre]=osoittajaNewBleft[k];
+	atomsLBounNextx[curre]=osoittajaNewBleft[k];
       }
   }
   }
@@ -1750,11 +1885,11 @@ int joinSets(int leftbeg,
   }
   if (k>len){
     kR=0;
-    begsRighBoun[nykyinen]=0;
+    begsRighBounx[nykyinen]=0;
   }
   else{
     kR=k;
-    begsRighBoun[nykyinen]=osoittajaNewBright[kR];
+    begsRighBounx[nykyinen]=osoittajaNewBright[kR];
   
     /* update the list of right boundaries */
     /* concatenate the lists of atoms */
@@ -1762,8 +1897,8 @@ int joinSets(int leftbeg,
     k=kR;
   while (k<=(len-1)){    
     curre=osoittajaNewBright[k];         /* curre is not zero */
-      while (atomsRBounNext[curre]>0){    /* find the end */
-	curre=atomsRBounNext[curre];
+      while (atomsRBounNextx[curre]>0){    /* find the end */
+	curre=atomsRBounNextx[curre];
       }
       /* find the next non zero */
       k=k+1;
@@ -1771,19 +1906,25 @@ int joinSets(int leftbeg,
 	k=k+1;
       }
       if (k>len){
-	atomsRBounNext[curre]=0;
+	atomsRBounNextx[curre]=0;
       }
       else{  /* found nonzero */
-	atomsRBounNext[curre]=osoittajaNewBright[k];
+	atomsRBounNextx[curre]=osoittajaNewBright[k];
       }
   }
   }
   
   /* we move to the next sepaset */
-  nykyinen=begsSepaNext[nykyinen];
+  nykyinen=begsSepaNextx[nykyinen];
   i=i+1;
 }
  return TotalBeg; 
+
+ free(osoittajaS);
+ free(osoittajaNewBleft);
+ free(osoittajaNewBright);
+
+
 }
 
 

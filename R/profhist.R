@@ -1,4 +1,4 @@
-profhist<-function(dendat,binlkm,cvol=T,ccen=T,cfre=F)
+profhist<-function(dendat,binlkm,cvol=TRUE,ccen=TRUE,cfre=FALSE)
 {
 #esim. dendat<-matrix(rnorm(20),10) on 10*2 matriisi
 

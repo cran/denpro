@@ -8,7 +8,8 @@ Plots a scale of excess mass profiles
 Plots a scale of excess mass profiles.
 }
 \usage{
-plotexmap(sp, mt, xaxt = "n", lift = 0.1, leaflift = 0.1, ylim = NULL, leafcolors = NULL)
+plotexmap(sp, mt, xaxt = "n", lift = 0.1, leaflift = 0.1, ylim = NULL, 
+leafcolors = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,7 +21,8 @@ plotexmap(sp, mt, xaxt = "n", lift = 0.1, leaflift = 0.1, ylim = NULL, leafcolor
   \item{leaflift}{ positive real number; lifting for the bullets associated
   with the leaf nodes of the excess mass profiles }
   \item{ylim}{ 2-vector; gives the interval of the y-axis}
-  \item{leafcolors}{a paletti of the colors for the labeling of the leaf nodes }
+  \item{leafcolors}{a paletti of the colors for the labeling of the 
+   leaf nodes }
 }
 %\details{}
 \value{
@@ -35,7 +37,7 @@ Plots the scale of excess mass profiles to the graphic device
 \code{\link{modegraph}}
 }
 \examples{
-dendat<-sim.exa(n=200)
+dendat<-sim.data(n=200,type="mulmod")
 
 h1<-0.9
 h2<-2.2
@@ -51,7 +53,7 @@ horilines<-c(1,2,3,4)
 
 sp<-exmap(estiseq,mt,horilines)
 
-plotexmap(sp,mt)
+plotexmap(sp,mt,ylim=c(1,4.5))
 
 }
 \keyword{multivariate }% at least one, from doc/KEYWORDS

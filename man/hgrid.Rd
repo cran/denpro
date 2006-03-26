@@ -15,7 +15,8 @@ hgrid(h1, h2, lkm, base = 10)
   \item{h1}{ the lowest smoothing parameter value }
   \item{h2}{ the largest smoothing parameter value }
   \item{lkm}{ the number of smoothing parameters in the grid }
-  \item{base}{ the base of the logarithm, used in the logarithmic spacing  }
+  \item{base}{ the base of the logarithm, used in the logarithmic spacing,
+   if NULL, then the equal spacing is applied  }
 }
 
 \value{
@@ -35,6 +36,8 @@ h1<-0.9
 h2<-2.2
 lkm<-5
 hseq<-hgrid(h1,h2,lkm)
+
+hseq<-hgrid(h1,h2,lkm,base=NULL)
 
 }
 \keyword{ smooth } % at least one, from doc/KEYWORDS

@@ -2,29 +2,32 @@
 \alias{plotbary}
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{
-Makes a barycenter plot of a level set tree or a location plot of a
-shape tree
+Makes a barycenter plot of a level set tree, a location plot of a
+shape tree, or a tail tree plot of a tail tree
 }
 \description{
 Plots a barycenter plot of a level set tree,
-or a location plot of a shape tree,
-of the given direction.
+or a location plot of a shape tree (of the given direction),
+or a tail tree plot of tail tree (of the given direction).
 A barycenter plot visualizes the barycenters of the separated
 regions of the level sets of the function.
 The barycenter of a set is the "center of mass" of this set.
 A location plot visualizes the barycenters of the tail regions of a set.
+A tail tree plot makes a parallel level plot of the data, and shows
+the tree structure of the tail tree in the plot.
 }
 \usage{
-plotbary(lst, coordi, 
-plot=T, data=F, crit=NULL,orderrule="distcenter",
-modelabel=TRUE, ptext=0, leimat=NULL, symbo=NULL, 
+plotbary(lst, coordi=1, 
+plot=TRUE, data=FALSE, crit=NULL,orderrule="distcenter",
+modelabel=FALSE, ptext=0, leimat=NULL, symbo=NULL, 
 info=NULL, infolift=0, infopos=0,
 xmarginleft=0, xmarginright=0, ymargin=0, 
 xlim=NULL, ylim=NULL, 
 nodesymbo=20, col=NULL, col.axis="black", collines=NULL, paletti=NULL,
 shift=0,shiftindex=NULL,
-modlabret=F,modecolo=NULL,modepointer=NULL,
-colometh = "lst", colothre = min(lst$level))
+modlabret=FALSE,modecolo=NULL,modepointer=NULL,
+colometh = "lst", colothre = min(lst$level),
+lines=TRUE, wedge=FALSE, lty.wedge=2)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -105,13 +108,19 @@ colometh = "lst", colothre = min(lst$level))
   is better to color the roots first}
   \item{colothre}{positive real number; fixes the colors at the level given by
   "colothre", this option is used for dendrograms}
+  \item{lines}{TRUE or FALSE; used in a tail tree plot; FALSE suppresses the 
+   parent-child lines and one can avoid over plotting}
+  \item{wedge}{TRUE or FALSE; used in a tail tree plot if TRUE, then the 
+   ouuter limts for the points will be plotted; these outer limits have a
+   wedge form}
+  \item{lty.wedge}{"lty" parameter (line type) for the wedge lines}
 }
 \details{
 }
 \value{
   By default a plot is made on the graphics window. 
   If modlabret=T, then the locations of the modes are returned,
-  with the labeling of the modes corresponding to thelabeling in the plot. 
+  with the labeling of the modes corresponding to the labeling in the plot. 
 }
 
 %\references{http://www.rni.helsinki.fi/~jsk/denpro}
@@ -122,19 +131,37 @@ colometh = "lst", colothre = min(lst$level))
 
 \seealso{ 
 \code{\link{leafsfirst}},
+\code{\link{treedisc}},
+\code{\link{prunemodes}},
 \code{\link{plotvolu}}, 
 \code{\link{plottree}}
 }
 
 \examples{
-dendat<-sim.exa(n=100)
+# level set tree
+
+dendat<-sim.data(n=100,type="mulmod")
 pcf<-pcf.kern(dendat,h=1,N=c(32,32))
-lst<-leafsfirst(pcf)
+lst<-leafsfirst(pcf)             
 td<-treedisc(lst,pcf,ngrid=30)
 
-plotbary(td,modlabret=TRUE)
+plotbary(td)
 
-plotbary(td,coordi=2,ptext=0.002,symbo="L")
+plotbary(td,coordi=2,ptext=0.002,symbo="L",modlabret=TRUE)
+
+# shape tree
+
+dendat<-sim.data(n=100,type="cross")
+pcf<-pcf.kern(dendat,h=1,N=c(32,32))
+st<-leafsfirst(pcf,propor=0.01)   
+td<-treedisc(st,pcf,ngrid=60)
+
+plotbary(td)
+
+# tail tree
+
+tt<-leafsfirst(dendat=dendat,rho=0.65)  
+plotbary(tt)
 
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS

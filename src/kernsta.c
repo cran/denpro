@@ -58,11 +58,8 @@ int begs[atomnumIntern+1];
 
 int indeks[atomnumIntern+1][maxdim+1];
 
-#define maxnumofall 100000
-#define maxterminalnum 100000
-#define maxnodenumOfDyaker 100000
-#define maxm 40
-
+#include <stdlib.h> 
+#include <math.h>
 
 int listchangeCC(int totbegSepary,
 		 int beg);
@@ -99,7 +96,6 @@ int joinSetsCC(int leftbeg,
              int rightbeg,
 	       int sepnum);
 
-
 void decomdyaC(int *numofall, 
                int *atomnum,
                double *levseq,
@@ -133,9 +129,12 @@ void decomdyaC(int *numofall,
 
 {
   int totbegSepary;
-
-  int pinoComponent[maxnumofall+1];  /* pointer to component, level,... */
-  int pinoTaso[maxnumofall+1];       /* ordinal of level (pointer to levseq) */
+  /*
+  int pinoComponent[*numofall+1];  pointer to component, level,... 
+  int pinoTaso[*numofall+1];       ordinal of level (pointer to levseq) 
+  */
+  int *pinoComponent = (int *)malloc(sizeof(int) * (*numofall+1));
+  int *pinoTaso = (int *)malloc(sizeof(int) * (*numofall+1));
 
   int componum, beghigher;
   int i, j, beg, koko, pinind, ind, levind, partlevsetbeg;
@@ -146,8 +145,16 @@ void decomdyaC(int *numofall,
   /*  int indeks[(*atomnum)+1][(*d)+1]; */
  
   int componentnum, numofatoms, zeiger; /* for cvolumdya */
-  double curcente[maxdim+1];                   /* for ccentedya */
+
   int atompointer;
+
+  /*double curcente[*d+1]; */                   /* for ccentedya */
+  double *curcente = (double *)malloc(sizeof(double) * (*d+1));
+ 
+
+  if (pinoComponent == NULL) exit(1); 
+  if (pinoTaso == NULL) exit(1); 
+  if (curcente == NULL) exit(1); 
 
   /* Initialize indeks */
 
@@ -380,6 +387,10 @@ AtomlistNextReturn=AtomlistNext;
      AtomlistNextOut[j]=AtomlistNext[j];
  }
  
+  free(pinoComponent); 
+  free(pinoTaso); 
+
+
 }
 
 
@@ -452,16 +463,25 @@ int declevdyaCC(int beg,
 	       int terminalnum,
                int d)
 {
- int nextFloor[maxterminalnum+1];
- int currFloor[maxterminalnum+1];
- int already[maxnodenumOfDyaker+1];
- 
+    /*
+ int nextFloor[terminalnum+1];
+ int currFloor[terminalnum+1];
+ int already[nodenumOfDyaker+1];
+    */
+ int *nextFloor = (int *)malloc(sizeof(int) * (terminalnum+1));
+ int *currFloor = (int *)malloc(sizeof(int) * (terminalnum+1));
+ int *already = (int *)malloc(sizeof(int) * (nodenumOfDyaker+1));
+  
  int i, k, r, lkm, nexlkm, curlkm, curre, atom, node, note;
  int exists, Lempty, Rempty;
  int leftbeg, rightbeg, direction, akku, totbegSepary, apu;
  int j;
 
-  /* Initialize the global variables */
+ if (nextFloor == NULL) exit(1);
+ if (currFloor == NULL) exit(1);
+ if (already == NULL) exit(1);
+ 
+ /* Initialize the global variables */
 
   for (i=1; i<=atomnumIntern; i++){
     begsSepaNext[i]=0;
@@ -686,6 +706,11 @@ separy[node]=separy[leftbeg];
  begsSepaNext=begsSepaNext,begsSepaBegs=begsSepaBegs,
  atomsSepaNext=atomsSepaNext,atomsSepaAtom=atomsSepaAtom
  */
+
+ free(nextFloor);
+ free(currFloor);
+ free(already);
+
 }
 
 
@@ -1033,17 +1058,22 @@ int makelinksCC(int direction,
 /* (first tulospit rows contain information */
 int declevnewCC()   /* int m */
 {
-  int pino[maxm];
+    /*int pino[m]; */
   /* pino<-matrix(0,m,1) 
      pinoon laitetaan aina jos koskettaa, max kosketuksia m */
-  int pinind;
+ int *pino = (int *)malloc(sizeof(int) * (m+1));
+ int pinind;
   /* pinossa viitataan rindeksin elementteihin */
   int i, j, k, curleima; 
   /* i ja j viittavat rindeksit-vektoriin, jonka alkiot viittavat atomeihin */
-  int merkatut[maxm];
+  /*int merkatut[m]; */
+  int *merkatut = (int *)malloc(sizeof(int) * (m+1));
   int curpallo, tulospit;
   int touch;  
   /*  resultat.tulos=malloc(m*sizeof(int));  */
+
+  if (pino == NULL) exit(1);
+  if (merkatut == NULL) exit(1);
 
   /* initialize merkatut */
   for (k=1; k<=m; k++)
@@ -1081,6 +1111,11 @@ int declevnewCC()   /* int m */
   }
   tulospit=curleima-1;
   return tulospit;
+ 
+  free(pino);
+  free(merkatut);
+
+
 }
 
 
@@ -1099,10 +1134,20 @@ int joinSetsCC(int leftbeg,
              int sepnum)
 {
   int tavoite, hiihtaja, nykyinen, i, j, k;
-  int osoittajaS[maxm];  /* make vector of pointers to the begs of sets */
-  int osoittajaNewBleft[maxm];
-  int osoittajaNewBright[maxm];
+  /*
+  int osoittajaS[m];  make vector of pointers to the begs of sets 
+  int osoittajaNewBleft[m];
+  int osoittajaNewBright[m];
+  */
+  int *osoittajaS= (int *)malloc(sizeof(int) * (m+1));
+  int *osoittajaNewBleft= (int *)malloc(sizeof(int) * (m+1));
+  int *osoittajaNewBright= (int *)malloc(sizeof(int) * (m+1));
+
   int sol, len, laskuri, TotalBeg, curre, kL, kR;
+
+  if (osoittajaS == NULL) exit(1);
+  if (osoittajaNewBleft == NULL) exit(1);
+  if (osoittajaNewBright == NULL) exit(1);
 
   TotalBeg=separy[leftbeg];
 
@@ -1248,6 +1293,11 @@ int joinSetsCC(int leftbeg,
   i=i+1;
 }
  return TotalBeg;
+
+ free(osoittajaS);
+ free(osoittajaNewBleft);
+ free(osoittajaNewBright);
+
 }
 
 

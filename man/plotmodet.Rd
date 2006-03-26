@@ -8,7 +8,9 @@ Plots a mode graph
 Plots one window of a mode graph.
 }
 \usage{
-plotmodet(mt, coordi = 1, colot = NULL, shift = 0, xlim = NULL, xlab = "", ylab = "", horilines = NULL, symbo = 20, loga = NULL, lty = "dashed")
+plotmodet(mt, coordi = 1, colot = NULL, shift = 0, xlim = NULL, 
+xlab = "", ylab = "", horilines = NULL, symbo = 20, loga = NULL, 
+lty = "dashed")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -38,7 +40,7 @@ Plots to the graphics device
 \code{\link{lstseq.kern}}, 
 }
 \examples{
-dendat<-sim.exa(n=200)
+dendat<-sim.data(n=200,type="mulmod")
 
 h1<-0.9
 h2<-2.2

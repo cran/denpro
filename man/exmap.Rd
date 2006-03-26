@@ -9,7 +9,8 @@ Calculates a scale of excess mass profiles
 from a scale of estimates given as level set trees
 }
 \usage{
-exmap(estiseq, mt, hind = NULL, hseq = NULL, n = NULL, moteslist = NULL, ylist = NULL)
+exmap(estiseq, mt, hind = NULL, hseq = NULL, n = NULL, moteslist = NULL, 
+ylist = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,7 +37,7 @@ A list of excess mass profiles
 \code{\link{modegraph}}
 }
 \examples{
-dendat<-sim.exa(n=200)
+dendat<-sim.data(n=200,type="mulmod")
 
 h1<-0.9
 h2<-2.2
@@ -52,7 +53,7 @@ horilines<-c(1,2,3,4)
 
 sp<-exmap(estiseq,mt,horilines)
 
-#plotexmap(sp,mt)
+plotexmap(sp,mt,ylim=c(1,4.5))
 
 }
 \keyword{ multivariate }% at least one, from doc/KEYWORDS

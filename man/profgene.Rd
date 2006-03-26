@@ -30,12 +30,12 @@ outlsets=TRUE, invalue=TRUE)
  in this rectangle. 
  Supplying this argument is useful in clustering: 
  one may see the number of observations in each node of the level set tree. }
- \item{cvol}{T or F; TRUE if one wants that the volumes of
+ \item{cvol}{TRUE if one wants that the volumes of
  separated parts of the level sets are returned,
  note that one needs volumes for drawing volume plots }
- \item{ccen}{T or F; TRUE if one wants that the barycenters of the
+ \item{ccen}{TRUE if one wants that the barycenters of the
  separated parts of the level sets are returned }
- \item{cfre}{T or F; TRUE if one wants the frequencies of
+ \item{cfre}{TRUE if one wants the frequencies of
  separated parts of the level sets to be returned }
  \item{outlsets}{not needed}
  \item{invalue}{not needed}
@@ -65,7 +65,7 @@ outlsets=TRUE, invalue=TRUE)
   with nodes. We have 1 in column "c" if the bin described in c:th 
   row of recs is part of the set associated with this node }
 }
-\references{http://www.rni.helsinki.fi/~jsk/denpro}
+%\references{http://www.rni.helsinki.fi/~jsk/denpro}
 \author{ Jussi Klemelä }
 \note{ Applies the naive algorithm of pairwise comparison of the 
 separated components of the level sets, to find which components 

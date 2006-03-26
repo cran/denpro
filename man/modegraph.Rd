@@ -28,10 +28,10 @@ mode graph
 
 \seealso{
 \code{\link{lstseq.kern}}, 
-\code{\link{plotmodet}}, 
+\code{\link{plotmodet}}
 }
 \examples{
-dendat<-sim.exa(n=200)
+dendat<-sim.data(n=200,type="mulmod")
 
 h1<-0.9
 h2<-2.2

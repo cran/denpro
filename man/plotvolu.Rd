@@ -1,23 +1,24 @@
 \name{plotvolu}
 \alias{plotvolu}
 \title{
-Makes a volume plot of a level set tree or a radius plot of a shape tree
+Makes a volume plot of a level set tree, a shape plot of a shape tree,
+or a tail frequency plot of a tail tree
 }
 \description{
 Plots a volume plot of a level set tree to the graphics window,
-or a radius plot of a shape tree.
+or a shape plot of a shape tree, or a tail frequency plot of a tail tree.
 }
 \usage{
 plotvolu(lst, length=NULL,
-toplot=T, data=F, crit=NULL, orderrule="distcenter",
-modelabel=TRUE, ptext=0, leimat=NULL, symbo=NULL, 
+toplot=TRUE, data=FALSE, crit=NULL, orderrule="distcenter",
+modelabel=FALSE, ptext=0, leimat=NULL, symbo=NULL, 
 info=NULL, infolift=0, infopos=0,
 xmarginleft=0, xmarginright=0, ymargin=0, 
 xlim=NULL, ylim=NULL, 
 col="black", col.axis="black", 
 cutlev=NULL, xaxt="n",
-exmavisu=NULL, bg="transparent", tyyppi="n", lty="solid",colo=F, 
-lowest = "dens")
+exmavisu=NULL, bg="transparent", tyyppi="n", lty="solid",colo=FALSE, 
+lowest = "dens", proba=FALSE)
 }
 \arguments{
   \item{lst}{level set tree or shape tree; list of vectors.
@@ -96,6 +97,8 @@ lowest = "dens")
   \item{lowest}{if "dens" then "lowest" is equal to 0, 
   else "lowest" is equal to the minimum of the function;
   this option allows to plot functions with negative values}
+  \item{proba}{TRUE, if one wants to plot a tail probability plot of a 
+   shape tree}
  }
 
 \value{A plot is made on the graphics window.}
@@ -105,21 +108,39 @@ lowest = "dens")
 
 \seealso{ 
 \code{\link{leafsfirst}},
-\code{\link{plottree}}, 
+\code{\link{treedisc}},
+\code{\link{prunemodes}},
 \code{\link{plotbary}}
+\code{\link{plottree}}, 
 }
 
 \examples{
-dendat<-sim.exa(n=100)
+# level set tree
+
+dendat<-sim.data(n=100,type="mulmod")
 pcf<-pcf.kern(dendat,h=1,N=c(32,32))
-lst<-leafsfirst(pcf)
+lst<-leafsfirst(pcf)             
 td<-treedisc(lst,pcf,ngrid=30)
 
 plotvolu(td)
 
-plotvolu(td,ptext=0.002,symbo="L")
+plotvolu(td,ptext=0.002,modelabel=TRUE,symbo="L",colo=TRUE)
 
-plotvolu(td,modelabel=FALSE,colo=TRUE)
+# shape tree
+
+dendat<-sim.data(n=100,type="cross")
+pcf<-pcf.kern(dendat,h=1,N=c(32,32))
+st<-leafsfirst(pcf,propor=0.01)   
+td<-treedisc(st,pcf,ngrid=60)
+
+plotvolu(td)
+
+plotvolu(td,proba=TRUE)
+
+# tail tree
+
+tt<-leafsfirst(dendat=dendat,rho=0.65)  
+plotvolu(tt)
 
 }
 

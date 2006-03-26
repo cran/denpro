@@ -1,4 +1,4 @@
-draw.pcf<-function(pcf,pnum=NULL,corona=5)
+draw.pcf<-function(pcf,pnum=rep(32,length(pcf$N)),corona=5,dens=FALSE)
 {
 #Makes data for drawing a perspective plot.
 #pnum on kuvaajan hilan pisteiden lkm
@@ -63,9 +63,17 @@ else{
 
 else{  #d==1
 
-N<-pcf$N
-x<-matrix(0,N+2,1)
-y<-matrix(0,N+2,1)
+if (dens){ 
+  N<-pcf$N+2 
+  alku<-1
+}
+else{
+  N<-pcf$N
+  alku<-0
+}
+
+x<-matrix(0,N,1)
+y<-matrix(0,N,1)
 step<-(pcf$support[2]-pcf$support[1])/pcf$N
 minim<-pcf$support[1]
 maxim<-pcf$support[2]
@@ -74,28 +82,31 @@ indenum<-length(pcf$value)
 i<-1
 while (i<=indenum){
 
-   inde<-pcf$index[i]
+   inde<-pcf$high[i]
    point<-minim+step*inde-step/2
     
-   y[1+inde]<-pcf$value[i]
-   x[1+inde]<-point
+   y[alku+inde]<-pcf$value[i]
+   x[alku+inde]<-point
 
    i<-i+1
 }
-x[1]<-minim-step/2
-x[N+2]<-maxim+step/2
+
+if (dens){
+  x[1]<-minim-step/2
+  x[N]<-maxim+step/2
+}
 
 # remove zeros
-numposi<-0
-for (i in 1:N+2){
-  if (y[i]>0){
-      numposi<-numposi+1
-      y[numposi]<-y[i]
-      x[numposi]<-x[i]
-  }
-}
-x<-x[1:numposi]
-y<-y[1:numposi]
+#numposi<-0
+#for (i in 1:N+2){
+#  if (y[i]>0){
+#      numposi<-numposi+1
+#      y[numposi]<-y[i]
+#      x[numposi]<-x[i]
+#  }
+#}
+#x<-x[1:numposi]
+#y<-y[1:numposi]
 
 return(list(x=x,y=y))
 

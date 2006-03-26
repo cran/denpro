@@ -152,10 +152,12 @@ while (i<=itemnum){
 }
 
 newparent<-newparent[1:newlkm]
-newcenter<-newcenter[,1:newlkm]
+if (newlkm<=1) newcenter<-matrix(newcenter[,1],d,1) 
+else newcenter<-newcenter[,1:newlkm]
 newvolume<-newvolume[1:newlkm]
 newlevel<-newlevel[1:newlkm]
-newdistcenter<-newdistcenter[,1:newlkm]
+if (newlkm<=1) newdistcenter<-matrix(newdistcenter[,1],d,1) 
+else newdistcenter<-newdistcenter[,1:newlkm]
 newproba<-newproba[1:newlkm]
 
 return(list(parent=newparent,level=newlevel,volume=newvolume,center=newcenter,

@@ -3,12 +3,30 @@ mean=0,sig=1,df=1,
 gnum=1000,d=1,R=3,qqtype="1d")
 {
 if (qqtype=="1d"){
-   n<-dim(dendat)[1]
+   n<-length(dendat) #dim(dendat)[1]
    p<-(seq(1:n)-1/2)/n
    if (compa=="gauss") x<-qnorm(p,mean=mean,sd=sig)
-   if (compa=="student") x<-qt(p,df=df)
-   if (compa=="unif") x<-qunif(p)
-   if (compa=="exp") x<-qexp(p)
+   if (compa=="student") x<-sig*qt(p,df=df)+mean
+   if (compa=="unif") x<-sig*qunif(p)+mean
+   if (compa=="exp") x<-sig*qexp(p)+mean
+   if (compa=="doubleexp"){
+       alku<-which(p<0.5)
+       loppu<-which(p>=0.5)
+       x[alku]<--sig*qexp(1-2*p[alku])+mean
+       x[loppu]<-sig*qexp(2*p[loppu]-1)+mean
+   }
+   y<-dendat[order(dendat)]
+   tyyppi<-"p"
+   xlab<-"compared quantiles"
+   ylab<-"empirical quantiles"
+}
+if (qqtype=="lower"){
+   n<-length(dendat) #dim(dendat)[1]
+   p<-(seq(1:n)-1/2)/n
+   if (compa=="gauss") x<-qnorm(p/2,mean=mean,sd=sig)
+   if (compa=="student") x<-sig*qt(p/2,df=df)+mean
+   if (compa=="unif") x<-sig*qunif(p/2)+mean
+   if (compa=="exp") x<-sig*qexp(p/2)+mean
    y<-dendat[order(dendat)]
    tyyppi<-"p"
    xlab<-"compared quantiles"
@@ -27,7 +45,7 @@ if (qqtype=="p2v"){
 plot(x,y,type=tyyppi,ylab=ylab,xlab=xlab)
 maxxy<-max(max(x),max(y))
 minxy<-min(min(x),min(y))
-segments(minxy,minxy,maxxy,maxxy)
+segments(minxy,minxy,maxxy,maxxy,col="green")
 }
 
 

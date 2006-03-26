@@ -5,10 +5,12 @@ gnum=1000,d=1,R=3,pptype="1d")
 if (pptype=="1d"){
    p<-dendat[order(dendat)]
    if (compa=="gauss") y<-pnorm(p,mean=mean,sd=sig)
-   if (compa=="student") y<-pt(p,df=df)
-   if (compa=="unif") y<-punif(p)
-   if (compa=="exp") y<-pexp(p)
-   n<-dim(dendat)[1]
+   if (compa=="student") y<-pt((p-mean)/sig,df=df)
+   if (compa=="unif") y<-punif((p-mean)/sig)
+   if (compa=="exp") y<-pexp((p-mean)/sig)
+   if (compa=="doubleexp") 
+      y<-0.5*(1-pexp(-(p-mean)/sig))+0.5*pexp((p-mean)/sig)
+   n<-length(dendat) #dim(dendat)[1]
    x<-seq(1:n)/n
    tyyppi<-"p"
    xlab<-"empirical distribution function"

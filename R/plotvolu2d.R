@@ -1,4 +1,4 @@
-plot2dvolu<-function(vd,theta=NULL,phi=NULL,typer="flat")
+plotvolu2d<-function(vd,theta=NULL,phi=NULL,typer="flat")
 {
 # typer "dens"/"flat"
 
@@ -38,8 +38,9 @@ if (vd$type=="radius"){
 
 if (vd$type=="proba"){
 if (is.null(theta)) theta<--130
+if (vd$norma) xlab<-"normalized volume" else xlab<-"volume"
 persp(vd$x,vd$y,vd$z,
-xlab="volume",ylab="",zlab="radius",ticktype="detailed",
+xlab=xlab,ylab="",zlab="radius",ticktype="detailed",
 phi=phi,theta=theta)
 }
 

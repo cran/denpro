@@ -17,7 +17,7 @@ if (!is.null(seed)){
 
 if (!is.null(N)){
     #eg<-evalgrid(M,sig,p,N)
-    eg<-eval.func("mixt",N,sig=sig,M=M,p=p)
+    eg<-pcf.func("mixt",N,sig=sig,M=M,p=p)
     return(eg)
 }
 

@@ -16,7 +16,7 @@ treedisc(lst, pcf, ngrid = NULL, r = NULL, type = NULL)
 \arguments{
   \item{lst}{level set tree or a shape tree; output of for example "leafsfirst"}
   \item{pcf}{piecewise constant function; 
-  output of for example "pcf.kern" or "eval.func";
+  output of for example "pcf.kern" or "pcf.func";
   "lst" should be the level set tree or shape tree of "pcf"}
   \item{ngrid}{positive integer; the number of levels which the pruned tree
   will have}
@@ -37,8 +37,8 @@ a level set tree or a shape tree which contains fewer levels than the input
 \code{\link{leafsfirst}}
 }
 \examples{
-dendat<-sim.exa(n=100)
-pcf<-pcf.kern(dendat,h=1,N=c(25,25))
+dendat<-sim.data(n=100,type="mulmod")
+pcf<-pcf.kern(dendat,h=1,N=c(32,32))
 lst<-leafsfirst(pcf)          # level set tree
 td<-treedisc(lst,pcf,ngrid=30)
 
