@@ -24,7 +24,7 @@ Makes a plot to the current graphics window.
 \code{\link{branchmap}}
 }
 \examples{
-dendat<-sim.exa(n=200)
+dendat<-sim.data(n=200,type="mulmod")
 
 h1<-0.9
 h2<-2.2
@@ -37,7 +37,6 @@ estiseq<-lstseq.kern(dendat,hseq,N)
 bm<-branchmap(estiseq)
 
 plotbranchmap(bm)
-
 
 ## The function is currently defined as
 function(bm,phi=55,theta=30)

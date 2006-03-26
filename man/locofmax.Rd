@@ -12,7 +12,7 @@ locofmax(pcf)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{pcf}{piecewise constant function; output of "pcf.kern" or "eval.func"}
+  \item{pcf}{piecewise constant function; output of "pcf.kern" or "pcf.func"}
 }
 %\details{}
 \value{
@@ -25,11 +25,11 @@ this is defined as the barycenter of the set where the function has the maximum
 
 \seealso{ 
 \code{\link{pcf.kern}},
-\code{\link{eval.func}}
+\code{\link{pcf.func}}
 }
 \examples{
-dendat<-sim.exa(n=100)
-pcf<-pcf.kern(dendat,h=1,N=c(25,25))
+dendat<-sim.data(n=100,type="mulmod")
+pcf<-pcf.kern(dendat,h=1,N=c(32,32))
 
 locofmax(pcf)
 

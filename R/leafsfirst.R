@@ -1,13 +1,14 @@
 leafsfirst<-function(pcf=NULL,lev=NULL,refe=NULL,type="lst",levmet="radius",
 ordmet="etaisrec",ngrid=NULL,
-dendat=NULL,rho=0)
+dendat=NULL,rho=0,propor=NULL)
 {
 # pcf is a piecewise constant object
 # type= "lst"/"shape"
 # levmet= "radius"/"proba"
 
-if (!is.null(lev)){
+if ((!is.null(lev)) || (!is.null(propor))){
     type<-"shape"
+    if (!is.null(propor)) lev<-propor*max(pcf$value)
     if (is.null(refe)) refe<-locofmax(pcf)
 }
 if (!is.null(dendat)) type<-"tail"

@@ -9,7 +9,8 @@ Calculates a scale of kernel estimates corresponding to a scale of smoothing
 parmeters. 
 }
 \usage{
-lstseq.kern(dendat, hseq, N, Q = NULL, kernel = "epane", hw = NULL, algo = "leafsfirst", level = 0.1)
+lstseq.kern(dendat, hseq, N, Q = NULL, kernel = "epane", hw = NULL, 
+algo = "leafsfirst", level = 0.1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -46,7 +47,7 @@ lstseq.kern(dendat, hseq, N, Q = NULL, kernel = "epane", hw = NULL, algo = "leaf
 \code{\link{scaletable}}
 }
 \examples{
-dendat<-sim.exa(n=200)
+dendat<-sim.data(n=200,type="mulmod")
 
 h1<-0.9
 h2<-2.2
@@ -57,5 +58,5 @@ N<-c(16,16)
 estiseq<-lstseq.kern(dendat,hseq,N)
 
 }
-\keyword{multivariate}% at least one, from doc/KEYWORDS
+\keyword{smooth}% at least one, from doc/KEYWORDS
 

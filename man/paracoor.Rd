@@ -8,10 +8,14 @@ the coordinate axes are drawn parallel to each other and the
 coordinates of a single observation are joined with lines.
 }
 \usage{
-paracoor(dendat)
+paracoor(dendat, xmargin = 0.1,
+paletti = matrix("black",dim(dendat)[1],1))
 }
 \arguments{
   \item{dendat}{n*d data matrix of real numbers}
+  \item{xmargin}{positive real number; empty space in left and right}
+  \item{paletti}{n vector of colors; the lines will be colored with 
+   these colors}
 }
 \value{
 Makes a plot on the graphics window
@@ -21,7 +25,7 @@ Makes a plot on the graphics window
 
 %\seealso{ ~~objects to See Also as \code{\link{~~fun~~}}, ~~~ }
 \examples{
-dendat<-sim.exa(n=100)
+dendat<-sim.data(n=100,type="mulmod")
 paracoor(dendat)
 
 set.seed(1)
@@ -34,4 +38,4 @@ paracoor(dendat)
 
 }
 \keyword{multivariate}
-\keyword{hplot}
+

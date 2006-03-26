@@ -5,18 +5,16 @@ Q=NULL,frekv=NULL,cvol=TRUE,ccen=TRUE,cfre=FALSE)
 d<-dim(tr$upp)[2]
 
 if (tr$left[1]==0){
-
-parent=c(0)
-sepvalnor=c(tr$mean[1])
-invalue=c(tr$mean[1])
-volume=c(tr$volume[1])
-rec<-matrix(0,2*d,1)
-for (j in 1:d){
-   rec[2*j-1]<-tr$suppo[2*j-1]+tr$low[1,j]*tr$step[j]
-   rec[2*j]<-  tr$suppo[2*j-1]+tr$upp[1,j]*tr$step[j]
-}
-center=t(cenone(rec))
-
+  parent=c(0)
+  sepvalnor=c(tr$mean[1])
+  invalue=c(tr$mean[1])
+  volume=c(tr$volume[1])
+  rec<-matrix(0,2*d,1)
+  for (j in 1:d){
+     rec[2*j-1]<-tr$suppo[2*j-1]+tr$low[1,j]*tr$step[j]
+     rec[2*j]<-  tr$suppo[2*j-1]+tr$upp[1,j]*tr$step[j]
+  }
+  center=t(cenone(rec))
 }
 
 else{
@@ -78,7 +76,7 @@ inlevseq[2:(Q+1)]<-levseq
 insuppo<-matrix(0,2*d+1,1)
 insuppo[2:(2*d+1)]<-tr$suppo
 instep<-matrix(0,d+1,1)
-instep[2:(d+1)]<-tr$step
+instep[2:(d+1)]<-stepcalc(tr$support,tr$N)    #tr$step
 inleft<-matrix(0,nodenumOfTree+1,1)
 inleft[2:(nodenumOfTree+1)]<-tr$left
 inright<-matrix(0,nodenumOfTree+1,1)
@@ -86,9 +84,9 @@ inright[2:(nodenumOfTree+1)]<-tr$right
 inparent<-matrix(0,nodenumOfTree+1,1)
 inparent[2:(nodenumOfTree+1)]<-parent
 inval<-matrix(0,nodenumOfTree+1,1)
-inval[2:(nodenumOfTree+1)]<-tr$val
+inval[2:(nodenumOfTree+1)]<-tr$mean  #tr$val
 invec<-matrix(0,nodenumOfTree+1,1)
-invec[2:(nodenumOfTree+1)]<-tr$vec
+invec[2:(nodenumOfTree+1)]<-tr$direc
 
 for (i in 1:(nodenumOfTree+1)){
   if (is.na(inval[i])){

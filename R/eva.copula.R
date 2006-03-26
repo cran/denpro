@@ -1,4 +1,5 @@
-eva.copula<-function(x,type="gauss",marginal="unif",sig=rep(1,length(x)),r=0,t=1,g=1)
+eva.copula<-function(x,type="gauss",marginal="unif",sig=rep(1,length(x)),r=0,
+t=rep(4,length(x)),g=1)
 {
 # sig is std of marginals, r is the correlation coeff, 
 # t is deg of freedom
@@ -9,11 +10,11 @@ u<-matrix(0,d,1)
 
 if (marginal=="unif"){
    for (i in 1:d){
-      u[i]<-x[i]/sig[i]+1/2
+      u[i]<-x[i]/sig[i]  #+1/2
       marg[i]<-1/sig[i]
    }
 }
-if (marginal=="normal"){
+if ((marginal=="normal")||(marginal=="gauss")){
    for (i in 1:d){
       u[i]<-pnorm(x[i]/sig[i])
       marg[i]<-evanor(x[i]/sig[i])/sig[i]
@@ -21,21 +22,25 @@ if (marginal=="normal"){
 }
 if (marginal=="student"){
    for (i in 1:d){
-      u[i]<-pt(x[i]/sig[i],df=t)
-      marg[i]<-dt(x[i]/sig[i],df=t)/sig[i]
+      u[i]<-pt(x[i]/sig[i],df=t[i])
+      marg[i]<-dt(x[i]/sig[i],df=t[i])/sig[i]
    }
 }
 if (type=="gauss"){
    d<-2
-   x1<-qnorm(u,sd=1)
-   x2<-qnorm(v,sd=1)
-   produ<-dnorm(x1,sd=1)*dnorm(x2,sd=1)
+   x1<-qnorm(u[1],sd=1)
+   x2<-qnorm(u[2],sd=1)
 
-   nelio<-(x1^2+x2^2-2*r*x1*x2)/(1-r^2)
-   vakio<-(2*pi)^(-d/2) 
-   g<-vakio*(1-r^2)^(-1/2)*exp(-(1/2)*nelio)
+#   produ<-dnorm(x1,sd=1)*dnorm(x2,sd=1)
+#   nelio<-(x1^2+x2^2-2*r*x1*x2)/(1-r^2)
+#   vakio<-(2*pi)^(-d/2) 
+#   g<-vakio*(1-r^2)^(-1/2)*exp(-(1/2)*nelio)
+#   val<-g/produ*marg[1]*marg[2]
 
-   val<-g/produ*marg1*marg2
+  copuval<-(1-r^2)^(-1/2)*
+  exp(-(x1^2+x2^2-2*r*x1*x2)/(2*(1-r^2)))/exp(-(x1^2+x2^2)/2)
+  val<-copuval*marg[1]*marg[2]
+
 }
 if (type=="gumbel"){
   link<-function(y,g){ return ( (-log(y))^g ) }

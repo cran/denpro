@@ -1,8 +1,9 @@
-moodilkm<-function(vanhat){
+moodilkm<-function(vanhat)
+{
 #Lasketaan moodien lukumaara tiheyspuusta.
 #Tiheyspuusta kaytettavissa vektori vanhat.
 #Mikali solmu ei ole minkaan solmun vanhempi, se on lehti.
-#
+
 pit<-length(vanhat)
 leima<-matrix(0,pit,1)
 i<-1

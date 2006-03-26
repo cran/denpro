@@ -1,12 +1,13 @@
-multitree<-function(parents){
+multitree<-function(parents)
+{
 #Makes sibling-links and child-links
-#
+
 itemnum<-length(parents)
 sibling<-matrix(0,itemnum,1)
 child<-matrix(0,itemnum,1)
 roots<-matrix(0,itemnum,1)
 siborder<-matrix(0,itemnum,1)
-#
+
 rootnum<-0
 for (i in itemnum:1){
   par<-parents[i]

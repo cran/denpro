@@ -1,5 +1,7 @@
-draw.levset<-function(pcf,lev,bary=NULL)
+draw.levset<-function(pcf,lev=NULL,bary=NULL,propor=0.1)
 {
+
+if (is.null(lev)) lev<-propor*max(pcf$value)
 
 d<-length(pcf$N)
 step<-matrix(0,d,1)

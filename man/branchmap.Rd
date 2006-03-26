@@ -31,7 +31,7 @@ rootpaletti = NULL, type = "jump")
   \item{z}{z-coordinate is the excess mass}
   \item{col}{colors for the graph of the 2D function}
 }
-\references{http://denstruct.net}
+%\references{http://denstruct.net}
 \author{Jussi Klemelä}
 %\note{ ~~further notes~~ }
 
@@ -40,7 +40,7 @@ rootpaletti = NULL, type = "jump")
 \code{\link{plotbranchmap}}
 }
 \examples{
-dendat<-sim.exa(n=200)
+dendat<-sim.data(n=200,type="mulmod")
 
 h1<-0.9
 h2<-2.2
@@ -56,6 +56,7 @@ plotbranchmap(bm)
 
 }
 
+\keyword{smooth}  
 \keyword{multivariate}  % at least one, from doc/KEYWORDS
 
 

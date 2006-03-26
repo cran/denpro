@@ -37,31 +37,9 @@ modecent(lst)
 \examples{
 set.seed(1)
 dendat<-matrix(rnorm(20),10)   #10*2 data-matrix
-pcf<-pcf.kern(dendat,h=2,N=c(10,10))
+pcf<-pcf.kern(dendat,h=2,N=c(16,16))
 lst<-leafsfirst(pcf)
 modecent(lst)
-
-#set.seed(1)
-#dendat<-matrix(rnorm(20),10)   #10*2 data-matrix
-#ph<-profhist(dendat,binlkm=3)
-#modecent(ph)           
-
-#          [,1]      [,2]
-#[1,] 2.0004324 -1.593620
-#[2,] 0.3798261  0.890701
-
-#recnum<-3
-#d<-2
-#values<-seq(1:recnum)
-#recs<-matrix(0,recnum,2*d)
-#recs[1,]<-c(0,1,0,1)
-#recs[2,]<-c(0,1,1,2)
-#recs[3,]<-c(1,2,0,2)
-#pg<-profgene(values,recs)    
-#modecent(pg)
-
-#     [,1] [,2]
-#[1,]  1.5    1  
 
 }
 \keyword{multivariate}%-- one or more ...

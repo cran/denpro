@@ -52,7 +52,7 @@ inN[2:(d+1)]<-N
 if (kernel=="epane") kertype<-1
 else kertype<-2  # gaussian
 
-kg<-.C("kergridC",
+kg<-.C("kergrid",
                as.integer(extMaxnode),
                as.integer(extMaxvals),
                as.double(dendat),

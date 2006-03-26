@@ -2,10 +2,12 @@
 \alias{plottree}
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{
-Makes a tree plot of a level set tree
+Makes a tree plot of a level set tree,
+of a shape tree, or of a tail tree
 }
 \description{
-Plots a tree plot of a level set tree to the graphics window.
+Plots a tree plot of a level set tree, of a shape tree, 
+or of a tail tree to the graphics window.
 }
 \usage{
 plottree(lst, 
@@ -13,10 +15,9 @@ plot=T, data=F, crit=NULL, orderrule="distcenter",
 modelabel=TRUE, ptext=0, leimat=NULL, symbo=NULL, 
 info=NULL, infolift=0, infopos=0, infochar=NULL,
 xmarginleft=0, xmarginright=0, ymargin=0, 
-xlim=NULL, ylim=NULL, 
-col="black", col.axis="black", linecol=rep("black",length(lst$parent)), 
-pch=21, 
-dimen=NULL, yaxt="s", axes=T)
+xlim=NULL, ylim=NULL, col="black", col.axis="black", 
+linecol=rep("black",length(lst$parent)), 
+pch=21, dimen=NULL, yaxt="s", axes=T)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -106,18 +107,12 @@ dimen=NULL, yaxt="s", axes=T)
 }
 
 \examples{
-dendat<-sim.exa(n=50)
+dendat<-sim.data(n=50,type="mulmod")
 
-pcf<-pcf.kern(dendat,h=1,N=c(25,25))
+pcf<-pcf.kern(dendat,h=1,N=c(32,32))
 lst<-leafsfirst(pcf)
 td<-treedisc(lst,pcf,ngrid=30)
 plottree(td)
-
-#pk<-profkern(dendat,h=1,N=c(8,8),Q=4)
-#plottree(pk,ptext=0.01)
-
-#ph<-profhist(dendat,binlkm=3)  
-#plottree(ph,ptext=0.01)
 
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS

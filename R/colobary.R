@@ -1,9 +1,11 @@
 colobary<-function(parent,paletti,repretype="A",roots=NULL,
-modecolo=NULL,modepointer=NULL
+modecolo=NULL,modepointer=NULL #,segtype="char"
 )
 {
 nodenum<-length(parent)
-colot<-matrix("",nodenum,1)
+#if (segtype=="char") colot<-matrix("",nodenum,1) 
+#else 
+colot<-matrix(0,nodenum,1)
 
 fb<-findbranch(parent)$indicator
 modloc<-moodilkm(parent)$modloc
@@ -52,11 +54,11 @@ while (i<=moodilkm){
 
      child<-parent[cur]
 
-     if ((fb[cur]==1) && (colot[child]=="")){ #cur is a result of a branch 
+     if ((fb[cur]==1) && (colot[child]==0)){ #cur is a result of a branch 
            palerun<-palerun+1
            colot[child]<-paletti[palerun]
      }      
-     else if (colot[child]=="") colot[child]<-colot[cur]
+     else if (colot[child]==0) colot[child]<-colot[cur]
 
      cur<-child
   }

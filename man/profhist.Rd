@@ -10,7 +10,7 @@ returns the level set tree of a histogram,
 which is constructed from bins of equal size.
 }
 \usage{
-profhist(dendat, binlkm, cvol=T, ccen=T, cfre=F)
+profhist(dendat, binlkm, cvol=TRUE, ccen=TRUE, cfre=FALSE)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -19,12 +19,12 @@ profhist(dendat, binlkm, cvol=T, ccen=T, cfre=F)
   number of bins of the histogram estimate in one direction. 
   We use the same number of bins for every direction, thus the total
   number of bins is binlkm to the power of d}
- \item{cvol}{T or F; TRUE if one wants that the volumes of
+ \item{cvol}{TRUE if one wants that the volumes of
  the separated parts of the level sets are returned, 
  note that one needs volumes for drawing the volume plot}
- \item{ccen}{T or F; TRUE if one wants that the barycenters of the 
+ \item{ccen}{TRUE if one wants that the barycenters of the 
  separated parts of the level sets are returned}
- \item{cfre}{T or F; TRUE if one wants that the frequencies of the
+ \item{cfre}{TRUE if one wants that the frequencies of the
  separated parts of the level sets are returned }
 }
 %\details{ }
@@ -77,52 +77,6 @@ touch each other.}
 set.seed(1)
 dendat<-matrix(rnorm(20),10)   #10*2 data-matrix
 ph<-profhist(dendat,binlkm=3,cfre=TRUE)
-#ph
-
-#$parent
-#     [,1] [,2] [,3] [,4]
-#[1,]    0    0    1    3
-#
-#$level
-#           [,1]       [,2]      [,3]      [,4]
-#[1,] 0.09935159 0.09935159 0.1987032 0.3974064
-#
-#$invalue
-#           [,1]       [,2]      [,3]      [,4]
-#[1,] 0.09935159 0.09935159 0.1987032 0.3974064
-#
-#$volume
-#         [,1]     [,2]     [,3]     [,4]
-#[1,] 5.032632 1.006526 2.013053 1.006526
-#
-#$center
-#           [,1]      [,2]        [,3]      [,4]
-#[1,] -0.1063558  2.000432 -0.02532547 0.3798261
-#[2,]  0.6422689 -1.593620  0.26962082 0.8907010
-#
-#$nodefrek
-#          [,1]       [,2]      [,3]      [,4]
-#[1,] 0.8941643 0.09935159 0.5961095 0.3974064
-#
-#$recs
-#            [,1]        [,2]       [,3]       [,4]
-#[1,] -0.83562861 -0.02532547  1.5117812  2.7539415
-#[2,] -0.02532547  0.78497766  0.2696208  1.5117812
-#[3,] -0.83562861 -0.02532547 -0.9725395  0.2696208
-#[4,]  1.59528080  2.40558394 -2.2146999 -0.9725395
-#[5,] -0.02532547  0.78497766 -0.9725395  0.2696208
-#[6,] -0.83562861 -0.02532547  0.2696208  1.5117812
-#
-#$hisfrekv
-#           [,1]      [,2]      [,3]       [,4]       [,5]       [,6]
-#[1,] 0.09935159 0.3974064 0.1987032 0.09935159 0.09935159 0.09935159
-#
-#$lsets
-#     [,1] [,2] [,3] [,4] [,5] [,6]
-#[1,]    1    0    1    1    1    1
-#[2,]    0    1    0    0    0    0
-#[3,]    0    0    0    0    1    1
-#[4,]    0    0    0    0    0    1
 
 }
 
