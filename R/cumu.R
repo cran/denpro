@@ -10,7 +10,7 @@ cumu<-function(values,recs,frekv=NULL){
 #   lsets is levnum*atomnum-matrix,
 #   atoms is recs but rows in different order
 #   frekv is also only ordered differently
-#
+
 jarj<-omaord(values,recs,frekv)
 values<-jarj$values
 recs<-jarj$recs

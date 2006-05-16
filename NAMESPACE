@@ -27,8 +27,10 @@ prunemodes,
 scaletable,
 shape2d,
 sim.data,
+slicing,
 stseq,
-treedisc
+treedisc,
+tree.segme
 )
 
 useDynLib(denpro)

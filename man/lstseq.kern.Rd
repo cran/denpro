@@ -9,26 +9,29 @@ Calculates a scale of kernel estimates corresponding to a scale of smoothing
 parmeters. 
 }
 \usage{
-lstseq.kern(dendat, hseq, N, Q = NULL, kernel = "epane", hw = NULL, 
-algo = "leafsfirst", level = 0.1)
+lstseq.kern(dendat, hseq, N, lstree = NULL, level = NULL,
+Q = NULL, kernel = "epane", hw = NULL, algo = "leafsfirst")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{dendat}{n*d matrix of real numbers; the data matrix}
-  \item{hseq}{a vector of positive real numbers, the sequence should be monotonic}
+  \item{hseq}{a vector of positive real numbers;
+   the sequence should be monotonic}
   \item{N}{vector of d positive integers; the dimension of the grid where the
-  kernel estimate will be evaluated; we evaluate the estimate on a regular
-  grid which contains the support of the kernel estimate}
+    kernel estimate will be evaluated; we evaluate the estimate on a regular
+    grid which contains the support of the kernel estimate}
+  \item{lstree }{ if NULL, then level set trees are not calculated }
+  \item{level}{ NULL or a real number between 0 and 1; 
+   if NULL, then shape trees are not calculated;
+   if number, then it is the level in percents of the maximum
+   of the level sets for which the shape trees are calculated }
   \item{Q}{positive integer; needed only in the DynaDecompose algorithm, see
-  parameter "algo"; the number of levels in the level set trees}
+   parameter "algo"; the number of levels in the level set trees}
   \item{kernel}{"epane" or "gauss"; the kernel is either the
-  Bartlett-Epanechnikov product kernel or the standard Gaussian}
+   Bartlett-Epanechnikov product kernel or the standard Gaussian}
   \item{hw}{positive integer; parameter for time localized kernel estimation;
-  gives the smoothing parameter for the temporal smoothing}
+   gives the smoothing parameter for the temporal smoothing}
   \item{algo}{"leafsfirst" or "dynadecompose"}
-  \item{level}{NULL or a real number between 0 and 1; 
-  the level of the level sets for which the shape tree will be calculated,
-  in percents of the maximum; if NULL, then shape trees will not be calculated}
 }
 %\details{}
 \value{

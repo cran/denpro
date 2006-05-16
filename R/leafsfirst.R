@@ -32,7 +32,7 @@ else{
 if (type=="lst"){
   lkm<-length(pcf$value)
   distat<-pcf$value
-  infopointer<-seq(1,lkm)
+  infopointer<-seq(1,lkm)     # links from nodes to recs
 }
 else if (type=="shape"){
   lenni<-length(pcf$value)
@@ -277,28 +277,28 @@ if (type=="tail"){
 }
 
 if (type!="tail"){
-lf<-list(
-parent=parent,volume=volume,center=t(ekamome),level=level,
-root=root,
-#child=child,sibling=sibling,  #virhe??
-infopointer=infopointer,
-proba=proba,#radius=radius,
-#branchradius=sqrt(branchradius),
-distcenter=t(distcenter),
-refe=refe,maxdis=maxdis,bary=bary)
+  lf<-list(
+  parent=parent,volume=volume,center=t(ekamome),level=level,
+  root=root,
+  #child=child,sibling=sibling,  #virhe??
+  infopointer=infopointer,
+  proba=proba,#radius=radius,
+  #branchradius=sqrt(branchradius),
+  distcenter=t(distcenter),
+  refe=refe,maxdis=maxdis,bary=bary,lev=lev)
 }
 else{
-lf<-list(
-parent=parent,volume=volume,center=center,
-level=level,
-root=root,
-#child=child,sibling=sibling,  #virhe??
-infopointer=infopointer,
-#proba=proba,#radius=radius,
-#branchradius=sqrt(branchradius),
-#distcenter=t(distcenter),
-refe=refe,maxdis=maxdis,
-dendat=dendat)
+  lf<-list(
+  parent=parent,volume=volume,center=center,
+  level=level,
+  root=root,
+  #child=child,sibling=sibling,  #virhe??
+  infopointer=infopointer,
+  #proba=proba,#radius=radius,
+  #branchradius=sqrt(branchradius),
+  #distcenter=t(distcenter),
+  refe=refe,maxdis=maxdis,
+  dendat=dendat)
 }
 
 # if ngrid given, reduce the lst

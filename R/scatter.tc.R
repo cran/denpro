@@ -1,4 +1,4 @@
-scatter.tc<-function(dendat,tt,paletti=NULL,xlim=NULL,ylim=NULL)
+scatter.tc<-function(dendat,tt,paletti=NULL,xlim=NULL,ylim=NULL,pch=21,cex=1)
 {
 if (is.null(xlim)) xlim<-c(min(dendat[,1]),max(dendat[,1]))
 if (is.null(ylim)) ylim<-c(min(dendat[,2]),max(dendat[,2]))
@@ -14,7 +14,7 @@ col<-colobary(tt$parent,paletti)
 
 plot(dendat[tt$infopoint,],col=col,
 xlim=xlim,ylim=ylim,
-xlab="coordinate 1",ylab="coordinate 2")
+xlab="coordinate 1",ylab="coordinate 2",pch=pch,cex=cex)
 
 }
 

@@ -5,8 +5,10 @@ info=NULL,infolift=0,infopos=0,infochar=NULL,
 xmarginleft=0,xmarginright=0,ymargin=0,
 xlim=NULL,ylim=NULL,
 col="black",col.axis="black",linecol=rep("black",length(lst$parent)),
-pch=21,dimen=NULL,yaxt="s",axes=T){    
-#
+pch=21,dimen=NULL,yaxt="s",axes=T,
+cex=NULL,nodemag=NULL,linemag=1)
+{    
+
 # create vector verticalPos
 # find modes, number of modes, attach vertical position to modes
 # position of parent is the mid of positions of children:
@@ -90,7 +92,7 @@ if (is.null(ylim)) ylim<-c(0,max(level)+ptext+ymargin)
 xlim<-c(min(verticalPos)-xmarginleft,max(verticalPos)+xmarginright)
 #axes<-
 plot(verticalPos,level,xlab="",ylab="",xlim=xlim,ylim=ylim,xaxt="n",
-col=col,col.axis=col.axis,pch=pch,yaxt=yaxt,axes=axes)  
+col=col,col.axis=col.axis,pch=pch,yaxt=yaxt,axes=axes,cex=nodemag)  
 
 for (i in 1:itemnum){
     if (parent[i]>0){
@@ -98,7 +100,7 @@ for (i in 1:itemnum){
         ychild<-level[i]
         xparent<-verticalPos[parent[i]]
         yparent<-level[parent[i]]
-        segments(xparent,yparent,xchild,ychild,col=linecol[i])
+        segments(xparent,yparent,xchild,ychild,col=linecol[i],lwd=linemag)
      }
 }                
 #
@@ -117,7 +119,7 @@ if (!is.null(info)){
    info<-format(info,digits=digits)
    adj<-NULL
    pos<-infopos
-   text(infolocx,infolocy,info,pos,adj)       
+   text(infolocx,infolocy,info,pos,adj,cex=cex)       
 }
 #
 # lets plot character info
@@ -132,7 +134,7 @@ if (!is.null(infochar)){
      infolocy[i]<-level[i]+infolift
    }
    pos<-infopos
-   text(infolocx,infolocy,infochar,pos)       
+   text(infolocx,infolocy,infochar,pos,cex=cex)       
 }
 #
 # lets plot labels for modes
@@ -169,7 +171,7 @@ for (i in 1:modenum){
     modelocx[i]<-xcoor[loc]
     modelocy[i]<-ycoor[loc]+ptext
 }
-text(modelocx,modelocy,labels)      
+text(modelocx,modelocy,labels,cex=cex)      
 ##
 }
 ###############

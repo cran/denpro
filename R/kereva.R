@@ -1,12 +1,13 @@
 kereva<-function(dendat,h,N,kernel="epane",trunc=3,threshold=0.0000001,
-hw=NULL)
+hw=NULL,weig=NULL)
 {
-#
+#weig=rep(1/dim(dendat)[1],dim(dendat)[1]))
+
 #source("~/kerle/profkernCRC.R")
 #dyn.load("/home/jsk/kerle/kerCeva")
 #dyn.load("/home/jsk/kerle/kerleCversio")
 #pk2<-profkernCRC(dendat,h,N,Q)
-#
+
 #set.seed(seed=1)
 #dendat<-matrix(rnorm(20),10)
 #h<-1 
@@ -14,12 +15,13 @@ hw=NULL)
 #Q<-3
 
 n<-dim(dendat)[1]
-d<-length(N)
+d<-dim(dendat)[2]  #length(N)
 
 if (kernel=="gauss") h<-h*trunc   #trunc<-3
 
-if (is.null(hw)) weig<-rep(1/n,n) 
-else{
+if (is.null(weig)) weig<-rep(1/n,n) 
+
+if (!is.null(hw)){
    weig<-weightsit(n,hw)
 
    dendatnew<-dendat
@@ -56,7 +58,9 @@ else{
 inN<-matrix(0,d+1,1)
 inN[2:(d+1)]<-N
 
-if (kernel=="epane") kertype<-1 else kertype<-2  # gaussian
+if (kernel=="radon") kertype<-3
+else if (kernel=="epane") kertype<-1 
+else kertype<-2  # gaussian
 
 kg<-.C("kergrid",
                as.integer(extMaxnode),

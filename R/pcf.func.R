@@ -3,7 +3,7 @@ sig=rep(1,length(N)), support=NULL, theta=NULL,
 g=1, M=NULL, p=NULL, mul=3, t=NULL, 
 marginal="normal", r=0,
 mu=NULL, xi=NULL, Omega=NULL, alpha=NULL, df=NULL, 
-a=0.5, b=0.5, distr=FALSE, std=1)   
+a=0.5, b=0.5, distr=FALSE, std=1) # contrast="loglik")   
 {
 # t<-rep(1,length(N))
 
@@ -17,6 +17,8 @@ if (d>1){
   recnum<-prod(N)
   value<-matrix(0,recnum,1)
   index<-matrix(0,recnum,d)
+
+  # new ############################################
 
   if (func=="student"){ 
      lowsuppo<-matrix(0,d,1)
@@ -79,7 +81,8 @@ if (d>1){
         x1<-qnorm(u[1],sd=1)
         x2<-qnorm(u[2],sd=1)
 
-        copuval<-(1-r^2)^(-1/2)*exp(-(x1^2+x2^2-2*r*x1*x2)/(2*(1-r^2)))/exp(-(x1^2+x2^2)/2)
+        copuval<-
+(1-r^2)^(-1/2)*exp(-(x1^2+x2^2-2*r*x1*x2)/(2*(1-r^2)))/exp(-(x1^2+x2^2)/2)
         valli<-copuval*margx[1]*margx[2]
         ########################################
 
@@ -95,9 +98,9 @@ if (d>1){
      high<-index
   }
 
-
-
 else{
+
+# old #########################################################
 
 if (is.null(support)){
 
@@ -192,7 +195,7 @@ support=support,N=N)
 
 }
 
-else{  # (d==1){
+else{  # (d==1){ ######################################################
 
   pcf<-eval.func.1D(func,N,
   support=support,g=g,std=std,distr=distr,

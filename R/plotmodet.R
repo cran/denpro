@@ -8,9 +8,10 @@ if (!is.null(horilines)) horilines<-mt$hseq[horilines]
 
 if (is.null(loga)) 
    if (!is.null(mt$type)){
-       if (mt$type=="bagghisto") loga<-F
-       if (mt$type=="carthisto") loga<-F
-       if (mt$type=="kernel") loga<-T
+       if (mt$type=="greedy") loga<-"not"
+       if (mt$type=="bagghisto") loga<-"not"
+       if (mt$type=="carthisto") loga<-"not"
+       if (mt$type=="kernel") loga<-"y"
    }
    else loga<-"y"
 

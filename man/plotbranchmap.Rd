@@ -32,7 +32,7 @@ lkm<-5
 hseq<-hgrid(h1,h2,lkm)
 
 N<-c(16,16)
-estiseq<-lstseq.kern(dendat,hseq,N)
+estiseq<-lstseq.kern(dendat,hseq,N,lstree=TRUE)
 
 bm<-branchmap(estiseq)
 

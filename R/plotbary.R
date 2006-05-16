@@ -7,7 +7,8 @@ xlim=NULL,ylim=NULL,
 nodesymbo=20,col=NULL,col.axis="black",collines=NULL,paletti=NULL,
 shift=0,shiftindex=NULL,
 modlabret=FALSE,modecolo=NULL,modepointer=NULL,colometh="lst",
-colothre=min(lst$level),lines=TRUE,wedge=FALSE,lty.wedge=2
+colothre=min(lst$level),lines=TRUE,wedge=FALSE,lty.wedge=2,title=TRUE,
+cex=NULL,nodemag=NULL
 )
 {
 
@@ -38,8 +39,8 @@ xlim<-c(min(xcoordinate)-xmarginleft,max(xcoordinate)+xmarginright)
 ylim<-c(0,max(level)+ptext+ymargin)
 
 plot(xcoordinate,level,xlab="",ylab="",xlim=xlim,ylim=ylim,
-pch=nodesymbo,col=col,col.axis=col.axis) 
-title(sub=paste("coordinate",as.character(coordi)))
+pch=nodesymbo,col=col,col.axis=col.axis,cex=nodemag) 
+if (title) title(sub=paste("coordinate",as.character(coordi)))
 
 if (lines){
    for (i in 1:nodenum){
@@ -111,7 +112,7 @@ for (i in 1:moodinum){
     modelocy[i]<-level[loc]+ptext
 }
 if (!is.null(shiftindex)) modelocx[shiftindex]<-modelocx[shiftindex]+shift
-text(modelocx,modelocy,labels)         
+text(modelocx,modelocy,labels,cex=cex)         
 
 if (modlabret){ 
    d<-dim(lst$center)[1]

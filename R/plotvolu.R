@@ -7,7 +7,8 @@ xlim=NULL,ylim=NULL,
 col="black",col.axis="black",
 cutlev=NULL,xaxt="n",
 exmavisu=NULL,bg="transparent",tyyppi="n",
-lty="solid",colo=FALSE,lowest="dens",proba=FALSE)
+lty="solid",colo=FALSE,lowest="dens",proba=FALSE,
+paletti=NULL,cex=NULL)
 {
 
 parents<-lst$parent
@@ -175,7 +176,8 @@ for (i in 1:nodenum){
      orivecs[i,3]<-orivecs[i,3]-oriminnu
    }
 }   
-if (modelabel) modelab<-plottext(parents,orivecs,ptext,leimat,symbo=symbo)  
+if (modelabel) 
+modelab<-plottext(parents,orivecs,ptext,leimat,symbo=symbo,cex=cex)  
 
 
 }  #tyyppi = "n"
@@ -188,11 +190,12 @@ if (colo) exmavisu<-1
 if (!is.null(exmavisu)){
 
 if (colo){
-  paletti<-c("red","blue","green",
-  "orange","navy","darkgreen",
-  "orchid","aquamarine","turquoise",
-  "pink","violet","magenta","chocolate","cyan",
-  colors()[50:657],colors()[50:657])
+  if (is.null(paletti))
+    paletti<-c("red","blue","green",
+    "orange","navy","darkgreen",
+    "orchid","aquamarine","turquoise",
+    "pink","violet","magenta","chocolate","cyan",
+    colors()[50:657],colors()[50:657])
 
   col<-colobary(lst$parent,paletti)
 }

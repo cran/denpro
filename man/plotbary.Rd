@@ -24,10 +24,10 @@ info=NULL, infolift=0, infopos=0,
 xmarginleft=0, xmarginright=0, ymargin=0, 
 xlim=NULL, ylim=NULL, 
 nodesymbo=20, col=NULL, col.axis="black", collines=NULL, paletti=NULL,
-shift=0,shiftindex=NULL,
-modlabret=FALSE,modecolo=NULL,modepointer=NULL,
-colometh = "lst", colothre = min(lst$level),
-lines=TRUE, wedge=FALSE, lty.wedge=2)
+shift=0, shiftindex=NULL,
+modlabret=FALSE, modecolo=NULL, modepointer=NULL, colometh = "lst", 
+colothre = min(lst$level), lines=TRUE, wedge=FALSE, lty.wedge=2, title=TRUE,
+cex=NULL, nodemag=NULL)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -114,6 +114,10 @@ lines=TRUE, wedge=FALSE, lty.wedge=2)
    ouuter limts for the points will be plotted; these outer limits have a
    wedge form}
   \item{lty.wedge}{"lty" parameter (line type) for the wedge lines}
+  \item{title}{ if TRUE, then the subtitle "coordinate i" is printed
+   when the coordinate is i }
+  \item{cex}{ magnification factor for the symbols; see "par" }
+  \item{nodemag}{ magnification factor for the the points }
 }
 \details{
 }

@@ -1,5 +1,9 @@
 /* 
+gcc -Wall -ansi -pedantic /home/jsk/denpro/src/kereva.c
+
+
 R CMD SHLIB -o /home/jsk/kerCeva /home/jsk/denpro/src/kereva.c
+
 dyn.load("/home/jsk/kerCeva")
 
 
@@ -289,7 +293,6 @@ double *outappu9)
                 }
              }
 
-
              /* epaarg<-point-dendat[i,] */
              for (j=1; j<=*d; j++){
         	  epaarg[j]=point[j]-dendat[i][j];
@@ -304,10 +307,9 @@ double *outappu9)
              if (*kertype==1){
                    val=epane(epaarg,hs,*d);
              }
-             else{
+             else if (*kertype==2){
 	           val=gauss(epaarg,hs,*d);
              }
-
 
 	     /* find whether gridpoint is already in tree */
              /* Obs. findend need inde */
@@ -570,7 +572,7 @@ adNodeLocation=numnode;
 	  */
 
 
-free(value);
+ free(value);
  free(minim); 
  free(maxim); 
  free(point); 
@@ -623,7 +625,6 @@ double gauss(double *x, double hs, int d)
 
     return (eres);
 }
-
 
 int digit(int luku, int* base, int d, int* inde)
 {

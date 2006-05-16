@@ -1,4 +1,4 @@
-draw.levset<-function(pcf,lev=NULL,bary=NULL,propor=0.1)
+draw.levset<-function(pcf,lev=NULL,bary=NULL,propor=0.1,col=NULL)
 {
 
 if (is.null(lev)) lev<-propor*max(pcf$value)
@@ -29,7 +29,8 @@ for (i in 1:lenni){
      y1<-pcf$support[3]+step[2]*pcf$down[i,2]
      y2<-pcf$support[3]+step[2]*pcf$high[i,2] 
 
-     polygon(c(x1,x2,x2,x1),c(y1,y1,y2,y2))  #,col="blue")
+     if (is.null(col)) polygon(c(x1,x2,x2,x1),c(y1,y1,y2,y2))  
+     else  polygon(c(x1,x2,x2,x1),c(y1,y1,y2,y2),col=col[i],lty="blank")
   }
   i<-i+1
 }

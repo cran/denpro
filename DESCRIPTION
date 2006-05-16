@@ -1,6 +1,6 @@
 Package: denpro
-Version: 0.8.1
-Date: 2006-03-26
+Version: 0.8.2
+Date: 2006-05-16
 Title: Visualization of multivariate, functions, sets, and data
 Author: Jussi Klemelä <klemela@rumms.uni-mannheim.de>
 Maintainer: Jussi Klemelä <klemela@rumms.uni-mannheim.de> 
@@ -23,4 +23,4 @@ Description:
   other density estimates, which have to be setwise constant. 
 License: GPL version 2 or newer
 URL: http://www.rni.helsinki.fi/~jsk/denpro
-Packaged: Thu Mar 30 10:47:49 2006; hornik
+Packaged: Fri May 19 22:01:55 2006; hornik

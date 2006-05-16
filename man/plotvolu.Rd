@@ -18,7 +18,8 @@ xlim=NULL, ylim=NULL,
 col="black", col.axis="black", 
 cutlev=NULL, xaxt="n",
 exmavisu=NULL, bg="transparent", tyyppi="n", lty="solid",colo=FALSE, 
-lowest = "dens", proba=FALSE)
+lowest="dens", proba=FALSE,
+paletti=NULL, cex=NULL)
 }
 \arguments{
   \item{lst}{level set tree or shape tree; list of vectors.
@@ -99,6 +100,10 @@ lowest = "dens", proba=FALSE)
   this option allows to plot functions with negative values}
   \item{proba}{TRUE, if one wants to plot a tail probability plot of a 
    shape tree}
+  \item{paletti}{the colors for the segments of the graph;
+   the colors are used to indicate the correspondence with the 
+   barycenter plot and thus the paletti should be the same }
+  \item{cex}{the magnification factor for the symbols; see "par" }
  }
 
 \value{A plot is made on the graphics window.}
