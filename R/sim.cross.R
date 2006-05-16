@@ -1,4 +1,4 @@
-sim.cross<-function(n=NULL,seed=1,N=NULL)
+sim.cross<-function(n=NULL,seed=1,N=NULL,sig1=0.5,sig2=1.5)
 {
 d<-2
 mixnum<-2
@@ -6,10 +6,10 @@ M<-matrix(0,mixnum,d)
 M[1,]<-c(0,0)      
 M[2,]<-c(0,0)      
 sig<-matrix(1,mixnum,d)
-sig[1,1]<-0.5 
-sig[1,2]<-1.5   
-sig[2,1]<-1.5   
-sig[2,2]<-0.5   
+sig[1,1]<-sig1 
+sig[1,2]<-sig2   
+sig[2,1]<-sig2   
+sig[2,2]<-sig1  
 p<-matrix(1,mixnum,1)
 p<-p/sum(p)
 

@@ -1,4 +1,4 @@
-plottext<-function(parents,vecs,lift=0,leimat=NULL,symbo=NULL){
+plottext<-function(parents,vecs,lift=0,leimat=NULL,symbo=NULL,cex=NULL){
 #
 mlkm<-moodilkm(parents)
 modloc<-mlkm$modloc
@@ -47,7 +47,7 @@ for (i in 1:moodinum){
     modelocx[i]<-(xcoor[2*loc-1]+xcoor[2*loc])/2
     modelocy[i]<-ycoor[2*loc-1]+lift
 }
-text(modelocx,modelocy,labels=labels)
+text(modelocx,modelocy,labels=labels,cex=cex)
 return(list(modelocx=modelocx,labels=labels))
 }
 

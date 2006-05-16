@@ -11,7 +11,8 @@ for some examples, or the distribution function.
 \usage{
 sim.data(n = NULL, seed = 1, N = NULL, type = "mulmod",
 M=NULL, sig=NULL, p=NULL, d=NULL,
-cova=NULL, marginal="student", t=NULL, df=NULL, distr=FALSE)
+cova=NULL, marginal="student", t=NULL, df=NULL, distr=FALSE,
+noisedim=1, sig1=0.5, sig2=1.5, diff=0.1)
 }
 
 \arguments{
@@ -37,6 +38,12 @@ cova=NULL, marginal="student", t=NULL, df=NULL, distr=FALSE)
   \item{distr}{internal (implemented for "1d2modal")
    TRUE, if one wants the distribution function instead of the
    density function}
+ \item{noisedim}{the number of noise dimension in the projection pursuit 
+  example ("fssk") }
+ \item{sig1}{ standard deviation for "cross" and "diff1d" }
+ \item{sig2}{ second standard deviation for "cross" }
+ \item{diff}{ parameter for "diff1d"; the difference between the 
+  Gaussians in the 1D mixture }
 }
 \details{
 When type="mixt", generates data from a mixture of Gaussians.

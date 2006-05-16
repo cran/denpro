@@ -4,6 +4,7 @@ modegraph<-function(estiseq,hseq=NULL,paletti=NULL)  #,reverse=F)
 
 if (is.null(hseq))
    if (!is.null(estiseq$type)){
+       if (estiseq$type=="greedy") hseq<--estiseq$hseq
        if (estiseq$type=="bagghisto") hseq<--estiseq$hseq
        if (estiseq$type=="carthisto")  hseq<--estiseq$leaf
        if (estiseq$type=="kernel")  hseq<-estiseq$hseq    

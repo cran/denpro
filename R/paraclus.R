@@ -1,7 +1,14 @@
 paraclus<-function(dendat,algo="kmeans",k=2,method="complete",
-scatter=FALSE,coordi=1,coordi2=2,levelmethod="center",
-startind=c(1:k),range="global")
+scatter=FALSE,coordi1=1,coordi2=2,levelmethod="center",
+startind=c(1:k),range="global",terminal=TRUE,coordi=1,
+paletti=NULL)
 {
+if (is.null(paletti)) paletti<-seq(1,2000)
+if ("algo"!="kmeans"){ 
+      method<-algo
+      algo<-"hclust"
+}
+
 n<-dim(dendat)[1]
 d<-dim(dendat)[2]
 colot<-c(colors()[2],colors()[3])
@@ -17,6 +24,7 @@ else if (algo=="hclust"){
        hc <- hclust(dis, method=method)
        ct<-cutree(hc,k=k)
        centers<-matrix(0,k,d)
+       for (ij in 1:k) centers[ij,]<-mean(data.frame(dendat[(ct==ij),]))
 }
 
 # calculate innerlevel
@@ -67,6 +75,32 @@ else{
 curcolo<-1
 ymin<-0  #min(level)
 ymax<-max(level)
+
+if (!terminal){
+       coordinate<-coordi
+       x<-dendat[,coordinate]
+       if (range=="global"){
+          xmin<-min(dendat) 
+          xmax<-max(dendat)
+       }
+       else{
+          xmin<-min(x)
+          xmax<-max(x)
+       }
+       plot(x="",y="",xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax))
+       for (j in 1:k){
+         if (curcolo==1) curcolo<-2 else curcolo<-1
+         polygon(c(xmin,xmax,xmax,xmin),
+                 c(classlevel[j],classlevel[j],
+                   classlevel[j]+maxlevel[j],classlevel[j]+maxlevel[j]),
+                 col=colot[curcolo]) 
+       }
+       points(x,level,col=paletti[ct])
+       if (scatter) plot(dendat[,coordi1],dendat[,coordi2], col = paletti[ct])
+
+}
+########################################################
+else{
 
 t<-1
 while (t<=times){
@@ -127,8 +161,10 @@ if (reminder>0){
 # scatter plot
 if (scatter){
    x11()
-   plot(dendat[,coordi],dendat[,coordi2], col = ct)
+   plot(dendat[,coordi1],dendat[,coordi2], col = ct)
 }
+
+} # if terminal
 
 }
 

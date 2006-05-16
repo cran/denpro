@@ -17,7 +17,8 @@ info=NULL, infolift=0, infopos=0, infochar=NULL,
 xmarginleft=0, xmarginright=0, ymargin=0, 
 xlim=NULL, ylim=NULL, col="black", col.axis="black", 
 linecol=rep("black",length(lst$parent)), 
-pch=21, dimen=NULL, yaxt="s", axes=T)
+pch=21, dimen=NULL, yaxt="s", axes=T,
+cex=NULL, nodemag=NULL, linemag=1)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -87,6 +88,9 @@ pch=21, dimen=NULL, yaxt="s", axes=T)
    barycenters available.}
   \item{yaxt}{axis type, see "par"}
   \item{axes}{T or F}
+  \item{cex}{ magnification factor for the symbols; see "par" }
+  \item{nodemag}{ magnification factor for the points }
+  \item{linemag}{ magnification factor for the lines joining the points }
 }
 \details{
 }

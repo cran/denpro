@@ -67,9 +67,16 @@ else{
 }
 
 index<-seq(1:N)
+len<-length(index)
+down<-matrix(0,len,1)
+high<-matrix(0,len,1)
+down[,1]<-index-1
+high[,1]<-index
+
 res<-list(
 value=value,
-down=index-1,high=index,  
+down=down,high=high,
+#down=index-1,high=index,  
 support=support,N=N)
 
 return(res)

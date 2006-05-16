@@ -8,7 +8,7 @@ Plots a level set of a 2D function
 Plots a level set of a piecewise constant 2D function.
 }
 \usage{
-draw.levset(pcf, lev=NULL, bary = NULL, propor=0.1)
+draw.levset(pcf, lev=NULL, bary = NULL, propor = 0.1, col=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,6 +17,8 @@ draw.levset(pcf, lev=NULL, bary = NULL, propor=0.1)
   \item{bary}{vector of 2 reals; the barycenter; if given will be plotted}
   \item{propor}{0<propor<1; the level set whose level is "propor"
    times the maximum value of the function will be drawn}
+  \item{col}{ the color of the lines of the plot;
+   for example "red" }
 }
 %\details{}
 \value{
