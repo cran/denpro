@@ -1,4 +1,4 @@
-colobary<-function(parent,paletti,repretype="A",roots=NULL,
+colobary<-function(parent,paletti,roots=NULL,
 modecolo=NULL,modepointer=NULL #,segtype="char"
 )
 {
@@ -9,10 +9,10 @@ colot<-matrix(0,nodenum,1)
 
 fb<-findbranch(parent)$indicator
 modloc<-moodilkm(parent)$modloc
-if (repretype=="B"){
-   fb<-findbranchB(parent,roots)$indicator
-   modloc<-moodilkmB(parent)$modloc
-}
+#if (repretype=="B"){
+#   fb<-findbranchB(parent,roots)$indicator
+#   modloc<-moodilkmB(parent)$modloc
+#}
 
 moodilkm<-length(modloc)
 palerun<-0

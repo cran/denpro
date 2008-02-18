@@ -23,7 +23,7 @@ modegraph(estiseq, hseq = NULL, paletti = NULL)
 mode graph
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 
 \seealso{

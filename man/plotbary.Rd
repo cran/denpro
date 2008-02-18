@@ -27,7 +27,7 @@ nodesymbo=20, col=NULL, col.axis="black", collines=NULL, paletti=NULL,
 shift=0, shiftindex=NULL,
 modlabret=FALSE, modecolo=NULL, modepointer=NULL, colometh = "lst", 
 colothre = min(lst$level), lines=TRUE, wedge=FALSE, lty.wedge=2, title=TRUE,
-cex=NULL, nodemag=NULL)
+cex=NULL, nodemag=NULL, cex.sub=1)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -114,10 +114,11 @@ cex=NULL, nodemag=NULL)
    ouuter limts for the points will be plotted; these outer limits have a
    wedge form}
   \item{lty.wedge}{"lty" parameter (line type) for the wedge lines}
-  \item{title}{ if TRUE, then the subtitle "coordinate i" is printed
+  \item{title}{if TRUE, then the subtitle "coordinate i" is printed
    when the coordinate is i }
-  \item{cex}{ magnification factor for the symbols; see "par" }
-  \item{nodemag}{ magnification factor for the the points }
+  \item{cex}{magnification factor for the symbols; see "par" }
+  \item{nodemag}{magnification factor for the the points }
+  \item{cex.sub}{magnification factor for the subtitle; see "par" }
 }
 \details{
 }
@@ -128,7 +129,7 @@ cex=NULL, nodemag=NULL)
 }
 
 %\references{http://www.rni.helsinki.fi/~jsk/denpro}
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 %\note{ ~~further notes~~ }
 
 % ~Make other sections like WARNING with \section{WARNING }{....} ~

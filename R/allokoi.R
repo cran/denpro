@@ -1,8 +1,8 @@
-allokoi<-function(vecs,cur,child,sibling,sibord,levels,volumes){
+allokoi<-function(vecs,cur,child,sibling,sibord,levels,volumes)
+{
 #Finds coordinates of a node
-#
 #sibord,levels,volumes are nodenum-vector
-#
+
 # Calculate the number of childs and sum of volumes of childs
 now<-child[cur]
 childnum<-1
@@ -12,9 +12,9 @@ while (sibling[now]>0){
   childnum<-childnum+1
   childvolume<-childvolume+volumes[now]
 }
-# 
+ 
 gaplen<-(volumes[cur]-childvolume)/(childnum+1)
-#
+
 if (childnum==1){
    now<-child[cur]
    xbeg<-gaplen+vecs[cur,1]

@@ -10,9 +10,9 @@ for some examples, or the distribution function.
 }
 \usage{
 sim.data(n = NULL, seed = 1, N = NULL, type = "mulmod",
-M=NULL, sig=NULL, p=NULL, d=NULL,
-cova=NULL, marginal="student", t=NULL, df=NULL, distr=FALSE,
-noisedim=1, sig1=0.5, sig2=1.5, diff=0.1)
+M = NULL, sig = NULL, p = NULL, d = NULL,
+cova = NULL, marginal = NULL, t = NULL, df = NULL, distr = FALSE,
+noisedim = 1, sig1 = 0.5, sig2 = 1.5, diff = 0.1)
 }
 
 \arguments{
@@ -32,9 +32,11 @@ noisedim=1, sig1=0.5, sig2=1.5, diff=0.1)
   \item{d}{positive integer; dimension of the vectors of the sample 
    to be generated, need to be given only when type="mixt" and d=1}
   \item{cova}{Covariance matrix for the Gauss or Student copulas}
-  \item{marginal}{Marginal for the Gauss or Student copulas} 
-  \item{t}{If marginal="student", gives the degrees of freedom}
-  \item{df}{Degrees of freedom for the Student copula}
+  \item{marginal}{NULL, "gauss", or "student"; this parameter is used to
+   give the marginal distribution for the Gauss or Student copulas;
+   if marginal=NULL, then the uniform marginals are used} 
+  \item{t}{if marginal="student", gives the degrees of freedom}
+  \item{df}{degrees of freedom for the Student copula}
   \item{distr}{internal (implemented for "1d2modal")
    TRUE, if one wants the distribution function instead of the
    density function}
@@ -59,7 +61,7 @@ if the both are NULL, then the function returns the mean,
 covariance, and the weights of the mixture components
 
 }
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 
 %\seealso{\code{\link{simmix}}}
 

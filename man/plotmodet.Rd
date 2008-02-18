@@ -10,7 +10,7 @@ Plots one window of a mode graph.
 \usage{
 plotmodet(mt, coordi = 1, colot = NULL, shift = 0, xlim = NULL, 
 xlab = "", ylab = "", horilines = NULL, symbo = 20, loga = NULL, 
-lty = "dashed")
+lty = "dashed", cex.axis = 1, title = TRUE, cex.sub = 1, cex.lab = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,13 +26,19 @@ lty = "dashed")
   \item{symbo}{ labeling for modes; "L" or "N" }
   \item{loga}{ "y" or "n"; whether logarithmic y-axis will be used }
   \item{lty}{ line type }
+  \item{cex.axis}{magnification factor for the axis annotation; see "par" }
+  \item{title}{TRUE or FALSE; makes a subtitle which shows the 
+   value of "coordi" }
+  \item{cex.sub}{magnification factor for the subtitle; see "par" }
+  \item{cex.lab}{magnification factor for the axis labels (names of x and y); 
+   see "par" }
 }
 %\details{}
 \value{
 Plots to the graphics device
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 %\note{ ~~further notes~~ }
 
 \seealso{

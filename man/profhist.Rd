@@ -58,7 +58,7 @@ profhist(dendat, binlkm, cvol=TRUE, ccen=TRUE, cfre=FALSE)
   row of recs is a part of the set associated with this node }
 }
 %\references{http://www.rni.helsinki.fi/~jsk/denpro}
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 
 \note{ Applies the naive algorithm of pairwise comparison of the 
 separated components of the level sets, to find which components 

@@ -28,7 +28,7 @@ pcf.kern(dendat, h, N, kernel = "epane", hw = NULL)
 a piecewise constant function object, see the web site
 }
 \references{http://www.rni.helsinki.fi/~jsk/denpro/}
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 
  \seealso{

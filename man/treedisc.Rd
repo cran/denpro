@@ -10,27 +10,29 @@ The pruning makes plotting of the trees much faster.
 The quality does not typically decrease essentially when a tree is pruned.
 }
 \usage{
-treedisc(lst, pcf, ngrid = NULL, r = NULL, type = NULL)
+treedisc(lst, pcf, ngrid = NULL, r = NULL, type = NULL, lowest = "dens")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{lst}{level set tree or a shape tree; output of for example "leafsfirst"}
   \item{pcf}{piecewise constant function; 
-  output of for example "pcf.kern" or "pcf.func";
-  "lst" should be the level set tree or shape tree of "pcf"}
+   output of for example "pcf.kern" or "pcf.func";
+   "lst" should be the level set tree or shape tree of "pcf"}
   \item{ngrid}{positive integer; the number of levels which the pruned tree
-  will have}
+   will have}
   \item{r}{vector of positive reals in increasing order; 
-  we may give the set of levels explicitely with the argument "r";
-  then the levels need not be equispaced as when we apply argument "ngrid"}
+   we may give the set of levels explicitely with the argument "r";
+   then the levels need not be equispaced as when we apply argument "ngrid"}
   \item{type}{"lst" or "shape"; not needed}
+  \item{lowest}{a character; if lowest="dens", then it is assumed that
+   the function whose level set tree we calculate is nonnegative}
 }
 %\details{}
 \value{
 a level set tree or a shape tree which contains fewer levels than the input
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 
 \seealso{

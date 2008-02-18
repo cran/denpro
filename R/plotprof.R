@@ -79,57 +79,9 @@ if (data==T){
  length=length,center=center,remain=NULL))
 }
 
-###########################################################
-
-if (!is.null(exmavisu)){
-
-node<-exmavisu
-
-x1<-xcoor[2*node-1] 
-x2<-xcoor[2*node]
-lev<-levels[node]
-if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-0
-polygon(c(x1,x2,x2,x1),c(lev0,lev0,lev,lev),col="blue")
-
-pino<-matrix(0,nodenum,1)
-pino[1]<-child[node]
-if (child[node]>0) pinoin<-1 else pinoin<-0
-
-while (pinoin>0){
-   node<-pino[pinoin]
-   pinoin<-pinoin-1   
-
-   x1<-xcoor[2*node-1] 
-   x2<-xcoor[2*node]
-   lev<-levels[node]
-   if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-0
-   polygon(c(x1,x2,x2,x1),c(lev0,lev0,lev,lev),col="blue")
-
-   if (sibling[node]>0){
-         pinoin<-pinoin+1
-         pino[pinoin]<-sibling[node] 
-   }
-
-   while (child[node]>0){    #go to left and put right nodes to stack
-         node<-child[node]
-
-         x1<-xcoor[2*node-1] 
-         x2<-xcoor[2*node]
-         lev<-levels[node]
-         if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-0
-         polygon(c(x1,x2,x2,x1),c(lev0,lev0,lev,lev),col="blue")
-
-         if (sibling[node]>0){
-            pinoin<-pinoin+1
-            pino[pinoin]<-sibling[node] 
-         }
-   }
-}
 }
 
-##########################################
 
-}
 
 
 

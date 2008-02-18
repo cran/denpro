@@ -3,7 +3,8 @@ left,right,val,vec,infopointer,parent,
 low,upp,
 d)
 # source("~/denpro/R/declevgen.R")
-# dl<-declevgen(tobehandled,curterminalnum,left,right,val,vec,infopointer,parent,low,upp,d)
+# dl<-declevgen(tobehandled,curterminalnum,left,right,val,vec,
+# infopointer,parent,low,upp,d)
 
 {
 nodelkm<-length(left)

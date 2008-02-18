@@ -50,10 +50,10 @@ exmalim = NULL, maxnum = NULL)
   function "persp".
 }
 \references{ 
-Jussi Klemelä (2005).
+Jussi Klemela (2005).
 Visualization of the spread of multivariate distributions.
 }
-\author{Jussi Klemelä }
+\author{Jussi Klemela }
 %\note{ ~~further notes~~ }
 \seealso{
 \code{\link{stseq}}, 

@@ -76,7 +76,11 @@ inlevseq[2:(Q+1)]<-levseq
 insuppo<-matrix(0,2*d+1,1)
 insuppo[2:(2*d+1)]<-tr$suppo
 instep<-matrix(0,d+1,1)
-instep[2:(d+1)]<-stepcalc(tr$support,tr$N)    #tr$step
+sc<-matrix(0,d,1)
+for (i in 1:d){
+    step[i]<-(tr$support[2*i]-tr$support[2*i-1])/tr$N[i]
+}
+instep[2:(d+1)]<-sc    #stepcalc(tr$support,tr$N)    #tr$step
 inleft<-matrix(0,nodenumOfTree+1,1)
 inleft[2:(nodenumOfTree+1)]<-tr$left
 inright<-matrix(0,nodenumOfTree+1,1)

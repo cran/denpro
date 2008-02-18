@@ -1,4 +1,4 @@
-profkernCRC<-function(dendat,h,N,Q,cvol=TRUE,ccen=TRUE,cfre=FALSE,
+profkernCRC<-function(dendat,h,N,Q,cvol=TRUE,ccen=TRUE,#cfre=FALSE,
 kernel="epane",compoinfo=FALSE,trunc=3,threshold=0.0000001,katka=NULL,hw=NULL)
 {
 #dyn.load("/home/jsk/kerle/kerleCversio")
@@ -84,7 +84,7 @@ parent<-kg$ioparent[2:(kg$numnode+1)]
 infopointer<-kg$infopointer[2:(kg$numnode+1)]
 iolow<-kg$iolow[2:(kg$numnode+1)]
 ioupp<-kg$ioupp[2:(kg$numnode+1)]
-#
+
 value<-kg$value[2:(kg$numpositive+1)]
 nodefinder<-kg$nodefinder[2:(kg$numpositive+1)]
 vecindex<-kg$index[2:(d*kg$numpositive+1)]
@@ -94,14 +94,14 @@ for (i in 1:kg$numpositive){
      index[i,j]<-vecindex[(i-1)*d+j]
   }
 }
-#
+
 nodenumOfDyaker<-length(left)
-#
+
 maxval<-max(value)
 minval<-min(value)
 step<-(maxval-minval)/Q
 levseq<-seq(from=minval,to=maxval-step,by=step)
-#
+
 levfrekv<-matrix(0,Q,1)
 atomnum<-length(value)
 for (i in 1:atomnum){
@@ -113,7 +113,7 @@ for (i in 1:atomnum){
 }
 numofall<-sum(levfrekv)
 levnum<-length(levseq)
-#    
+    
 inlevseq<-matrix(0,length(levseq)+1,1)
 inlevseq[2:(length(levseq)+1)]<-levseq
 inN<-matrix(0,d+1,1)
@@ -132,7 +132,7 @@ invalue[2:(length(value)+1)]<-value
 #}
 innodefinder<-matrix(0,length(nodefinder)+1,1)
 innodefinder[2:(length(nodefinder)+1)]<-nodefinder
-#
+
 # Tama koodi on jo kergrid:ssa, lasketaan volume of one atom
 minim<-matrix(0,d,1)  #minim is d-vector of minimums
 maxim<-matrix(0,d,1)
@@ -142,12 +142,12 @@ for (i in 1:d){
 }
 delta<-(maxim-minim+2*h)/(N+1)  
 volofatom<-prod(delta)
-#
+
 inminim<-matrix(0,d+1,1)
 inminim[2:(d+1)]<-minim
 indelta<-matrix(0,d+1,1)
 indelta[2:(d+1)]<-delta
-#
+
 if (!is.null(katka)){
    invalue2<-invalue
    lenni<-length(invalue)
@@ -156,7 +156,7 @@ if (!is.null(katka)){
    }
    invalue<-invalue2
 }
-#
+
 dentree<-.C("decomdyaC",
                as.integer(numofall),
                as.integer(atomnum),
@@ -185,10 +185,10 @@ dentree<-.C("decomdyaC",
                AtomlistNext = integer(numofall+1),
                numOfAtoms = integer(1),
 PACKAGE="denpro")
-#
+
 AtomlistAtom<-dentree$AtomlistAtom[2:(dentree$numOfAtoms+1)]
 AtomlistNext<-dentree$AtomlistNext[2:(dentree$numOfAtoms+1)]
-#
+
 invalue<-dentree$level[2:(dentree$efek+1)]
 parent<-dentree$parent[2:(dentree$efek+1)]
 volume<-dentree$volume[2:(dentree$efek+1)]
@@ -203,18 +203,18 @@ for (i in 1:dentree$efek){
   }
 }
 center<-t(center)
-#
-if (cfre) nodefrek<-cfrekvdya(seplsets,binfrek) else nodefrek<-NULL 
-#
-clus<-F
-if (clus){
-   clustervecs<-cluskern(compo,component,AtomlistAtom,AtomlistNext,kg,dendat,
-   h,N)
-}
-else{
-   clustervecs<-NULL
-}
-#
+
+#if (cfre) nodefrek<-cfrekvdya(seplsets,binfrek) else nodefrek<-NULL 
+
+#clus<-F
+#if (clus){
+#   clustervecs<-cluskern(compo,component,AtomlistAtom,AtomlistNext,kg,dendat,
+#   h,N)
+#}
+#else{
+#   clustervecs<-NULL
+#}
+
 if (compoinfo)
 
   return(list(parent=parent,level=sepvalnor,invalue=invalue,
@@ -234,6 +234,9 @@ else
 #nodefrek: kunkin solmun frekvenssi
 
 }
+
+
+
 
 
 

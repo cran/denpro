@@ -6,7 +6,7 @@ xmarginleft=0,xmarginright=0,ymargin=0,
 xlim=NULL,ylim=NULL,
 col="black",col.axis="black",linecol=rep("black",length(lst$parent)),
 pch=21,dimen=NULL,yaxt="s",axes=T,
-cex=NULL,nodemag=NULL,linemag=1)
+cex=NULL,nodemag=NULL,linemag=1,cex.axis=1,ylab="",cex.lab=1)
 {    
 
 # create vector verticalPos
@@ -91,8 +91,9 @@ for (i in 1:modenum){
 if (is.null(ylim)) ylim<-c(0,max(level)+ptext+ymargin)
 xlim<-c(min(verticalPos)-xmarginleft,max(verticalPos)+xmarginright)
 #axes<-
-plot(verticalPos,level,xlab="",ylab="",xlim=xlim,ylim=ylim,xaxt="n",
-col=col,col.axis=col.axis,pch=pch,yaxt=yaxt,axes=axes,cex=nodemag)  
+plot(verticalPos,level,xlab="",ylab=ylab,xlim=xlim,ylim=ylim,xaxt="n",
+col=col,col.axis=col.axis,pch=pch,yaxt=yaxt,axes=axes,cex=nodemag,
+cex.axis=cex.axis,cex.lab=cex.lab)  
 
 for (i in 1:itemnum){
     if (parent[i]>0){

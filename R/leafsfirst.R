@@ -1,10 +1,12 @@
 leafsfirst<-function(pcf=NULL,lev=NULL,refe=NULL,type="lst",levmet="radius",
 ordmet="etaisrec",ngrid=NULL,
-dendat=NULL,rho=0,propor=NULL)
+dendat=NULL,rho=0,propor=NULL,lowest="dens")
 {
 # pcf is a piecewise constant object
 # type= "lst"/"shape"
 # levmet= "radius"/"proba"
+
+if (lowest=="dens") lowest<-0 else lowest<-min(pcf$value)
 
 if ((!is.null(lev)) || (!is.null(propor))){
     type<-"shape"
@@ -31,7 +33,7 @@ else{
 
 if (type=="lst"){
   lkm<-length(pcf$value)
-  distat<-pcf$value
+  distat<-pcf$value-lowest
   infopointer<-seq(1,lkm)     # links from nodes to recs
 }
 else if (type=="shape"){
@@ -75,6 +77,7 @@ else{  #type=="tail"
 
 distat<-distat[1:lkm]
 infopointer<-infopointer[1:lkm]   
+#if (length(rho)==1) rho<-rep(rho,lkm)
 
 # order the atoms for the level set with level "lev"
 
@@ -207,8 +210,9 @@ while (j<=lkm){
     prevroot<-beg
     ekatouch<-0
     while (curroot>0){
+        rhocur<-rho   #rho[infopointer[node]]  
         istouch<-touchstep(node,curroot,boundrec,child,sibling,
-                           infopointer,pcf$down,pcf$high,rho)
+                           infopointer,pcf$down,pcf$high,rhocur)
         if (istouch==1){
 {
            # paivita parent, child, sibling, volume ekamome
@@ -269,7 +273,7 @@ if (type=="shape"){
      level<-sqrt(radius)
 }
 else{ #type="lst"
-     level<-radius
+     level<-radius+lowest
      maxdis<-distat[ord[length(ord)]]
 }
 if (type=="tail"){
@@ -289,8 +293,7 @@ if (type!="tail"){
 }
 else{
   lf<-list(
-  parent=parent,volume=volume,center=center,
-  level=level,
+  parent=parent,volume=volume,center=center,level=level,
   root=root,
   #child=child,sibling=sibling,  #virhe??
   infopointer=infopointer,

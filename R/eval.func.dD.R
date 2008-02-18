@@ -54,7 +54,7 @@ for (i in 1:recnum){
 
     if (func=="prod") val<-eva.prod(point,marginal,g)
     if (func=="skewgauss") val<-eva.skewgauss(point,mu,sig,alpha)
-    if (func=="dmsn") val<-dmsn(point,xi,Omega,alpha)
+    #if (func=="dmsn") val<-dmsn(point,xi,Omega,alpha)
     if (func=="student") val<-eva.student(point,t,marginal,sig,r,df)
     if (func=="gumbel") val<-eva.copula(point,
         type="gumbel",marginal=marginal,sig=sig,r=r,t=t,g=g)

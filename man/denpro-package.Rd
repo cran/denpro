@@ -166,9 +166,9 @@ tree.segme              Returns the segmentation of the nodes of
 
 }
 \author{
-Jussi Klemelä <klemela@rumms.uni-mannheim.de>
+Jussi Klemela <klemela@oulu.fi>
 
-Maintainer: Jussi Klemelä <klemela@rumms.uni-mannheim.de>
+Maintainer: Jussi Klemela <klemela@oulu.fi>
 
 }
 

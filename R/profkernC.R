@@ -1,19 +1,19 @@
-profkernC<-function(dendat,h,N,Q,cvol=TRUE,ccen=TRUE,cfre=FALSE,
+profkernC<-function(dendat,h,N,Q,cvol=TRUE,ccen=TRUE,#cfre=FALSE,
 numofallR=10000){
-#
+
 #set.seed(seed=1)
 #dendat<-matrix(rnorm(20),10)
 #h<-1 
 #N<-c(8,8)
 #Q<-3
-#
+
 n<-dim(dendat)[1]
 d<-length(N)
 hnum<-length(h)
 mnn<-maxnodenum(dendat,h,N,n,d)
 extMaxnode<-mnn$maxnode
 extMaxvals<-mnn$maxpositive
-#
+
 if (hnum>1){
  inh<-matrix(0,hnum+1,1)
  inh[2:(hnum+1)]<-h
@@ -23,7 +23,7 @@ else{
 }
 inN<-matrix(0,d+1,1)
 inN[2:(d+1)]<-N
-#
+
 dentree<-.C("kerprofC",as.integer(extMaxnode),
                   as.integer(extMaxvals),
                   as.double(dendat),
@@ -41,7 +41,7 @@ dentree<-.C("kerprofC",as.integer(extMaxnode),
                   center = double(d*numofallR+1),
                   efek = integer(1),
 PACKAGE="denpro")
-#
+
 invalue<-dentree$level[2:(dentree$efek+1)]
 parent<-dentree$parent[2:(dentree$efek+1)]
 volume<-dentree$volume[2:(dentree$efek+1)]
@@ -55,18 +55,18 @@ for (i in 1:dentree$efek){
   }
 }
 center<-t(center)
-#
-if (cfre) nodefrek<-cfrekvdya(seplsets,binfrek) else nodefrek<-NULL 
-#
-clus<-F
-if (clus){
-   clustervecs<-cluskern(compo,component,AtomlistAtom,AtomlistNext,kg,dendat,
-   h,N)
-}
-else{
-   clustervecs<-NULL
-}
-#
+
+#if (cfre) nodefrek<-cfrekvdya(seplsets,binfrek) else nodefrek<-NULL 
+
+#clus<-F
+#if (clus){
+#   clustervecs<-cluskern(compo,component,AtomlistAtom,AtomlistNext,kg,dendat,
+#   h,N)
+#}
+#else{
+#   clustervecs<-NULL
+#}
+
 return(list(parent=parent,level=sepvalnor,invalue=invalue,
 volume=volume,center=center))
 #,nodefrek=nodefrek,clustervec=clustervecs))

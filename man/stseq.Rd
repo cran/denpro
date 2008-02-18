@@ -54,7 +54,7 @@ df = NULL, g = 1, base = 10)
  A list of radius transforms.
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 
 \seealso{ 
 \code{\link{shape2d}}, 

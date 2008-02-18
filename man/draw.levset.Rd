@@ -8,7 +8,8 @@ Plots a level set of a 2D function
 Plots a level set of a piecewise constant 2D function.
 }
 \usage{
-draw.levset(pcf, lev=NULL, bary = NULL, propor = 0.1, col=NULL)
+draw.levset(pcf, lev=NULL, bary = NULL, propor = 0.1, col=NULL, 
+bound = NULL, dendat = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,15 +18,22 @@ draw.levset(pcf, lev=NULL, bary = NULL, propor = 0.1, col=NULL)
   \item{bary}{vector of 2 reals; the barycenter; if given will be plotted}
   \item{propor}{0<propor<1; the level set whose level is "propor"
    times the maximum value of the function will be drawn}
-  \item{col}{ the color of the lines of the plot;
-   for example "red" }
+  \item{col}{the color of the lines of the plot;
+   for example "red"}
+  \item{bound}{vector of 4 real numbers; c(xmin,xmax,ymin,ymax);
+   gives the values for the parameters "xlim" and "ylim" in the "plot" 
+   function; if "bound" is not specified, then the support of function "pcf"
+   will be used}
+  \item{dendat}{n*2-matrix or real values; when the "pcf" is a density estimate
+   based on data "dendat", then specifying a value for the parameter "dendat",
+   we can plot the data together with the estimate of a level set}
 }
 %\details{}
 \value{
 Makes a plot to the graphics window
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{Jussi Klemelä }
+\author{Jussi Klemela }
 %\note{ ~~further notes~~ }
 
 \seealso{

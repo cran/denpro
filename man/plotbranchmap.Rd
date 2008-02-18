@@ -17,7 +17,7 @@ plotbranchmap(bm, phi = 55, theta = 30)
 Makes a plot to the current graphics window.
 }
 \references{http://denstruct.net}
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 
 \seealso{

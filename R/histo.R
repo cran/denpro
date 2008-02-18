@@ -1,7 +1,8 @@
-histo<-function(dendat,binlkm,epsi=0){
-#Constructs a histogram estimate: result is given by giving level
-#sets of the estimate
-#
+histo<-function(dendat,binlkm,epsi=0)
+{
+# Constructs a histogram estimate: result is given by giving level
+# sets of the estimate
+
 supp<-support(dendat,epsi)
 regdat<-den2reg(dendat,binlkm,supp)
 palvak<-makehis(regdat)

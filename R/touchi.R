@@ -1,4 +1,4 @@
-touchi<-function(rec1,rec2,rho)
+touchi<-function(rec1,rec2,rho=0)
 {
 #Checks whether rectangles rec1, rec2 touch.
 #rec1,rec2 are 2*d vectors, discrete rectangles (grid)

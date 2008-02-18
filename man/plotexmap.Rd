@@ -29,7 +29,7 @@ leafcolors = NULL)
 Plots the scale of excess mass profiles to the graphic device
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{ Jussi Klemelä}
+\author{ Jussi Klemela}
 %\note{ ~~further notes~~ }
 
 \seealso{ 

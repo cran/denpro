@@ -27,7 +27,7 @@ A level set tree or a shape tree,
 with an additional field "exma.of.modes".
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 \seealso{ 
 \code{\link{leafsfirst}},

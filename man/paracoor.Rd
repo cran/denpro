@@ -21,7 +21,7 @@ paletti = matrix("black",dim(dendat)[1],1))
 Makes a plot on the graphics window
 }
 \references{Inselberg (1985), Wegman (1990)}
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 
 %\seealso{ ~~objects to See Also as \code{\link{~~fun~~}}, ~~~ }
 \examples{

@@ -59,6 +59,7 @@ while (go.on){
      lst$center<-lst$center[,-rem.list]
      lst$distcenter<-lst$distcenter[,-rem.list]
      lst$proba<-lst$proba[-rem.list]
+     lst$infopointer<-lst$infopointer[-rem.list]
   }
   else if ((!is.null(exmalim)) && (emsmallest>exmalim)) go.on<-FALSE
 
@@ -71,3 +72,5 @@ lst$exma.of.modes<-exma.of.modes
 
 return(lst=lst)
 }
+
+
