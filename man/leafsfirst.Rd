@@ -11,7 +11,7 @@ function, or calculates a tail tree from a data set.
 \usage{
 leafsfirst(pcf = NULL, lev = NULL, refe = NULL, type = "lst", 
 levmet = "radius", ordmet = "etaisrec", ngrid = NULL, dendat = NULL, rho = 0,
-propor= NULL)
+propor= NULL, lowest = "dens")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -32,11 +32,13 @@ propor= NULL)
   \item{rho}{positive real number; the resolution threshold for the tail tree}
   \item{propor}{0<propor<1; a shape tree of the level set whose level 
    is "propor" times the maximum value of the function will be calculated}
+  \item{lowest}{a character; if lowest="dens", then it is assumed that
+   the function whose level set tree we calculate is nonnegative}
 }
 %\details{}
 \value{a level set tree, shape tree, or tail tree}
 %\references{}
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 
 \seealso{

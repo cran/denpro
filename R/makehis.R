@@ -1,5 +1,5 @@
-makehis<-function(regdat){
-#
+makehis<-function(regdat)
+{
 xlkm<-length(regdat$hila[,1])  #muuttujien lkm
 valipit<-matrix(0,1,xlkm)
 i<-1

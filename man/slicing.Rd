@@ -25,7 +25,7 @@ slicing(pcf, vecci, d1 = 1, d2 = NULL)
 a piecewise constant function
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 \seealso{ 
 \code{\link{draw.pcf}} 

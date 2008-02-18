@@ -8,7 +8,7 @@ nodesymbo=20,col=NULL,col.axis="black",collines=NULL,paletti=NULL,
 shift=0,shiftindex=NULL,
 modlabret=FALSE,modecolo=NULL,modepointer=NULL,colometh="lst",
 colothre=min(lst$level),lines=TRUE,wedge=FALSE,lty.wedge=2,title=TRUE,
-cex=NULL,nodemag=NULL
+cex=NULL,nodemag=NULL,cex.sub=1
 )
 {
 
@@ -25,7 +25,7 @@ if (is.null(paletti))
 if (is.null(col)) 
    if (colometh=="lst")
             col<-colobary(parent,paletti,
-            modecolo=modecolo,modepointer=modepointer)
+                 modecolo=modecolo,modepointer=modepointer)
    else col<-colobary.roots(lst$parent,lst$level,paletti=paletti,
                             colothre=colothre)
 
@@ -40,7 +40,7 @@ ylim<-c(0,max(level)+ptext+ymargin)
 
 plot(xcoordinate,level,xlab="",ylab="",xlim=xlim,ylim=ylim,
 pch=nodesymbo,col=col,col.axis=col.axis,cex=nodemag) 
-if (title) title(sub=paste("coordinate",as.character(coordi)))
+if (title) title(sub=paste("coordinate",as.character(coordi)),cex.sub=cex.sub)
 
 if (lines){
    for (i in 1:nodenum){

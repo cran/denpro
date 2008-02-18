@@ -78,13 +78,13 @@ sorsa="crc",hw=NULL)
     This is useful in cluster analysis applications. (Not implemented.)}
 }
 %\references{http://www.rni.helsinki.fi/~jsk/denpro}
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 
 \note{Applies the DynaDecompose algorithm, described in
 the article
 "Algorithms for manipulation of level sets of nonparametric density
 estimates",
-by Jussi Klemelä }
+by Jussi Klemela }
 
 %~Make other sections like WARNING with \section{WARNING }{....} ~
 

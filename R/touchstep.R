@@ -1,8 +1,13 @@
 touchstep<-function(node,curroot,boundrec,child,sibling,infopointer,
-low,upp,rho)
+low,upp,rho=0)
 {
-d<-length(low[1,])
+# Checks whether "node" touches some of the leafs of the branch whose
+# root is "curroot". Goes through the branch starting at "curroot".
+# "comprec" is associated with the "node"
+# "currec" is the bounding box of "cur"
+# "pointrec" is associated with "cur"
 
+d<-length(low[1,])
 comprec<-matrix(0,2*d,1)
 note<-infopointer[node]   #nodefinder[infopointer[node]]
 for (i in 1:d){

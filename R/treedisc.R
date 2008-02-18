@@ -1,7 +1,9 @@
-treedisc<-function(lst,pcf,ngrid=NULL,r=NULL,type=NULL)
+treedisc<-function(lst, pcf, ngrid=NULL, r=NULL, type=NULL, lowest="dens")
 {
 # r is vector of radiuses, we prune shapetree "lst" so that
 # its radiuses are given by r
+
+if (lowest=="dens") lowest<-0 else lowest<-min(lst$level)
 
 if (is.null(type)){
    if (is.null(lst$refe)) type<-"lst"
@@ -15,7 +17,7 @@ if (is.null(r)){
   }
   else{  #type=="lst"
       stepsi<-lst$maxdis/(ngrid+1)    
-      r<-seq(stepsi,lst$maxdis-stepsi,stepsi)
+      r<-seq(lowest+stepsi,lst$maxdis-stepsi,stepsi)
   }
 }
 

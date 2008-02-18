@@ -19,7 +19,7 @@ col="black", col.axis="black",
 cutlev=NULL, xaxt="n",
 exmavisu=NULL, bg="transparent", tyyppi="n", lty="solid",colo=FALSE, 
 lowest="dens", proba=FALSE,
-paletti=NULL, cex=NULL)
+paletti=NULL, cex=NULL, modecolo = NULL, modepointer = NULL, upper = TRUE)
 }
 \arguments{
   \item{lst}{level set tree or shape tree; list of vectors.
@@ -104,12 +104,18 @@ paletti=NULL, cex=NULL)
    the colors are used to indicate the correspondence with the 
    barycenter plot and thus the paletti should be the same }
   \item{cex}{the magnification factor for the symbols; see "par" }
+  \item{modecolo}{internal; used by "scaletable" to set the colors of the leaf
+   nodes}
+  \item{modepointer}{internal; used by "scaletable" to find the modes}
+  \item{upper}{TRUE or FALSE; if upper=TRUE, then a volume plot of an upper
+   level set tree is drawn, otherwise a volume plot of a lower level set tree
+   is drawn}
  }
 
 \value{A plot is made on the graphics window.}
 
 %\references{http://www.rni.helsinki.fi/~jsk/denpro}
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 
 \seealso{ 
 \code{\link{leafsfirst}},

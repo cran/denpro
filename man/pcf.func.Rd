@@ -14,7 +14,7 @@ sig = rep(1, length(N)), support = NULL, theta = NULL,
 g=1, M = NULL, p = NULL, mul = 3, t = NULL, 
 marginal = "normal", r = 0, 
 mu = NULL, xi = NULL, Omega = NULL, alpha = NULL, df = NULL,
-a = 0.5, b = 0.5, distr = FALSE, std = 1)   
+a = 0.5, b = 0.5, distr = FALSE, std = 1, lowest = 0)   
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -53,13 +53,15 @@ a = 0.5, b = 0.5, distr = FALSE, std = 1)
   \item{distr}{ TRUE if the distribution function is to be drawn instead of
    the density}
   \item{std}{standard deviation in the 1D case}
+  \item{lowest}{real value; for densities equal to 0, otherwise is equal
+   to the minimum of the function}
 }
 %\details{}
 \value{
 a piecewise constant function object, see the web page
 }
 \references{http://www.rni.helsinki.fi/~jsk/denpro/ }
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 
 \seealso{

@@ -12,7 +12,8 @@ Takes as an input a scale of estimates.
 \usage{
 scaletable(estiseq, paletti = NULL, shift = 0, ptext = 0, 
 ptextst = 0, bm = NULL, levnum = 60, levnumst = 60, 
-redu=T)
+redu=TRUE, volu.modelabel = TRUE, volu.colo = TRUE,
+st.modelabel = FALSE, st.colo = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,6 +29,13 @@ redu=T)
   \item{levnumst}{positive ineteger}{the number of levels in shape trees}
   \item{redu}{T or F; whether the number of levels of levels will be reduced,
    see argument "levnum"}
+  \item{volu.modelabel}{TRUE or FALSE; whether the modes are labeled in 
+   volume plots (otherwise the identification of the modes between volume
+   plots and barycenter plots is made with colors)}
+  \item{volu.colo}{TRUE or FALSE; whether volume plots are colored}
+  \item{st.modelabel}{FALSE or TRUE; whether the modes of radius plots 
+   are labeled} 
+  \item{st.colo}{TRUE or FALSE; whether the radius plots are colored}
 }
 %\details{}
 \value{
@@ -85,7 +93,7 @@ To finish the program, click with the mouse at the label "STOP"
 at the control frame.
 }
 
-\author{Jussi Klemel\"a}
+\author{Jussi Klemela}
 %\note{}
 
 \seealso{\code{\link{lstseq.kern}}}

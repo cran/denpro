@@ -1,6 +1,8 @@
 scaletable<-function(estiseq,paletti=NULL,shift=0,ptext=0,ptextst=0,
 bm=NULL,#mt=NULL,
-levnum=60,levnumst=60,redu=T)
+levnum=60,levnumst=60,redu=TRUE,
+volu.modelabel=TRUE,volu.colo=TRUE,st.modelabel=FALSE,st.colo=TRUE
+)
 {
 # preparation
 if ((length(estiseq$hseq)>1) && (estiseq$hseq[1]<estiseq$hseq[2])){  
@@ -16,11 +18,13 @@ if ((length(estiseq$hseq)>1) && (estiseq$hseq[1]<estiseq$hseq[2])){
 }
 
 if (estiseq$type=="carthisto")  smootseq<--estiseq$leaf
+else if (estiseq$type=="greedy") smootseq<--estiseq$hseq
+else if (estiseq$type=="bagghisto") smootseq<--estiseq$hseq
 else smootseq<-estiseq$hseq
 hnum<-length(smootseq)
 d<-dim(estiseq$lstseq[[hnum]]$center)[1]
 
-if (estiseq$type=="carthisto") redu<-F
+if (estiseq$type=="carthisto") redu<-FALSE
 if (is.null(estiseq$stseq)) levnumst<-NULL
 
 if (is.null(paletti))
@@ -89,13 +93,14 @@ xloc<-0
 
 # control window
 x11(width=2,height=6)
-plot(x="",y="",xlab="",ylab="",xaxt='n',yaxt='n',xlim=c(xmin,xmax),ylim=c(ymin,ymax))
-text(xloc,heig[lkm],"Mode graph")
-text(xloc,heig[lkm-1],"Map of branches")
-text(xloc,heig[lkm-2],"Volume plot")
-text(xloc,heig[lkm-3],"Barycenter plot")
-text(xloc,heig[lkm-4],"Radius plot")
-text(xloc,heig[lkm-5],"Location plot")
+plot(x="",y="",xlab="",ylab="",xaxt="n",yaxt="n",
+xlim=c(xmin,xmax),ylim=c(ymin,ymax))
+text(xloc,heig[lkm],"I")      #"Mode graph")
+text(xloc,heig[lkm-1],"II")   #"Map of branches")
+text(xloc,heig[lkm-2],"III")  #"Volume plot")
+text(xloc,heig[lkm-3],"IV")   #"Barycenter plot")
+text(xloc,heig[lkm-4],"V")    #"Radius plot")
+text(xloc,heig[lkm-5],"VI")   #"Location plot")
 text(xloc,heig[lkm-6],"STOP")
 
 devit<-matrix(0,lkm,1)
@@ -123,7 +128,7 @@ phi<-40
 theta<-10
 persp(x=bm$level,y=bm$h,z=bm$z, xlab="level",ylab="h",zlab="",
 ticktype="detailed",col=bm$col,phi=phi,theta=theta)
-title(sub="map of branches")
+title(main="II Map of branches")
 
 # barycenter plot
 x11(width=3.5,height=4)
@@ -131,8 +136,9 @@ coordi<-1
 icolo<-mt$colot[mt$low[1]:mt$upp[1]]
 inodes<-mt$nodepointer[mt$low[1]:mt$upp[1]]
 modlab<-plotbary(pr,coordi=coordi,ptext=ptext,
-        modlabret=T,modecolo=icolo,modepointer=inodes)
-title(sub=paste("barycenter plot, coordinate",as.character(coordi)))
+        modlabret=TRUE,modecolo=icolo,modepointer=inodes)
+title(main="IV Barycenter plot",
+      sub=paste("coordinate",as.character(coordi)))
 
 # mode tree
 x11(width=4,height=5)
@@ -142,12 +148,16 @@ modelocx<-modlab$modelocat[,coordi]+shift
 modelocy<-smootseq[1]
 labels<-modlab$labels
 text(modelocx,modelocy,labels)
-title(sub=paste("mode graph, coordinate",as.character(coordi)))
+title(main="I Mode graph",sub=paste("coordinate",as.character(coordi)))
 
 # volume plot
 x11(width=3.5,height=4)
-plotvolu(pr,ptext=ptext)
-title(sub=paste("volume plot, h=",as.character(round(hcur,digits=3))))
+icolo<-mt$colot[mt$low[1]:mt$upp[1]]
+inodes<-mt$nodepointer[mt$low[1]:mt$upp[1]]
+plotvolu(pr,ptext=ptext,modelabel=volu.modelabel,colo=volu.colo,
+         modecolo=icolo,modepointer=inodes)
+title(main="III Volume plot",
+      sub=paste("h=",as.character(round(hcur,digits=3))))
 
 # radius plot
 if (!is.null(levnumst)){
@@ -159,9 +169,11 @@ if (!is.null(levnumst)){
   st.bary<-leafsfirst(pcf,lev=lev,refe=refe)
 
   x11(width=3,height=4)
-  plotvolu(stredu,ptext=ptextst,symbo="T")
-  title(sub=paste("radius plot, level=",as.character(round(lev,digits=3)),
-  ",  mode=refe'nce point"))
+  plotvolu(stredu,ptext=ptextst,symbo="T",
+           modelabel=st.modelabel,colo=st.colo)
+  title(main="V Radius plot",
+        sub=paste("level=",as.character(round(lev,digits=3)),
+        ", ref.point=mode"))
 }
 
 # location plot
@@ -169,7 +181,8 @@ if (!is.null(levnumst)){
   x11(width=3,height=4)
   lcoordi<-1
   plotbary(stredu,coordi=lcoordi,ptext=ptextst,symbo="T")
-  title(sub=paste("location plot, coordinate",as.character(lcoordi)))
+  title(main="VI Location plot",
+        sub=paste("coordinate",as.character(lcoordi)))
 }
 
 
@@ -207,7 +220,8 @@ while (loc$y>=yupp[lkm]){
               modelocy<-smootseq[indeksi]
               labels<-modlab$labels
               text(modelocx,modelocy,labels)
-              title(sub=paste("mode graph, coordinate",as.character(coordi)))
+              title(main="I Mode graph",
+                    sub=paste("coordinate",as.character(coordi)))
 
               loc<-locator(1)
           }
@@ -235,27 +249,33 @@ while (loc$y>=yupp[lkm]){
                     stredu<-reduseq[[indeksi]]
              }
 
-             dev.set(which = devivolu) 
-             plotvolu(pr,ptext=ptext)
-             title(sub=paste("volume plot, h=",as.character(round(hcur,digits=3))))
+             dev.set(which = devivolu)
+             icolo<-mt$colot[mt$low[indeksi]:mt$upp[indeksi]]
+             inodes<-mt$nodepointer[mt$low[indeksi]:mt$upp[indeksi]] 
+             plotvolu(pr,ptext=ptext,modelabel=volu.modelabel,colo=volu.colo,
+                      modecolo=icolo,modepointer=inodes)
+             title(main="III Volume plot",
+                   sub=paste("h=",as.character(round(hcur,digits=3))))
   
              dev.set(which = devibary) 
              coordi<-1
-             icolo<-mt$colot[mt$low[indeksi]:mt$upp[indeksi]]
-             inodes<-mt$nodepointer[mt$low[indeksi]:mt$upp[indeksi]]
              modlab<-plotbary(pr,coordi=coordi,ptext=ptext,
-                          modlabret=T,modecolo=icolo,modepointer=inodes)
-             title(sub=paste("barycenter plot, coordinate",as.character(coordi)))
+                              modlabret=T,modecolo=icolo,modepointer=inodes)
+             title(main="IV Barycenter plot",
+                   sub=paste("coordinate",as.character(coordi)))
 
              dev.set(which = deviradi) 
-             plotvolu(stredu,ptext=ptextst,symbo="T")
-             title(sub=paste("radius plot, level=",as.character(round(lev,digits=3)),
-             ",  mode=refe'nce point"))
+             plotvolu(stredu,ptext=ptextst,symbo="T",
+                      modelabel=st.modelabel,colo=st.colo)
+             title(main="V Radius plot",
+                   sub=paste("level=",as.character(round(lev,digits=3)),
+                             ", ref.point=mode"))
  
              dev.set(which = deviloca) 
              lcoordi<-1
              plotbary(stredu,coordi=lcoordi,ptext=ptextst,symbo="T")
-             title(sub=paste("location plot, coordinate",as.character(lcoordi)))
+             title(main="VI Location plot",
+                   sub=paste("coordinate",as.character(lcoordi)))
              
              dev.set(which = devimodet)
 
@@ -283,9 +303,14 @@ while (loc$y>=yupp[lkm]){
               keskip<-alax+(ylax-alax)/2
               if (loc$x >= keskip) ylax<-loc$x
               else                 alax<-loc$x
-              plotvolu(pr,xlim=c(alax,ylax),ptext=ptext)
+              icolo<-mt$colot[mt$low[indeksi]:mt$upp[indeksi]]
+              inodes<-mt$nodepointer[mt$low[indeksi]:mt$upp[indeksi]] 
+              plotvolu(pr,xlim=c(alax,ylax),ptext=ptext,
+                       modelabel=volu.modelabel,colo=volu.colo,
+                       modecolo=icolo,modepointer=inodes)
            }
-           title(sub=paste("volume plot, h=",as.character(round(hcur,digits=3))))
+           title(main="III Volume plot",
+                 sub=paste("h=",as.character(round(hcur,digits=3))))
         }     
         else if (!is.null(levnumst)){
              maksi<-max(pr$level)
@@ -298,14 +323,17 @@ while (loc$y>=yupp[lkm]){
              refelab<-"moodi"
 
              dev.set(which = deviradi) 
-             plotvolu(stredu,ptext=ptextst,symbo="T")
-             title(sub=paste("radius plot, level=",as.character(round(lev,digits=3)),
-             ",  mode=refe'nce point"))
+             plotvolu(stredu,ptext=ptextst,symbo="T",
+                      modelabel=st.modelabel,colo=st.colo)
+             title(main="V Radius plot",
+                   sub=paste("level=",as.character(round(lev,digits=3)),
+                             ", ref.point=mode"))
 
              dev.set(which = deviloca) 
              lcoordi<-1
              plotbary(stredu,coordi=lcoordi,ptext=ptextst,symbo="T")
-             title(sub=paste("location plot, coordinate",as.character(lcoordi)))
+             title(main="VI Location plot",
+                   sub=paste("coordinate",as.character(lcoordi)))
 
              dev.set(which = devivolu)       
         }
@@ -319,13 +347,15 @@ while (loc$y>=yupp[lkm]){
       icolo<-mt$colot[mt$low[indeksi]:mt$upp[indeksi]]
       inodes<-mt$nodepointer[mt$low[indeksi]:mt$upp[indeksi]]
       modlab<-plotbary(pr,coordi=coordi,ptext=ptext,
-                    modlabret=T,modecolo=icolo,modepointer=inodes)
+                       modlabret=T,modecolo=icolo,modepointer=inodes)
       title(sub=paste("barycenter plot, coordinate",as.character(coordi)))
       alaasso<-0
       while (loc$y>=alaasso){
          if (coordi<=(d-1)) coordi<-coordi+1 else coordi<-1
-         plotbary(pr,coordi=coordi,ptext=ptext,modecolo=icolo,modepointer=inodes)
-         title(sub=paste("barycenter plot, coordinate",as.character(coordi)))
+         plotbary(pr,coordi=coordi,ptext=ptext,modecolo=icolo,
+                  modepointer=inodes,modelabel=TRUE)
+         title(main="IV Barycenter plot",
+               sub=paste("coordinate",as.character(coordi)))
 
          loc<-locator(1)
       }
@@ -335,8 +365,9 @@ while (loc$y>=yupp[lkm]){
   if (devi==deviradi){
        alaraja<-0
        while (loc$y>=alaraja){
+
           ylaraja<-max(st$level)
-          while (loc$y>=ylaraja){
+          if (loc$y>=ylaraja){
               if (refelab=="moodi"){ 
                    refelab<-"bary"
                    if (is.null(st.bary)){  
@@ -350,22 +381,56 @@ while (loc$y>=yupp[lkm]){
                    st<-st.moodi
               }
               if (redu) stredu<-treedisc(st,pcf,ngrid=levnumst) else stredu<-st
-              plotvolu(stredu,ptext=ptextst,symbo="T")
+              plotvolu(stredu,ptext=ptextst,symbo="T",
+                       modelabel=st.modelabel,colo=st.colo)
               if (refelab=="moodi") 
-              title(sub=paste("radius plot, level=",as.character(round(lev,digits=3)),
-              ",  mode=refe'nce point"))
+                 title(main="V Radius plot",
+                       sub=paste("level=",as.character(round(lev,digits=3)),
+                       ",  mode=refe'nce point"))
               else 
-              title(sub=paste("radius plot, level=",as.character(round(lev,digits=3)),
-              ",  barycenter=refe'nce point"))
+                 title(main="V Radius plot",
+                       sub=paste("level=",as.character(round(lev,digits=3)),
+                       ", ref.point= barycenter"))
 
               dev.set(which = deviloca) 
               lcoordi<-1
               plotbary(stredu,coordi=lcoordi,ptext=ptextst,symbo="T")
-              title(sub=paste("location plot, coordinate",as.character(lcoordi)))
+              title(main="VI Location plot",
+                    sub=paste("coordinate",as.character(lcoordi)))
 
               dev.set(which = deviradi)      
               loc<-locator(1)
           }
+          else{
+              sarmilkm<-moodilkm(stredu$parent)$lkm
+              streduredu<-stredu
+              while ((loc$y<ylaraja) && (loc$y>alaraja)){
+                   cursarmilkm<-moodilkm(streduredu$parent)$lkm
+                   if (cursarmilkm>=2) newsarmilkm<-cursarmilkm-1 
+                   else newsarmilkm<-sarmilkm 
+                   streduredu<-prunemodes(stredu,modenum=newsarmilkm)
+                   plotvolu(streduredu,ptext=ptextst,symbo="T",
+                            modelabel=st.modelabel,colo=st.colo)
+                   if (refelab=="moodi") 
+                         title(main="V Radius plot",
+                         sub=paste("level=",as.character(round(lev,digits=3)),
+                         ",  mode=refe'nce point"))
+                   else 
+                       title(main="V Radius plot",
+                       sub=paste("level=",as.character(round(lev,digits=3)),
+                       ", ref.point=barycenter"))
+
+                   dev.set(which = deviloca) 
+                   lcoordi<-1
+                   plotbary(streduredu,coordi=lcoordi,ptext=ptextst,symbo="T")
+                   title(main="VI Location plot",
+                         sub=paste("coordinate",as.character(lcoordi)))
+ 
+                   dev.set(which = deviradi)      
+                   loc<-locator(1)
+              }
+          }
+          loc<-locator(1)
       }
   }
 
@@ -373,12 +438,14 @@ while (loc$y>=yupp[lkm]){
   if (devi==deviloca){
       coordi<-1
       plotbary(stredu,coordi=coordi,ptext=ptextst,symbo="T")
-      title(sub=paste("coordinate",as.character(coordi)))
+      title(main="VI Location plot",
+            sub=paste("coordinate",as.character(coordi)))
       alaasso<-0
       while (loc$y>=alaasso){
          if (coordi<=(d-1)) coordi<-coordi+1 else coordi<-1
          plotbary(stredu,coordi=coordi,ptext=ptextst,symbo="T")
-         title(sub=paste("location plot, coordinate",as.character(coordi)))
+         title(main="VI Location plot",
+               sub=paste("coordinate",as.character(coordi)))
 
          loc<-locator(1)
       }
@@ -395,7 +462,7 @@ while (loc$y>=yupp[lkm]){
           persp(x=bm$level,y=bm$h,z=bm$z,col=bm$col,
           xlab="level",ylab="h",zlab="",ticktype="detailed",
           phi=phi,theta=theta)
-          title(sub="map of branches")
+          title(main="II Map of branches")
 
          loc<-locator(1)
       }

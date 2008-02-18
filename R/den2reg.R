@@ -1,12 +1,13 @@
-den2reg<-function(dendat,binlkm,kantaja){
+den2reg<-function(dendat,binlkm,kantaja)
+{
 #muuntaa tiheysdatan regressiodataksi
-#
+
 #dendat on tiheysdatan sisaltava n*xlkm matriisi
 #binlkm on niitten lokeroitten maara joihin yksi muuttuja ositetaan
 #otosavaruus ositetaan binlkm^p lokeroon
 #kantaja on 2*xlkm vaakavektori, sisaltaa kantajan kullekin 
 #muuttujalle, olet etta kaikki dendat:n hav todella sisaltyvat kantajaan.
-#
+
 #palauttaa: listan vast
 #vast.dep on saatu*1 vektori, sisaltaa frekvenssit,
 #(saatu on erillisten diskretoitujen havaintojen lkm) 
@@ -17,7 +18,7 @@ den2reg<-function(dendat,binlkm,kantaja){
 #pisteiden maaran
 #ensimmaisen regressiodatan havaintopisteen,
 #viimeisen regressiodatan havaintopisteen.
-#
+
 xlkm<-length(dendat[1,]) #dendat:in sarakkeitten lkm on muuttujien lkm
 n<-length(dendat[,1])    #dendat:in rivien lkm on havaintojen maara
 hila<-matrix(1,xlkm,3)   #hila on xlkm*3 matriisi
@@ -76,18 +77,18 @@ while (i<n){  #kaydaan lapi aineisto
        }
        j<-j+1       
    }
-   if (lippu==1) {ytulos[jind]<-ytulos[jind]+1} #jos saatiin toisto,
-                                                #paivitetaan frekvenssi 
-      else{ saatu<-saatu+1    #jos saatiin uusi, lisataan saatu:un yksi ja
-            xtulos[saatu,]<-hiladat[i,]  #merkitaan uusi lajityyppi muistiin
-            ytulos[saatu]<-1    #uuden lajityypin frekvenssi on aluksi yksi
+   if (lippu==1) ytulos[jind]<-ytulos[jind]+1 
+            #jos saatiin toisto, paivitetaan frekvenssi 
+      else{ 
+         saatu<-saatu+1      #jos saatiin uusi, lisataan saatu:un yksi ja
+         xtulos[saatu,]<-hiladat[i,]  #merkitaan uusi lajityyppi muistiin
+         ytulos[saatu]<-1    #uuden lajityypin frekvenssi on aluksi yksi
       }
 }
 xtulos<-xtulos[1:saatu,]
 ytulos<-ytulos[1:saatu]
 ytulos<-t(t(ytulos))
 if (xlkm==1) xtulos<-t(t(xtulos))
-vast<-list(dep=ytulos,ind=xtulos,hila=hila)
-return(vast)
+return(list(dep=ytulos,ind=xtulos,hila=hila))
 }
 

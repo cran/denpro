@@ -1,7 +1,8 @@
 plotmodet<-function(mt,coordi=1,colot=NULL,
 shift=0,xlim=NULL,xlab="",ylab="",
 horilines=NULL,
-symbo=20,loga=NULL,lty="dashed")
+symbo=20,loga=NULL,lty="dashed",
+cex.axis=1,title=TRUE,cex.sub=1,cex.lab=1)
 {
 epsi<-0.0000001
 if (!is.null(horilines)) horilines<-mt$hseq[horilines]
@@ -43,9 +44,14 @@ for (i in 1:len){
   }
 }
 if (loga=="y")
-plot(xvec,yvec,col=as,xlim=xlim,xlab=xlab,ylab=ylab,pch=symbo,log=loga)   
+plot(xvec,yvec,col=as,xlim=xlim,xlab=xlab,ylab=ylab,pch=symbo,log=loga,
+     cex.axis=cex.axis,cex.lab=cex.lab)   
 else
-plot(xvec,yvec,col=as,xlim=xlim,xlab=xlab,ylab=ylab,pch=symbo) 
+plot(xvec,yvec,col=as,xlim=xlim,xlab=xlab,ylab=ylab,pch=symbo,
+     cex.axis=cex.axis,cex.lab=cex.lab) 
+
+if (title) title(sub=paste("coordinate",as.character(coordi)),cex.sub=cex.sub)
+
 
 if (!is.null(horilines)){
   xmin<-min(xvec)

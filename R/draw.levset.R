@@ -1,4 +1,5 @@
-draw.levset<-function(pcf,lev=NULL,bary=NULL,propor=0.1,col=NULL)
+draw.levset<-function(pcf,lev=NULL,bary=NULL,propor=0.1,col=NULL,
+bound=NULL,dendat=NULL)
 {
 
 if (is.null(lev)) lev<-propor*max(pcf$value)
@@ -7,10 +8,18 @@ d<-length(pcf$N)
 step<-matrix(0,d,1)
 for (i in 1:d) step[i]=(pcf$support[2*i]-pcf$support[2*i-1])/pcf$N[i];
 
-xmin<-pcf$support[1]
-xmax<-pcf$support[2]
-ymin<-pcf$support[3]
-ymax<-pcf$support[4]
+if (is.null(bound)){
+  xmin<-pcf$support[1]
+  xmax<-pcf$support[2]
+  ymin<-pcf$support[3]
+  ymax<-pcf$support[4]
+}
+else{
+  xmin<-bound[1]
+  xmax<-bound[2]
+  ymin<-bound[3]
+  ymax<-bound[4]
+}
 
 if (is.null(bary))
    plot(xmin,ymin,type="n",xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax),
@@ -34,6 +43,8 @@ for (i in 1:lenni){
   }
   i<-i+1
 }
+
+if (!is.null(dendat)) points(dendat)
 
 #points(x=bary[1],y=bary[2],pch=20,col="red")
 

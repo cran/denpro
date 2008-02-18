@@ -1,4 +1,5 @@
-draw.pcf<-function(pcf,pnum=rep(32,length(pcf$N)),corona=5,dens=FALSE)
+draw.pcf<-function(pcf,pnum=rep(32,length(pcf$N)),corona=5,dens=FALSE,minval=0,
+drawkern=FALSE)
 {
 #Makes data for drawing a perspective plot.
 #pnum on kuvaajan hilan pisteiden lkm
@@ -13,8 +14,8 @@ for (i in 1:d){
    step[i]<-(pcf$support[2*i]-pcf$support[2*i-1])/pcf$N[i]
 }
 
-if (!is.null(pcf$index)){
-   return(draw.kern(pcf$value,pcf$index,pcf$N,pcf$support))
+if (drawkern){         #(!is.null(pcf$index)){
+   return(draw.kern(pcf$value,pcf$index,pcf$N,pcf$support,minval=minval))
 }
 
 else{
@@ -34,7 +35,7 @@ else{
      reclkm<-length(pcf$value)
      xdim<-length(x)
      ydim<-length(y)
-     arvot<-matrix(0,xdim,ydim)
+     arvot<-matrix(minval,xdim,ydim)
 
      #apu<-matrix(0,reclkm,1)
      l<-1

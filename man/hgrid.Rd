@@ -22,7 +22,7 @@ hgrid(h1, h2, lkm, base = 10)
 \value{
 a vector of smoothing parameters
 }
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 
 \seealso{ 
 \code{\link{lstseq.kern}},

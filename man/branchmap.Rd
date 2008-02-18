@@ -32,7 +32,7 @@ rootpaletti = NULL, type = "jump")
   \item{col}{colors for the graph of the 2D function}
 }
 %\references{http://denstruct.net}
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 
 \seealso{ 

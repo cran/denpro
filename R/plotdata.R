@@ -1,19 +1,20 @@
-plotdata<-function(roots,child,sibling,sibord,levels,volumes,vecs){
+plotdata<-function(roots,child,sibling,sibord,levels,volumes,vecs)
+{
 #plots level-set profile
-#
+
 #parents<-c(0,1,1,0,4,2)
 #levels<-c(1,2,2,1,2,3)
 #volumes<-c(4,2,1,2,1,1)
-#
+
 itemnum<-length(volumes)
-#
+
 #vecs<-matrix(NA,itemnum,4)
 #vecs<-alloroot(vecs,roots,sibord,levels,volumes)
-#
+
 rootnum<-length(roots)
 left<-child
 right<-sibling
-#
+
 for (i in 1:rootnum){
     pino<-matrix(0,itemnum,1)
     pino[1]<-roots[i]  

@@ -21,9 +21,9 @@ plotvolu2d(vd, theta = NULL, phi = NULL, typer = "flat")
 %\details{}
 \value{Plots a perspective plot in the graphics window}
 \references{ 
-Jussi Klemelä (2005).
+Jussi Klemela (2005).
 Visualization of the spread of multivariate distributions.}
-\author{Jussi Klemlelä}
+\author{Jussi Klemela}
 %\note{ }
 \seealso{\code{\link{shape2d}}}
 \examples{

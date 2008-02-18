@@ -8,8 +8,10 @@ col="black",col.axis="black",
 cutlev=NULL,xaxt="n",
 exmavisu=NULL,bg="transparent",tyyppi="n",
 lty="solid",colo=FALSE,lowest="dens",proba=FALSE,
-paletti=NULL,cex=NULL)
+paletti=NULL,cex=NULL,modecolo=NULL,modepointer=NULL,upper=TRUE)
 {
+if (upper) firstlevel<-min(lst$level) else firstlevel<-max(lst$level)
+if (lowest=="dens") firstlevel<-0
 
 parents<-lst$parent
 levels<-lst$level
@@ -91,8 +93,10 @@ minnu<-min(xcoor,na.rm=T)
 if (is.null(cutlev)) xcoor<-xcoor-minnu
 else xcoor<-xcoor-oriminnu
 
+
+if (lowest=="dens") lowesti<-0 else lowesti<-min(lst$level)
 #xlim<-c(min(vecs[,1],na.rm=T)-xmarginleft,max(vecs[,3],na.rm=T)+xmarginright)
-if (is.null(ylim)) ylim<-c(0,max(ycoor,na.rm=T)+ptext+ymargin)
+if (is.null(ylim)) ylim<-c(lowesti,max(ycoor,na.rm=T)+ptext+ymargin)
 if (!is.null(cutlev)) ylim<-c(cutlev,max(ycoor,na.rm=T)+ptext+ymargin)
 
 if (toplot){
@@ -109,15 +113,13 @@ if ((tyyppi=="n") && (toplot)){
 thick<-1
 col<-col #"black"
 
-if (lowest=="dens") lowest<-0 else lowest<-min(lst$level)
-
 for (i in 1:nodenum){
 if (!is.na(ycoor[2*i-1])){
 
     yc<-ycoor[2*i-1]
 
     pare<-parents[i]
-    if (pare==0) lowlev<-lowest else lowlev<-levels[pare]
+    if (pare==0) lowlev<-firstlevel else lowlev<-levels[pare]
 
     segments(xcoor[2*i-1],lowlev,xcoor[2*i-1],yc,col=col,lwd=thick)
     segments(xcoor[2*i],lowlev,xcoor[2*i],yc,col=col,lwd=thick)
@@ -185,7 +187,7 @@ modelab<-plottext(parents,orivecs,ptext,leimat,symbo=symbo,cex=cex)
 
 ############################################# exmavisu start
 
-if (colo) exmavisu<-1
+if (colo) exmavisu<-roots #1
 
 if (!is.null(exmavisu)){
 
@@ -197,7 +199,7 @@ if (colo){
     "pink","violet","magenta","chocolate","cyan",
     colors()[50:657],colors()[50:657])
 
-  col<-colobary(lst$parent,paletti)
+  col<-colobary(lst$parent,paletti,modecolo=modecolo,modepointer=modepointer)
 }
 else col<-rep("blue",length(lst$parent))
 
@@ -208,7 +210,7 @@ node<-exmavisu[i]
 x1<-xcoor[2*node-1] 
 x2<-xcoor[2*node]
 lev<-levels[node]
-if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-0
+if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-firstlevel
 polygon(c(x1,x2,x2,x1),c(lev0,lev0,lev,lev),col=col[node],lty="blank")
 
 pino<-matrix(0,nodenum,1)
@@ -222,7 +224,7 @@ while (pinoin>0){
    x1<-xcoor[2*node-1] 
    x2<-xcoor[2*node]
    lev<-levels[node]
-   if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-0
+   if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-firstlevel
    polygon(c(x1,x2,x2,x1),c(lev0,lev0,lev,lev),col=col[node],lty="blank")
 
    if (sibling[node]>0){
@@ -236,7 +238,7 @@ while (pinoin>0){
          x1<-xcoor[2*node-1] 
          x2<-xcoor[2*node]
          lev<-levels[node]
-         if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-0
+         if (parents[node]>0) lev0<-levels[parents[node]] else lev0<-firstlevel
          polygon(c(x1,x2,x2,x1),c(lev0,lev0,lev,lev),col=col[node],lty="blank")
 
          if (sibling[node]>0){

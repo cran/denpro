@@ -27,7 +27,7 @@ excmas(lst)
   Vector whose length is equal to the number of nodes of the level set tree.
 }
 %\references{{http://www.rni.helsinki.fi/~jsk/denpro}
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 %\note{ ~~further notes~~ }
 
 % ~Make other sections like WARNING with \section{WARNING }{....} ~

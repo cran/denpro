@@ -9,12 +9,13 @@ The grouping may be used to enhance scatter plots,
 graphical matrices, and parallel coordinate plots.
 }
 \usage{
-tree.segme(tt, paletti = seq(1:2000))
+tree.segme(tt, paletti = seq(1:2000), pcf = NULL)
 }
 \arguments{
   \item{tt}{ visualization  tree;
    for example a tail tree }
   \item{paletti}{ a sequence of numbers or colors (group labels)}
+  \item{pcf}{internal; piecewise constant function}
 }
 %\details{}
 \value{
@@ -23,7 +24,7 @@ tree.
 The elements of the vector give the segmentation labels.
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 %\note{ ~~further notes~~ }
 \seealso{ 
 \code{\link{paracoor}}

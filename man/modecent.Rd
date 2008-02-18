@@ -23,7 +23,7 @@ modecent(lst)
 \value{ modenum*d-matrix; for each mode its location.
   The rows of output are d-vectors specifying the locations of the modes.}
 %\references{ http://www.rni.helsinki.fi/~jsk/denpro}
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 %\note{ ~~further notes~~ }
 
 % ~Make other sections like WARNING with \section{WARNING }{....} ~

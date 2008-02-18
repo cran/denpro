@@ -10,17 +10,24 @@ to be used in "persp" or "contour" functions,
 or the "x" and "y" arguments to be used in "plot".
 }
 \usage{
-draw.pcf(pcf, pnum = rep(32,length(pcf$N)), corona = 5, dens=FALSE)
+draw.pcf(pcf, pnum = rep(32,length(pcf$N)), corona = 5, dens = FALSE, 
+minval = 0, drawkern=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{pcf}{piecewise constant function; output of "pcf.kern" or "pcf.func"}
   \item{pnum}{vector of 2 positive integers; dimension of the grid where the
-  function will be plotted; not needed in the 1D case}
+   function will be plotted; not needed in the 1D case}
   \item{corona}{positive integer; gives the number of zeros around the support
-  of the function; the plots look better when there are a corona of zeros
-  around the function}
+   of the function; the plots look better when there are a corona of zeros
+   around the function}
   \item{dens}{TRUE for densities, used in the 1D case instead of the corona}
+  \item{minval}{real number, gives the level of the basis plane of the picture,
+   one takes "minval" typically to be the minimum value of the function
+   (for densities it would be zero)}
+  \item{drawkern}{TRUE or FALSE; internal parameter; when one wants to use 
+   function "drawkern" for calculation, then one should specify drawkern=TRUE,
+   this can be used in the case that "pcf" is a kernel density estimate}
 }
 %\details{}
 \value{
@@ -28,7 +35,7 @@ in the 2D case list of vectors "x" and "y" and matrix "z",
 in the 1D case list of vectors "x" and "y"
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 
 \seealso{

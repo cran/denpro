@@ -1,4 +1,4 @@
-draw.kern<-function(value,index,N,support)
+draw.kern<-function(value,index,N,support,minval=0,dendat=NULL,h=NULL)
 {
 
 d<-length(N)
@@ -7,7 +7,7 @@ if (d==2){
 
 x<-matrix(0,N[1]+2,1)
 y<-matrix(0,N[2]+2,1)
-z<-matrix(0,N[1]+2,N[2]+2)
+z<-matrix(minval,N[1]+2,N[2]+2)
 
 minim<-matrix(0,d,1)  #minim is d-vector of minimums
 maxim<-matrix(0,d,1)

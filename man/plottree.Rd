@@ -18,7 +18,8 @@ xmarginleft=0, xmarginright=0, ymargin=0,
 xlim=NULL, ylim=NULL, col="black", col.axis="black", 
 linecol=rep("black",length(lst$parent)), 
 pch=21, dimen=NULL, yaxt="s", axes=T,
-cex=NULL, nodemag=NULL, linemag=1)
+cex=NULL, nodemag=NULL, linemag=1, 
+cex.axis = 1, ylab = "", cex.lab = 1)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -91,6 +92,11 @@ cex=NULL, nodemag=NULL, linemag=1)
   \item{cex}{ magnification factor for the symbols; see "par" }
   \item{nodemag}{ magnification factor for the points }
   \item{linemag}{ magnification factor for the lines joining the points }
+  \item{cex.axis}{magnification factor for the axis annotation; see "par" }
+  \item{ylab}{character; y-axis label (name of the y-variable); 
+   for example in a tree plot of a level set tree this could be "level"}
+  \item{cex.lab}{magnification factor for the axis labels (names of x and y); 
+   see "par" }
 }
 \details{
 }
@@ -99,7 +105,7 @@ cex=NULL, nodemag=NULL, linemag=1)
 }
 
 %\references{http://www.rni.helsinki.fi/~jsk/denpro}
-\author{ Jussi Klemelä }
+\author{ Jussi Klemela }
 %\note{ ~~further notes~~ }
 
 % ~Make other sections like WARNING with \section{WARNING }{....} ~

@@ -20,7 +20,7 @@ a d-vector; the location of the maximum;
 this is defined as the barycenter of the set where the function has the maximum
 }
 %\references{ ~put references to the literature/web site here ~ }
-\author{Jussi Klemelä}
+\author{Jussi Klemela}
 %\note{ ~~further notes~~ }
 
 \seealso{ 

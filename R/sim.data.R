@@ -1,8 +1,7 @@
 sim.data<-function(n=NULL,seed=1,N=NULL,type="mulmod",
 M=NULL,sig=NULL,p=NULL,d=NULL,
-cova=NULL,marginal="student",t=NULL,df=NULL,distr=FALSE, noisedim=1,
-sig1=0.5,sig2=1.5,diff=0.1
-)
+cova=NULL,marginal=NULL,t=NULL,df=NULL,distr=FALSE, noisedim=1,
+sig1=0.5,sig2=1.5,diff=0.1)
 {
 if (type=="mixt") return( simmix(n,M,sig,p,seed,d) )
 
@@ -24,6 +23,8 @@ if (type=="fssk") return( sim.fssk(n=n,noisedim=noisedim,seed=seed) )
 
 if (type=="nested") return( sim.nested(n=n,seed=seed,N=N) )
 
+if (type=="peaks") return( sim.peaks(n=n,seed=seed,N=N) )
+
 if (type=="mulmodII") return( sim.mulmodII(n=n,seed=seed,N=N) )
 
 if (type=="gauss"){
@@ -32,10 +33,12 @@ if (type=="gauss"){
    set.seed(seed)
    symmedata<-matrix(rnorm(2*n),n,2)
    dendat<-t(sigsqm%*%t(symmedata))
-   dendat<-pnorm(dendat)
-
-   if (marginal=="gauss") dendat<-qnorm(dendat)
-   if (marginal=="student") dendat<-qt(dendat, df=t)
+   if (!is.null(marginal)){
+      dendat[,1]<-pnorm(dendat[,1],sd=sqrt(cova[1,1]))
+      dendat[,2]<-pnorm(dendat[,2],sd=sqrt(cova[2,2]))
+      if (marginal=="student") dendat<-qt(dendat, df=t)
+      if (marginal=="gauss") dendat<-qnorm(dendat)
+   }
    return(dendat)
 }
 
@@ -45,10 +48,10 @@ if (type=="student"){
    set.seed(seed)
    symmedata<-matrix(rt(2*n,df=df),n,2)
    dendat<-t(sigsqm%*%t(symmedata))
-   dendat<-pt(dendat,df=df)
-
-   if (marginal=="gauss") dendat<-qnorm(dendat)
-   if (marginal=="student") dendat<-qt(dendat, df=t)
+   if (!is.null(marginal)){
+       dendat<-pt(dendat,df=df)
+       if (marginal=="gauss") dendat<-qnorm(dendat)
+   }
    return(dendat)
 }
 
