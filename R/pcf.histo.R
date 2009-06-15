@@ -1,4 +1,4 @@
-pcf.histo<-function(dendat,N)
+pcf.histo<-function(dendat,N,weights=rep(1,dim(dendat)[1]))
 {
 n<-dim(dendat)[1]
 d<-dim(dendat)[2]
@@ -21,6 +21,7 @@ numpositive<-0
 for (i in 1:n){
     # find the right rectangle
     point<-dendat[i,]
+    weight<-weights[i]
    for (k in 1:d) inde[k]<-min(floor((point[k]-support[2*k-1])/step[k]),N[k]-1)
     # inde[k] should be between 0 and N[k]-1
 
@@ -34,11 +35,11 @@ for (i in 1:n){
     row<-rowpointer[recnum]
 
     # update the value or create a new row
-    if (row>0) value[row]<-value[row]+1
+    if (row>0) value[row]<-value[row]+weight
     else{
          numpositive<-numpositive+1
          rowpointer[recnum]<-numpositive
-         value[numpositive]<-1
+         value[numpositive]<-weight
          index[numpositive,]<-inde
     }
 }

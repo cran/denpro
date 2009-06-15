@@ -36,3 +36,6 @@ while (i <= lenni){
 
 return(list(x=x,y=y))
 }
+
+
+

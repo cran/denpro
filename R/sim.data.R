@@ -1,7 +1,7 @@
 sim.data<-function(n=NULL,seed=1,N=NULL,type="mulmod",
 M=NULL,sig=NULL,p=NULL,d=NULL,
 cova=NULL,marginal=NULL,t=NULL,df=NULL,distr=FALSE, noisedim=1,
-sig1=0.5,sig2=1.5,diff=0.1)
+sig1=0.5,sig2=1.5,diff=0.1,dist=4)
 {
 if (type=="mixt") return( simmix(n,M,sig,p,seed,d) )
 
@@ -11,7 +11,7 @@ if (type=="fox") return( sim.fox(n=n,seed=seed,N=N) )
 
 if (type=="tetra3d") return( sim.tetra3d(n=n,seed=seed,N=N) )
 
-if (type=="penta4d") return( sim.penta4d(n=n,seed=seed,N=N) )
+if (type=="penta4d") return( sim.penta4d(n=n,seed=seed,N=N,dist=dist) )
 
 if (type=="cross") return( sim.cross(n=n,seed=seed,N=N,sig1=sig1,sig2=sig2) )
 

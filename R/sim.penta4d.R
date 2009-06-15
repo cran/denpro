@@ -1,9 +1,9 @@
-sim.penta4d<-function(n=NULL,seed=1,N=NULL)
+sim.penta4d<-function(n=NULL,seed=1,N=NULL,dist=4)
 {
 d<-4
 moodi<-5
 M<-matrix(0,moodi,d)
-dist<-4     # determine the distance between vertices of the pentahedron
+#dist<-4     # determine the distance between vertices of the pentahedron
 M[1,]<-dist*c(1/2, 0,0,0)
 M[2,]<-dist*c(-1/2,0,0,0)
 M[3,]<-dist*c(0,sqrt(3)/2,0,0)

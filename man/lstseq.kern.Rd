@@ -10,7 +10,7 @@ parmeters.
 }
 \usage{
 lstseq.kern(dendat, hseq, N, lstree = NULL, level = NULL,
-Q = NULL, kernel = "epane", hw = NULL, algo = "leafsfirst")
+Q = NULL, kernel = "gauss", hw = NULL, algo = "leafsfirst", support = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -32,6 +32,8 @@ Q = NULL, kernel = "epane", hw = NULL, algo = "leafsfirst")
   \item{hw}{positive integer; parameter for time localized kernel estimation;
    gives the smoothing parameter for the temporal smoothing}
   \item{algo}{"leafsfirst" or "dynadecompose"}
+  \item{support}{2*d vector of reals gives the d intervals of a 
+   rectangular support; c(low1,upp1,...,lowd,uppd)}
 }
 %\details{}
 \value{

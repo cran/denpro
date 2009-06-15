@@ -1,5 +1,5 @@
 dist.func<-function(dendat,xepsi=0,yepsi=0,col="black",type="distr",
-log="y")
+log="y",cex.axis=1)
 {
 n<-length(dendat)
 
@@ -7,7 +7,7 @@ if (type=="distr"){
 
 plot(x="",y="",
 xlim=c(min(dendat)-xepsi,max(dendat)+xepsi), ylim=c(0-yepsi,1+yepsi),
-xlab="",ylab="")
+xlab="",ylab="",cex.axis=cex.axis)
 ycur<-0
 ordi<-order(dendat)
 dendatord<-dendat[ordi]
@@ -34,7 +34,7 @@ else if ((type=="right.tail") || (type=="left.tail")){
   dendat.ord<-dendat.redu[ordi]
   nredu<-length(dendat.redu)
   level<-seq(nredu,1)
-  plot(dendat.ord,level,log=log,xlab="",ylab="")
+  plot(dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis)
 
   #ordi<-order(dendat)
   #dendat.ord<-dendat[ordi]

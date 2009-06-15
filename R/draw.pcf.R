@@ -1,5 +1,5 @@
 draw.pcf<-function(pcf,pnum=rep(32,length(pcf$N)),corona=5,dens=FALSE,minval=0,
-drawkern=FALSE)
+drawkern=TRUE)
 {
 #Makes data for drawing a perspective plot.
 #pnum on kuvaajan hilan pisteiden lkm
@@ -9,12 +9,14 @@ d<-length(pcf$N)
 
 if (d==2){
 
+#col=matrix("black",length(pcf$value),1)
+
 step<-matrix(0,d,1)
 for (i in 1:d){
    step[i]<-(pcf$support[2*i]-pcf$support[2*i-1])/pcf$N[i]
 }
 
-if (drawkern){         #(!is.null(pcf$index)){
+if ((drawkern)&&(!is.null(pcf$index))){
    return(draw.kern(pcf$value,pcf$index,pcf$N,pcf$support,minval=minval))
 }
 
@@ -37,7 +39,6 @@ else{
      ydim<-length(y)
      arvot<-matrix(minval,xdim,ydim)
 
-     #apu<-matrix(0,reclkm,1)
      l<-1
      while (l<=reclkm){
          begx<-pcf$support[1]+step[1]*(pcf$down[l,1])   #recs[l,1]
@@ -50,8 +51,8 @@ else{
          begyind<-round(pnum2[2]*(begy-alkuy)/(loppuy-alkuy))
          endyind<-round(pnum2[2]*(endy-alkuy)/(loppuy-alkuy))
 
-         #apu[l]<-begxind
          arvot[begxind:endxind,begyind:endyind]<-pcf$value[l]
+         #col[(begxind+(ydim-1)*begxind):(endxind+(ydim-1)*endyind)]<-ts[l]
 
          l<-l+1
      }
@@ -98,18 +99,24 @@ if (dens){
 }
 
 # remove zeros
-#numposi<-0
-#for (i in 1:N+2){
-#  if (y[i]>0){
-#      numposi<-numposi+1
-#      y[numposi]<-y[i]
-#      x[numposi]<-x[i]
-#  }
-#}
-#x<-x[1:numposi]
-#y<-y[1:numposi]
+if (dens){
+  numposi<-0
+  for (i in 1:length(y)){
+    if (y[i]>0){
+       numposi<-numposi+1
+       y[numposi]<-y[i]
+       x[numposi]<-x[i]
+    }
+  }
+  x<-x[1:numposi]
+  y<-y[1:numposi]
+}
 
-return(list(x=x,y=y))
+or<-order(x)
+xor<-x[or]
+yor<-y[or]
+
+return(list(x=xor,y=yor))
 
 }  # else d=1
 

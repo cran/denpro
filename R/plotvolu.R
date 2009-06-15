@@ -5,10 +5,11 @@ info=NULL,infolift=0,infopos=0,
 xmarginleft=0,xmarginright=0,ymargin=0,
 xlim=NULL,ylim=NULL,
 col="black",col.axis="black",
-cutlev=NULL,xaxt="n",
+cutlev=NULL,xaxt="s",yaxt="s",
 exmavisu=NULL,bg="transparent",tyyppi="n",
 lty="solid",colo=FALSE,lowest="dens",proba=FALSE,
-paletti=NULL,cex=NULL,modecolo=NULL,modepointer=NULL,upper=TRUE)
+paletti=NULL,cex=NULL,modecolo=NULL,modepointer=NULL,upper=TRUE,
+cex.axis=1)
 {
 if (upper) firstlevel<-min(lst$level) else firstlevel<-max(lst$level)
 if (lowest=="dens") firstlevel<-0
@@ -73,9 +74,7 @@ leafcolors<-NULL
 leaflift<-0
 leafsymbo<-20
 modelabels<-NULL
-yaxt<-"s"
 log<-""
-xaxt<-"s"
 
 nodenum<-length(vecs[,1])
 xcoor<-matrix(0,2*nodenum,1)
@@ -104,7 +103,7 @@ par(bg=bg)
 plot(xcoor[order(xcoor)],ycoor[order(xcoor)],  #xcoor,ycoor,
 xlab="",ylab="",axes=axes,xlim=xlim,ylim=ylim,xaxt=xaxt,
 col=col,col.axis=col.axis,yaxt=yaxt,log=log,
-type=tyyppi,lty=lty)
+type=tyyppi,lty=lty,cex.axis=cex.axis)
 }
 ###########################################################
 
@@ -183,6 +182,15 @@ modelab<-plottext(parents,orivecs,ptext,leimat,symbo=symbo,cex=cex)
 
 
 }  #tyyppi = "n"
+
+
+if (!is.null(lst$predictor.node)) 
+segments(
+xcoor[2*lst$predictor.node-1],
+ycoor[2*lst$predictor.node-1],
+xcoor[2*lst$predictor.node],
+ycoor[2*lst$predictor.node])
+
 
 
 ############################################# exmavisu start

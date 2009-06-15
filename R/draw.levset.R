@@ -1,5 +1,5 @@
 draw.levset<-function(pcf,lev=NULL,bary=NULL,propor=0.1,col=NULL,
-bound=NULL,dendat=NULL)
+bound=NULL,dendat=NULL,xaxt="s",yaxt="s",cex.axis=1)
 {
 
 if (is.null(lev)) lev<-propor*max(pcf$value)
@@ -23,11 +23,11 @@ else{
 
 if (is.null(bary))
    plot(xmin,ymin,type="n",xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax),
-   pch=20,col="red")
+   pch=20,col="red",xaxt=xaxt,yaxt=yaxt,cex.axis=cex.axis)
 else
   plot(x=bary[1],y=bary[2],
   xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax),
-  pch=20,col="red")
+  pch=20,col="red",xaxt=xaxt,yaxt=yaxt,cex.axis=cex.axis)
 
 lenni<-length(pcf$value)
 for (i in 1:lenni){

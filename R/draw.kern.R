@@ -8,6 +8,7 @@ if (d==2){
 x<-matrix(0,N[1]+2,1)
 y<-matrix(0,N[2]+2,1)
 z<-matrix(minval,N[1]+2,N[2]+2)
+#col<-matrix("black",dim(z)[1]*dim(z)[2],1)
 
 minim<-matrix(0,d,1)  #minim is d-vector of minimums
 maxim<-matrix(0,d,1)
@@ -23,7 +24,7 @@ i<-1
 while (i<=indenum){
    inde<-index[i,]
    z[1+inde[1],1+inde[2]]<-value[i]
-
+   #col[1+inde[1]+dim(z)[1]*inde[2]]<-ts[i]
    i<-i+1
 }
 
@@ -44,7 +45,7 @@ x[N[1]+2]<-support[2]
 y[1]<-support[3]
 y[N[2]+2]<-support[4]
 
-return(list(x=x,y=y,z=z))
+return(list(x=x,y=y,z=z)) #col=col[length(col):1]))
 
 }
 

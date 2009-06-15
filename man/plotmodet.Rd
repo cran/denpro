@@ -10,7 +10,8 @@ Plots one window of a mode graph.
 \usage{
 plotmodet(mt, coordi = 1, colot = NULL, shift = 0, xlim = NULL, 
 xlab = "", ylab = "", horilines = NULL, symbo = 20, loga = NULL, 
-lty = "dashed", cex.axis = 1, title = TRUE, cex.sub = 1, cex.lab = 1)
+lty = "dashed", cex.axis = 1, title = TRUE, cex.sub = 1, cex.lab = 1,
+xaxt = "s", yaxt = "s")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -32,6 +33,10 @@ lty = "dashed", cex.axis = 1, title = TRUE, cex.sub = 1, cex.lab = 1)
   \item{cex.sub}{magnification factor for the subtitle; see "par" }
   \item{cex.lab}{magnification factor for the axis labels (names of x and y); 
    see "par" }
+  \item{xaxt}{a character which specifies the x axis type; either "s" or "n";
+   see "par"}
+  \item{yaxt}{a character which specifies the y axis type; either "s" or "n";
+   see "par"}
 }
 %\details{}
 \value{

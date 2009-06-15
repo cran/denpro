@@ -9,12 +9,12 @@ The grouping may be used to enhance scatter plots,
 graphical matrices, and parallel coordinate plots.
 }
 \usage{
-tree.segme(tt, paletti = seq(1:2000), pcf = NULL)
+tree.segme(tt, paletti = NULL, pcf = NULL)
 }
 \arguments{
   \item{tt}{ visualization  tree;
    for example a tail tree }
-  \item{paletti}{ a sequence of numbers or colors (group labels)}
+  \item{paletti}{a sequence of numbers or colors (group labels)}
   \item{pcf}{internal; piecewise constant function}
 }
 %\details{}

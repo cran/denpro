@@ -23,15 +23,14 @@ constant.
 \details{
 \tabular{ll}{
 Package: \tab denpro\cr
-Version: \tab 0.8.2\cr
-Date: \tab 2006-05-16\cr
-Depends: \tab R\cr
-License: \tab GPL version 2 or newer\cr
-URL: \tab http://www.rni.helsinki.fi/~jsk/denpro\cr
-Packaged: \tab Thu May 18 15:34:27 2006; jsk\cr
-Built: \tab R 2.2.1; i686-pc-linux-gnu; 2006-05-18 15:34:43; unix\cr
+Version: \tab 0.9.0\cr
+Date: \tab 2009-06-15\cr
+Depends: \tab \cr
+License: \tab GPL(>=2)\cr
+URL: \tab http://www.rni.helsinki.fi/~jsk/denpro/\cr
+Packaged: \tab Mon Jun 15 16:34:17 2009; jsk\cr
+Built: \tab R 2.6.2; i486-pc-linux-gnu; 2009-06-15 16:34:35; unix\cr
 }
-
 
 The main function:
 

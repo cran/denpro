@@ -161,11 +161,12 @@ newlevel<-newlevel[1:newlkm]
 if (newlkm<=1) newdistcenter<-matrix(newdistcenter[,1],d,1) 
 else newdistcenter<-newdistcenter[,1:newlkm]
 newproba<-newproba[1:newlkm]
+newpointer<-newpointer[1:newlkm]
 
 return(list(parent=newparent,level=newlevel,volume=newvolume,center=newcenter,
 distcenter=newdistcenter,  #branchradius=newbranchradius,
 proba=newproba,
-refe=lst$refe,bary=lst$bary,root=1))
+refe=lst$refe,bary=lst$bary,root=1,infopointer=newpointer))
 
 }   
 

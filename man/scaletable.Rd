@@ -25,11 +25,11 @@ st.modelabel = FALSE, st.colo = TRUE)
   \item{ptextst}{a real number; lifting of the tail labels}
   \item{bm}{branching map; just to fasten the plotting in the case the
   branching map has been already calculated}
-  \item{levnum}{positive ineteger}{the number of levels in level set trees}
-  \item{levnumst}{positive ineteger}{the number of levels in shape trees}
-  \item{redu}{T or F; whether the number of levels of levels will be reduced,
+  \item{levnum}{positive ineteger; the number of levels in level set trees}
+  \item{levnumst}{positive ineteger; the number of levels in shape trees}
+  \item{redu}{TRUE or FALSE; TRUE when the number of levels will be reduced,
    see argument "levnum"}
-  \item{volu.modelabel}{TRUE or FALSE; whether the modes are labeled in 
+  \item{volu.modelabel}{TRUE or FALSE; TRUE when the modes are labeled in 
    volume plots (otherwise the identification of the modes between volume
    plots and barycenter plots is made with colors)}
   \item{volu.colo}{TRUE or FALSE; whether volume plots are colored}

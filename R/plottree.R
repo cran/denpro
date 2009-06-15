@@ -6,9 +6,9 @@ xmarginleft=0,xmarginright=0,ymargin=0,
 xlim=NULL,ylim=NULL,
 col="black",col.axis="black",linecol=rep("black",length(lst$parent)),
 pch=21,dimen=NULL,yaxt="s",axes=T,
-cex=NULL,nodemag=NULL,linemag=1,cex.axis=1,ylab="",cex.lab=1)
-{    
-
+cex=NULL,nodemag=NULL,linemag=1,cex.axis=1,ylab="",cex.lab=1,
+colo=FALSE,paletti=NULL,lowest="dens")
+{ 
 # create vector verticalPos
 # find modes, number of modes, attach vertical position to modes
 # position of parent is the mid of positions of children:
@@ -18,6 +18,19 @@ cex=NULL,nodemag=NULL,linemag=1,cex.axis=1,ylab="",cex.lab=1)
 #pch=21: circle, pch=22: square, 
 #pch=23: diamond, pch=24: triangle point-up, 
 #pch=25: triangle point down. 
+
+if (colo){
+  if (is.null(paletti))
+    paletti<-c("red","blue","green",
+    "orange","navy","darkgreen",
+    "orchid","aquamarine","turquoise",
+    "pink","violet","magenta","chocolate","cyan",
+    colors()[50:657],colors()[50:657])
+
+  col<-colobary(lst$parent,paletti,modecolo=NULL,modepointer=NULL)
+  linecol<-col
+}
+else col<-rep(col,length(lst$parent))
 
 parent<-lst$parent
 level<-lst$level
@@ -88,7 +101,8 @@ for (i in 1:modenum){
    }
 }
 
-if (is.null(ylim)) ylim<-c(0,max(level)+ptext+ymargin)
+if (lowest=="dens") lowesti<-0 else lowesti<-min(lst$level)
+if (is.null(ylim)) ylim<-c(lowesti-ymargin,max(level)+ptext+ymargin)
 xlim<-c(min(verticalPos)-xmarginleft,max(verticalPos)+xmarginright)
 #axes<-
 plot(verticalPos,level,xlab="",ylab=ylab,xlim=xlim,ylim=ylim,xaxt="n",

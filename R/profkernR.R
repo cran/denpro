@@ -69,7 +69,7 @@ if (ccen && cvol){
   }
 
 return(list(parent=parent,level=sepvalnor,invalue=invalue,
-volume=volume,center=center,nodefrek=nodefrek))
+volume=volume,center=center))#,nodefrek=nodefrek))
 #values: normeeratut arvot
 #invalues: alkuperaiset frekvenssit/arvot 
 #nodefrek: kunkin solmun frekvenssi

@@ -11,7 +11,7 @@ or the "x" and "y" arguments to be used in "plot".
 }
 \usage{
 draw.pcf(pcf, pnum = rep(32,length(pcf$N)), corona = 5, dens = FALSE, 
-minval = 0, drawkern=FALSE)
+minval = 0, drawkern=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

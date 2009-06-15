@@ -1,5 +1,5 @@
 lstseq.kern<-function(dendat,hseq,N,lstree=NULL,level=NULL,
-Q=NULL,kernel="epane",hw=NULL,algo="leafsfirst")
+Q=NULL,kernel="gauss",hw=NULL,algo="leafsfirst",support=NULL)
 {
 hnum<-length(hseq)
 if ((hnum>1) && (hseq[1]<hseq[2])) hseq<-hseq[seq(hnum,1)]
@@ -8,7 +8,7 @@ if (algo=="leafsfirst"){
 
   for (i in 1:hnum){   
       h<-hseq[i]
-      pcf<-pcf.kern(dendat,h,N,kernel=kernel,hw=hw)
+      pcf<-pcf.kern(dendat,h,N,kernel=kernel,support=support)
       if (!is.null(lstree)) lf<-leafsfirst(pcf)
       if (!is.null(level)){ 
            lev<-level*max(pcf$value)  
