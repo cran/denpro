@@ -21,10 +21,12 @@ if (d>1){
 
   if (func=="mixt"){ 
 
-     support<-matrix(0,2*d,1)
-     for (i in 1:d){
+     if (is.null(support)){
+       support<-matrix(0,2*d,1)
+       for (i in 1:d){
            support[2*i-1]<-min(M[,i]-mul*sig[,i])
            support[2*i]<-max(M[,i]+mul*sig[,i])
+       }
      }
      lowsuppo<-matrix(0,d,1)
      for (i in 1:d) lowsuppo[i]<-support[2*i-1]
@@ -36,6 +38,12 @@ if (d>1){
      for (i in 1:recnum){
         inde<-digit(i-1,N)+1
         point<-lowsuppo+step*inde-step/2
+ 
+        if (!is.null(theta)){
+           rotmat<-matrix(c(cos(theta),-sin(theta),sin(theta),cos(theta)),2,2)
+           point<-rotmat%*%point
+        }
+
         valli<-0
         for (mi in 1:mixnum){
             evapoint<-(point-M[mi,])/sig[mi,]
@@ -63,8 +71,45 @@ if (d>1){
      numpositive<-0
      for (i in 1:recnum){
         inde<-digit(i-1,N)+1
-        point<-lowsuppo+step*inde-step/2
-        valli<-eva.student(point,t,marginal,sig,r,df)
+        x<-lowsuppo+step*inde-step/2
+
+        #valli<-eva.student(x,t,marginal,sig,r,df)
+
+        margx<-matrix(0,d,1)
+        u<-matrix(0,d,1)
+
+        if (marginal=="unif"){
+           for (j in 1:d){
+             u[j]<-x[j]/sig[j]  #+1/2
+             margx[j]<-1/sig[j]
+           }
+        }
+        if ((marginal=="normal")||(marginal=="gauss")){
+           for (j in 1:d){
+             u[j]<-pnorm(x[j]/sig[j])
+             margx[j]<-evanor(x[j]/sig[j])/sig[j]
+           }
+        }
+        if (marginal=="student"){
+          for (j in 1:d){
+             u[j]<-pt(x[j]/sig[j],df=t[j])
+             margx[j]<-dt(x[j]/sig[j],df=t[j])/sig[j]
+          }
+        }
+        
+        x1<-qt(u[1],df=df)
+        x2<-qt(u[2],df=df)
+
+        d<-2
+        vakio<-gamma((df+d)/2)*gamma(df/2)/gamma((df+1)/2)^2
+        nelio<-(x1^2+x2^2-2*r*x1*x2)/(1-r^2)
+        prod<-(1+x1^2/df)^((1+df)/2)*(1+x2^2/df)^((1+df)/2)
+        copuval<-vakio*(1-r^2)^(-1/2)*prod*(1+nelio/df)^(-(df+d)/2)
+
+        valli<-copuval*margx[1]*margx[2]
+
+        ###############################################
+
         if (valli>0){
            numpositive<-numpositive+1
            value[numpositive]<-valli
@@ -87,9 +132,9 @@ if (d>1){
      for (i in 1:recnum){
         inde<-digit(i-1,N)+1
         x<-lowsuppo+step*inde-step/2
-        #valli<-eva.copula(x,
-        #     type="gauss",marginal=marginal,sig=sig,r=r,t=t)
-        #######################
+
+        #valli<-eva.copula(x,type="gauss",marginal=marginal,sig=sig,r=r,t=t)
+
         margx<-matrix(0,d,1)
         u<-matrix(0,d,1)
 
@@ -111,13 +156,15 @@ if (d>1){
              margx[j]<-dt(x[j]/sig[j],df=t[j])/sig[j]
           }
         }
-        d<-2
+        
         x1<-qnorm(u[1],sd=1)
         x2<-qnorm(u[2],sd=1)
 
-        copuval<-
-(1-r^2)^(-1/2)*exp(-(x1^2+x2^2-2*r*x1*x2)/(2*(1-r^2)))/exp(-(x1^2+x2^2)/2)
+        nelio<-(x1^2+x2^2-2*r*x1*x2)/(1-r^2)
+        copuval<-(1-r^2)^(-1/2)*exp(-nelio/2)/exp(-(x1^2+x2^2)/2)
+
         valli<-copuval*margx[1]*margx[2]
+
         ########################################
 
         if (valli>0){
@@ -184,7 +231,8 @@ for (i in 1:recnum){
         type="clayton",marginal=marginal,sig=sig,r=r,t=t,g=g)
     if (func=="cop6") valli<-eva.cop6(point,t,marginal,sig)
     if (func=="epan") valli<-epan(point)
-    if (func=="normal") valli<-eva.gauss(point,t=t,marginal=marginal,sig=sig,r=r)   
+    if (func=="normal") 
+        valli<-eva.gauss(point,t=t,marginal=marginal,sig=sig,r=r)   
     if (func=="hat") valli<-eva.hat(point,a=a,b=b)
 
     if (valli>0){

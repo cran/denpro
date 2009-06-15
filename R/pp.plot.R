@@ -1,5 +1,5 @@
 pp.plot<-function(dendat=NULL,compa="gauss",basis="gauss",mean=0,sig=1,df=1,
-gnum=1000,d=1,R=3,pptype="1d")
+gnum=1000,d=1,R=3,pptype="1d",cex.lab=1,cex.axis=1,col="blue",lwd=1)
 # basis is either data (dendat) or a theoretical distribution
 {
 if (pptype=="1d"){
@@ -31,7 +31,7 @@ if (pptype=="ddplot"){
 plot(x,y,
 type=tyyppi,
 xlim=c(0,1),ylim=c(0,1),
-xlab=xlab,ylab=ylab)
-segments(0,0,1,1,col="green")
+xlab=xlab,ylab=ylab,cex.lab=cex.lab,cex.axis=cex.axis)
+segments(0,0,1,1,col=col,lwd=lwd)
 }
 

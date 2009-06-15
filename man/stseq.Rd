@@ -8,7 +8,7 @@ from a sequence of level sets }
 }
 \usage{
 stseq(N, lnum, refe = NULL, func = NULL, dendat = NULL, h = NULL, Q = NULL, 
-kernel = "epane", hw = NULL, sig = rep(1, length(N)), support = NULL, 
+kernel = "epane", weights = NULL, sig = rep(1, length(N)), support = NULL, 
 theta = NULL, M = NULL, p = NULL, mul = 3, t = rep(1, length(N)), 
 marginal = "normal", r = 0, mu = NULL, xi = NULL, Omega = NULL, alpha = NULL, 
 df = NULL, g = 1, base = 10)
@@ -28,8 +28,9 @@ df = NULL, g = 1, base = 10)
   \item{h}{postive real number; the smoothing parameter of the kernel estimate}
   \item{Q}{ internal }
   \item{kernel}{"gauss" or "epane"; the kernel of the kernel estimate }
-  \item{hw}{ positive real number; the time window of the kernel estimate,
-  used only for time series data }
+  \item{weights}{n vector of nonnegative weights, where n is the sample size;
+   sum of the elements of "weights" should be one;
+   these are the weights of a time localized kernel estimator}
   \item{sig}{ see "pcf.func" }
   \item{support}{ see "pcf.func" }
   \item{theta}{ see "pcf.func" }
@@ -45,7 +46,7 @@ df = NULL, g = 1, base = 10)
   \item{alpha}{ see "pcf.func" }
   \item{df}{ see "pcf.func" }
   \item{g}{ see "pcf.func" }
-  \item{base}{ positve integer or NULL; the base of the logarithm, when the
+  \item{base}{positve integer or NULL; the base of the logarithm, when the
   logarithmic spacing is used for the level sets, if "base" is NULL, then the
   level sets are equispaced}
 }

@@ -1,6 +1,6 @@
 stseq<-function(N,lnum,
 refe=NULL,func=NULL,dendat=NULL,
-h=NULL,Q=NULL,kernel="epane",hw=NULL,
+h=NULL,Q=NULL,kernel="epane",weights=NULL,
 sig=rep(1,length(N)),support=NULL,theta=NULL,
 M=NULL,p=NULL,mul=3,
 t=rep(1,length(N)),marginal="normal",r=0,
@@ -12,7 +12,7 @@ base=10
 level<-matrix(0,lnum,1)
 volume<-matrix(0,lnum,1)
 if (!is.null(dendat)) 
-  pcf<-pcf.kern(dendat,h,N,kernel=kernel,hw=hw)
+  pcf<-pcf.kern(dendat,h,N,kernel=kernel,weights=weights)
 else
   pcf<-pcf.func(func,N,   #eval.func.dD
   sig=sig,support=support,theta=theta,

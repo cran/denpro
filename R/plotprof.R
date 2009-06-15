@@ -1,11 +1,11 @@
 plotprof<-function(profile,length=NULL,
-plot=T,data=F,crit=NULL,orderrule="distcenter",
+plot=TRUE,data=FALSE,crit=NULL,orderrule="distcenter",
 modelabel=TRUE,ptext=0,leimat=NULL,symbo=NULL,
 info=NULL,infolift=0,infopos=0,
 xmarginleft=0,xmarginright=0,ymargin=0,
 xlim=NULL,ylim=NULL,
 col="black",col.axis="black",
-cutlev=NULL,xaxt="n",exmavisu=NULL)
+cutlev=NULL,xaxt="n",exmavisu=NULL,cex.axis=1,cex=1)
 {
 
 #xaxs="e"    (extended)  not implemented?  xaxt="n"
@@ -53,7 +53,7 @@ if (!(is.null(cutlev))){
   vecs<-plotdata(roots,child,sibling,sibord,levels,length,vecs)
 }
 
-if (plot==T){
+if (plot==TRUE){
    if (!(is.null(cutlev))){
      xlim<-c(omamin(vecs[,1])-xmarginleft,omamax(vecs[,3])+xmarginright)
      ylim<-c(omamin(vecs[,2]),omamax(vecs[,2])+ptext+ymargin)
@@ -63,10 +63,10 @@ if (plot==T){
      if (is.null(ylim)) ylim<-c(0,omamax(vecs[,2])+ptext+ymargin)
    }
    plotvecs(vecs,segme=T,xlim=xlim,ylim=ylim,xaxt=xaxt,
-   col=col,col.axis=col.axis)
+   col=col,col.axis=col.axis,cex.axis=cex.axis)
    # use original vectors (numbering will be correct)
    if (modelabel){
-      plottext(parents,orivecs,ptext,leimat,symbo)  
+      plottext(parents,orivecs,ptext,leimat,symbo,cex=cex)  
    }
    if (!is.null(info)){
       plotinfo(vecs,info,pos=infopos,adj=NULL,lift=infolift,digits=3)
@@ -74,7 +74,7 @@ if (plot==T){
 }
 #
 #
-if (data==T){
+if (data==TRUE){
  return(list(sibord=t(sibord),vecs=vecs,parents=parents,levels=levels,
  length=length,center=center,remain=NULL))
 }

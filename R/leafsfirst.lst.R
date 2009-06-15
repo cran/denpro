@@ -1,4 +1,4 @@
-leafsfirst.lst<-function(pcf, ngrid=NULL)
+leafsfirst.lst<-function(pcf, ngrid=NULL, predictor=NULL, type=NULL)
 {
 rho<-0
 
@@ -52,6 +52,17 @@ for (i in 1:d){
   boundrec[node,2*i]<-pcf$high[note,i]  
 }
 
+found.predictor.node<-FALSE
+if ((!is.null(predictor))&&(!found.predictor.node)){
+   predictor.rec<-matrix(0,2*d,1)
+   for (ii in 1:d){ 
+     predictor.rec[2*ii-1]<-floor((predictor[ii]-pcf$support[2*ii-1])/step[ii])
+     predictor.rec[2*ii]<-ceiling((predictor[ii]-pcf$support[2*ii-1])/step[ii])
+   }
+   if (touch(predictor.rec,boundrec[node,])) predictor.node<-node
+}
+else predictor.node<-NULL
+
 j<-2
 while (j<=lkm){
     node<-lkm-j+1   #ord[lkm-j+1]
@@ -68,6 +79,10 @@ while (j<=lkm){
          rec1[2*i]<-pcf$high[note,i] 
     }
     boundrec[node,]<-rec1
+
+    if ((!is.null(predictor))&&(!found.predictor.node)){
+       if (touch(predictor.rec,boundrec[node,])) predictor.node<-node
+    }
 
     # radius
     radius[node]<-distat[ord[node]]
@@ -134,7 +149,7 @@ lf<-list(
   root=root,
   infopointer=infopointer,
   distcenter=t(distcenter),
-  refe=refe,maxdis=maxdis,bary=bary,lev=lev)
+  maxdis=maxdis,bary=bary,predictor.node=predictor.node)
 
 
 # if ngrid given, reduce the lst

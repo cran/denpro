@@ -9,13 +9,19 @@ coordinates of a single observation are joined with lines.
 }
 \usage{
 paracoor(dendat, xmargin = 0.1,
-paletti = matrix("black",dim(dendat)[1],1))
+paletti = matrix("black",dim(dendat)[1],1),
+noadd = TRUE, verti = NULL, cex.axis = 1)
 }
 \arguments{
   \item{dendat}{n*d data matrix of real numbers}
   \item{xmargin}{positive real number; empty space in left and right}
   \item{paletti}{n vector of colors; the lines will be colored with 
    these colors}
+  \item{noadd}{TRUE or FALSE; if FALSE, then the lines will be added to an 
+   existing plot}
+  \item{verti}{real number or NULL; gives the x coordinate of a vertical line;
+   can be used to divide the plot vertically to two parts} 
+  \item{cex.axis}{the magnification to be used for axis annotation}
 }
 \value{
 Makes a plot on the graphics window

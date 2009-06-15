@@ -1,10 +1,10 @@
-touch<-function(rec1,rec2){
-#Checks whether rectangles rec1, rec2 touch.
-#rec1,rec2 are 2*d vectors
-#
-#Returns FALSE if intersection is empty
-#
-epsi<-0.000001
+touch<-function(rec1,rec2,epsi=0.000001)
+{
+# Checks whether rectangles rec1, rec2 touch.
+# rec1,rec2 are 2*d vectors
+
+# Returns FALSE if intersection is empty
+
 d<-length(rec1)/2
 tulos<-TRUE
 i<-1

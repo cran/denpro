@@ -16,10 +16,11 @@ info=NULL, infolift=0, infopos=0,
 xmarginleft=0, xmarginright=0, ymargin=0, 
 xlim=NULL, ylim=NULL, 
 col="black", col.axis="black", 
-cutlev=NULL, xaxt="n",
+cutlev=NULL, xaxt="s", yaxt="s",
 exmavisu=NULL, bg="transparent", tyyppi="n", lty="solid",colo=FALSE, 
 lowest="dens", proba=FALSE,
-paletti=NULL, cex=NULL, modecolo = NULL, modepointer = NULL, upper = TRUE)
+paletti=NULL, cex=NULL, modecolo = NULL, modepointer = NULL, upper = TRUE,
+cex.axis = 1)
 }
 \arguments{
   \item{lst}{level set tree or shape tree; list of vectors.
@@ -85,8 +86,10 @@ paletti=NULL, cex=NULL, modecolo = NULL, modepointer = NULL, upper = TRUE)
   \item{col.axis}{color for the x and y-axis; for example "black" or "blue".}
   \item{cutlev}{positive real number; we may cut the volume plot
    at "cutlev" and thus zoom to the upper levels.}
-  \item{xaxt}{"n" or "s"; controls whether the x scale will be
-  plotted. Put "s" if you want the x-scale.}
+  \item{xaxt}{a character which specifies the x axis type; either "s" or "n";
+   see "par"}
+  \item{yaxt}{a character which specifies the y axis type; either "s" or "n";
+   see "par"}
   \item{exmavisu}{lower level parameter}
   \item{bg}{lower level parameter}
   \item{tyyppi}{lower level parameter}
@@ -95,8 +98,8 @@ paletti=NULL, cex=NULL, modecolo = NULL, modepointer = NULL, upper = TRUE)
   transform/radius transform will be 
   colored with the same color as the corresponding node in the barycenter
   plot/location plot}
-  \item{lowest}{if "dens" then "lowest" is equal to 0, 
-  else "lowest" is equal to the minimum of the function;
+  \item{lowest}{if lowest="dens" then the lowest value of y-axis is equal to 0, 
+  else the lowest value of y-axis is equal to the minimum of the function;
   this option allows to plot functions with negative values}
   \item{proba}{TRUE, if one wants to plot a tail probability plot of a 
    shape tree}
@@ -110,6 +113,7 @@ paletti=NULL, cex=NULL, modecolo = NULL, modepointer = NULL, upper = TRUE)
   \item{upper}{TRUE or FALSE; if upper=TRUE, then a volume plot of an upper
    level set tree is drawn, otherwise a volume plot of a lower level set tree
    is drawn}
+  \item{cex.axis}{magnification factor for the axis annotation; see "par"}
  }
 
 \value{A plot is made on the graphics window.}

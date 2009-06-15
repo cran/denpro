@@ -5,7 +5,8 @@ axes=T,xlim=NULL,ylim=NULL,xaxt=xaxt,col="black",col.axis="black",
 modecolors=NULL,modethickness=1,
 leafcolors=NULL,leaflift=0,leafsymbo=20,
 modelabels=NULL,ptext=0,
-yaxt="s",log=""){
+yaxt="s",log="",cex.axis=1)
+{
 #Plots vectors in vec
 #
 #vecs is nodenum*4-matrix
@@ -43,7 +44,7 @@ for (i in 1:nodenum){
 
 #ylim<-c(0,max(ycoor)+ptext)
 plot(xcoor,ycoor,xlab="",ylab="",axes=axes,xlim=xlim,ylim=ylim,xaxt=xaxt,
-col=col,col.axis=col.axis,yaxt=yaxt,log=log)
+col=col,col.axis=col.axis,yaxt=yaxt,log=log,cex.axis=cex.axis)
 
 if (!is.null(leafcolors)){
    xpoint<-matrix(0,nodenum,1)

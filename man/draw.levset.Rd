@@ -9,7 +9,7 @@ Plots a level set of a piecewise constant 2D function.
 }
 \usage{
 draw.levset(pcf, lev=NULL, bary = NULL, propor = 0.1, col=NULL, 
-bound = NULL, dendat = NULL)
+bound = NULL, dendat = NULL, xaxt = "s", yaxt = "s", cex.axis = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,6 +27,11 @@ bound = NULL, dendat = NULL)
   \item{dendat}{n*2-matrix or real values; when the "pcf" is a density estimate
    based on data "dendat", then specifying a value for the parameter "dendat",
    we can plot the data together with the estimate of a level set}
+  \item{xaxt}{a character which specifies the x axis type; either "s" or "n";
+   see "par"}
+  \item{yaxt}{a character which specifies the y axis type; either "s" or "n";
+   see "par"}
+  \item{cex.axis}{the magnification to be used for axis annotation}
 }
 %\details{}
 \value{

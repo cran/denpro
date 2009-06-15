@@ -1,10 +1,11 @@
 paraclus<-function(dendat,algo="kmeans",k=2,method="complete",
 scatter=FALSE,coordi1=1,coordi2=2,levelmethod="center",
 startind=c(1:k),range="global",terminal=TRUE,coordi=1,
-paletti=NULL)
+paletti=NULL,xaxt="s",yaxt="s",cex.axis=1,pch.paletti=NULL)
 {
 if (is.null(paletti)) paletti<-seq(1,2000)
-if ("algo"!="kmeans"){ 
+if (is.null(pch.paletti)) pch.paletti<-rep(21,2000)
+if (algo!="kmeans"){ 
       method<-algo
       algo<-"hclust"
 }
@@ -87,7 +88,8 @@ if (!terminal){
           xmin<-min(x)
           xmax<-max(x)
        }
-       plot(x="",y="",xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax))
+       plot(x="",y="",xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax),
+            xaxt=xaxt,yaxt=yaxt,cex.axis=cex.axis)
        for (j in 1:k){
          if (curcolo==1) curcolo<-2 else curcolo<-1
          polygon(c(xmin,xmax,xmax,xmin),
@@ -95,8 +97,9 @@ if (!terminal){
                    classlevel[j]+maxlevel[j],classlevel[j]+maxlevel[j]),
                  col=colot[curcolo]) 
        }
-       points(x,level,col=paletti[ct])
-       if (scatter) plot(dendat[,coordi1],dendat[,coordi2], col = paletti[ct])
+       points(x,level,col=paletti[ct],pch=pch.paletti[ct])
+       if (scatter) plot(dendat[,coordi1],dendat[,coordi2], col = paletti[ct],
+                         xaxt=xaxt,yaxt=yaxt,pch=pch.paletti[ct])
 
 }
 ########################################################
@@ -118,7 +121,8 @@ while (t<=times){
           xmin<-min(x)
           xmax<-max(x)
        }
-       plot(x="",y="",xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax))
+       plot(x="",y="",xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax),
+            xaxt=xaxt,yaxt=yaxt,cex.axis=cex.axis)
        for (j in 1:k){
          if (curcolo==1) curcolo<-2 else curcolo<-1
          polygon(c(xmin,xmax,xmax,xmin),
@@ -146,7 +150,8 @@ if (reminder>0){
           xmin<-min(x)
           xmax<-max(x)
        }
-       plot(x="",y="",xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax))
+       plot(x="",y="",xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax),
+            xaxt=xaxt,yaxt=yaxt)
        for (j in 1:k){
          if (curcolo==1) curcolo<-2 else curcolo<-1
          polygon(c(xmin,xmax,xmax,xmin),
@@ -161,7 +166,7 @@ if (reminder>0){
 # scatter plot
 if (scatter){
    x11()
-   plot(dendat[,coordi1],dendat[,coordi2], col = ct)
+   plot(dendat[,coordi1],dendat[,coordi2], col = ct, xaxt=xaxt, yaxt=yaxt)
 }
 
 } # if terminal

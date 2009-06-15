@@ -2,7 +2,7 @@ leafsfirst.visu<-function(tt,pcf,lev=NULL,refe=NULL,type="lst",
 levmet="radius",ordmet="etaisrec",
 lkmbound=NULL,radius=NULL,
 orde="furthest",suppo=T,propor=NULL,lty=NULL,numbers=TRUE,
-sigcol="lightblue")
+sigcol="lightblue",cex.axis=1,cex=1)
 {
 
 if ((!is.null(lev)) || (!is.null(propor))){
@@ -81,7 +81,7 @@ else{
 }
 
 plot(x=refe[1],y=refe[2],xlab="",ylab="",xlim=c(xmin,xmax),ylim=c(ymin,ymax),
-pch=20) #,col="red")
+pch=20,cex.axis=cex.axis) #,col="red")
 
 i<-1
 while (i<=lkm){
@@ -112,7 +112,7 @@ if (!is.null(lkmbound)){
      dev.set(which = dev.next())
      polygon(c(x1,x2,x2,x1),c(y1,y1,y2,y2),col=sigcol,lty=lty)
      #points(x=refe[1],y=refe[2],pch=20,col="red")
-     if (numbers) text(x=x1+(x2-x1)/2,y=y1+(y2-y1)/2,paste(i))
+     if (numbers) text(x=x1+(x2-x1)/2,y=y1+(y2-y1)/2,paste(i),cex=cex)
 
      i<-i+1
   }

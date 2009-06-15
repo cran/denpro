@@ -3,12 +3,13 @@ plot=TRUE,data=FALSE,crit=NULL,orderrule="distcenter",
 modelabel=FALSE,ptext=0,leimat=NULL,symbo=NULL,
 info=NULL,infolift=0,infopos=0,
 xmarginleft=0,xmarginright=0,ymargin=0,
-xlim=NULL,ylim=NULL,
+xlim=NULL,ylim=NULL,xaxt="s",yaxt="s",
 nodesymbo=20,col=NULL,col.axis="black",collines=NULL,paletti=NULL,
 shift=0,shiftindex=NULL,
 modlabret=FALSE,modecolo=NULL,modepointer=NULL,colometh="lst",
-colothre=min(lst$level),lines=TRUE,wedge=FALSE,lty.wedge=2,title=TRUE,
-cex=NULL,nodemag=NULL,cex.sub=1
+colothre=min(lst$level),lines=TRUE,wedge=FALSE,lty.wedge=2,
+title=TRUE,titletext="coordinate",
+cex=NULL,nodemag=NULL,cex.sub=1,cex.axis=1,newtitle=FALSE,cex.lab=1
 )
 {
 
@@ -38,9 +39,13 @@ if (is.null(xlim))
 xlim<-c(min(xcoordinate)-xmarginleft,max(xcoordinate)+xmarginright)
 ylim<-c(0,max(level)+ptext+ymargin)
 
-plot(xcoordinate,level,xlab="",ylab="",xlim=xlim,ylim=ylim,
-pch=nodesymbo,col=col,col.axis=col.axis,cex=nodemag) 
-if (title) title(sub=paste("coordinate",as.character(coordi)),cex.sub=cex.sub)
+if (newtitle) xlab<-paste(titletext,as.character(coordi))
+else xlab<-""
+plot(xcoordinate,level,xlab=xlab,ylab="",
+xlim=xlim,ylim=ylim,xaxt=xaxt,yaxt=yaxt,
+pch=nodesymbo,col=col,col.axis=col.axis,cex=nodemag,
+cex.axis=cex.axis,cex.lab=cex.lab) 
+if (title) title(sub=paste(titletext,as.character(coordi)),cex.sub=cex.sub)
 
 if (lines){
    for (i in 1:nodenum){

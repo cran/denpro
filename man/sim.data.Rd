@@ -12,7 +12,7 @@ for some examples, or the distribution function.
 sim.data(n = NULL, seed = 1, N = NULL, type = "mulmod",
 M = NULL, sig = NULL, p = NULL, d = NULL,
 cova = NULL, marginal = NULL, t = NULL, df = NULL, distr = FALSE,
-noisedim = 1, sig1 = 0.5, sig2 = 1.5, diff = 0.1)
+noisedim = 1, sig1 = 0.5, sig2 = 1.5, diff = 0.1, dist = 4)
 }
 
 \arguments{
@@ -46,6 +46,8 @@ noisedim = 1, sig1 = 0.5, sig2 = 1.5, diff = 0.1)
  \item{sig2}{ second standard deviation for "cross" }
  \item{diff}{ parameter for "diff1d"; the difference between the 
   Gaussians in the 1D mixture }
+ \item{dist}{a positive real number; gives the distance between the mixture
+  centers in the 4D mixture of Gaussians "penta4d"}
 }
 \details{
 When type="mixt", generates data from a mixture of Gaussians.

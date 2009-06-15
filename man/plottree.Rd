@@ -19,7 +19,8 @@ xlim=NULL, ylim=NULL, col="black", col.axis="black",
 linecol=rep("black",length(lst$parent)), 
 pch=21, dimen=NULL, yaxt="s", axes=T,
 cex=NULL, nodemag=NULL, linemag=1, 
-cex.axis = 1, ylab = "", cex.lab = 1)
+cex.axis = 1, ylab = "", cex.lab = 1, colo = FALSE, paletti = NULL,
+lowest = "dens")
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -97,8 +98,11 @@ cex.axis = 1, ylab = "", cex.lab = 1)
    for example in a tree plot of a level set tree this could be "level"}
   \item{cex.lab}{magnification factor for the axis labels (names of x and y); 
    see "par" }
-}
-\details{
+  \item{colo}{TRUE or FALSE; if TRUE, nodes and lines joining the nodes will
+   be colored}
+  \item{paletti}{a vector of names of colors; these colors will be used to
+   color the nodes and the lines joining the nodes}
+  \item{lowest}{character string; if lowest="dens", then y-axis starts at 0}  
 }
 \value{
   By default a plot is made on the graphics window. 

@@ -22,12 +22,13 @@ plot=TRUE, data=FALSE, crit=NULL,orderrule="distcenter",
 modelabel=FALSE, ptext=0, leimat=NULL, symbo=NULL, 
 info=NULL, infolift=0, infopos=0,
 xmarginleft=0, xmarginright=0, ymargin=0, 
-xlim=NULL, ylim=NULL, 
+xlim=NULL, ylim=NULL, xaxt="s", yaxt="s", 
 nodesymbo=20, col=NULL, col.axis="black", collines=NULL, paletti=NULL,
 shift=0, shiftindex=NULL,
 modlabret=FALSE, modecolo=NULL, modepointer=NULL, colometh = "lst", 
 colothre = min(lst$level), lines=TRUE, wedge=FALSE, lty.wedge=2, title=TRUE,
-cex=NULL, nodemag=NULL, cex.sub=1)
+titletext="coordinate", cex=NULL, nodemag=NULL, cex.sub=1, cex.axis = 1, 
+newtitle = FALSE, cex.lab = 1)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -85,6 +86,10 @@ cex=NULL, nodemag=NULL, cex.sub=1)
    of x-axis.}
   \item{ylim}{vector of 2 real numbers; gives the limits for the scale
    of y-axis.}
+  \item{xaxt}{a character which specifies the x axis type; either "s" or "n";
+   see "par"}
+  \item{yaxt}{a character which specifies the y axis type; either "s" or "n";
+   see "par"}
   \item{nodesymbo}{symbol for the nodes of the tree; integer 19-25; 
    see help(points) for the definitions}
   \item{col}{colour for the nodes; for example "black" or "blue".}
@@ -93,34 +98,38 @@ cex=NULL, nodemag=NULL, cex.sub=1)
   \item{collines}{colour for lines joining nodes; 
    for example "black" or "blue".}
   \item{paletti}{a character vector of color names, in the order they will be
-  used to color the nodes and the lines connecting the nodes; coloring starts
-  from the leafs nodes and the color is changed always when two branches 
-  are joining}
+   used to color the nodes and the lines connecting the nodes; coloring starts
+   from the leafs nodes and the color is changed always when two branches 
+   are joining}
   \item{shift}{a real number; the amount to shift a label of a leaf node;
-  used to enhance the plot, see the parameter "shiftindex"}
+   used to enhance the plot, see the parameter "shiftindex"}
   \item{shiftindex}{the index to be shifted, see the parameter "shift"}
   \item{modlabret}{T or F; T if the locations of the modes will be returned}
   \item{modecolo}{lowel level parameter}
   \item{modepointer}{lowel level parameter}
   \item{colometh}{if colometh=="lst", then colors are first chosen for 
-  the leafs, otherwise the colors are first chosen for the roots;
-  for the level set trees it is better to choose "lst", but for dendrograms it
-  is better to color the roots first}
+   the leafs, otherwise the colors are first chosen for the roots;
+   for the level set trees it is better to choose "lst", but for dendrograms it
+   is better to color the roots first}
   \item{colothre}{positive real number; fixes the colors at the level given by
   "colothre", this option is used for dendrograms}
   \item{lines}{TRUE or FALSE; used in a tail tree plot; FALSE suppresses the 
    parent-child lines and one can avoid over plotting}
   \item{wedge}{TRUE or FALSE; used in a tail tree plot if TRUE, then the 
-   ouuter limts for the points will be plotted; these outer limits have a
+   outer limts for the points will be plotted; these outer limits have a
    wedge form}
   \item{lty.wedge}{"lty" parameter (line type) for the wedge lines}
   \item{title}{if TRUE, then the subtitle "coordinate i" is printed
-   when the coordinate is i }
+   when the coordinate is i and the the titletext is "coordinate"}
+  \item{titletext}{character string; the text in the title will be titletext i,
+   if the barycenter plot is for the i:th coordinate}
   \item{cex}{magnification factor for the symbols; see "par" }
   \item{nodemag}{magnification factor for the the points }
   \item{cex.sub}{magnification factor for the subtitle; see "par" }
-}
-\details{
+  \item{cex.axis}{the magnification to be used for axis annotation; see "par"}
+  \item{newtitle}{FALSE or TRUE; if TITLE=FALSE, we can put newtitle=TRUE
+   to print the title as an x-axis annotation, and not as a subtitle}
+  \item{cex.lab}{the magnification to be used for x and y labels; see "par"}
 }
 \value{
   By default a plot is made on the graphics window. 
