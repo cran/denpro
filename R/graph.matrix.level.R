@@ -1,6 +1,6 @@
 graph.matrix.level<-function(dendat,tt=NULL,permu=seq(1:dim(dendat)[1]),
 col=seq(1:2000),config="new",shift=0.1,segme=TRUE,poin=FALSE,epsi=0,
-ystart=0.5,pch=21,cex=1, yaxt="s",cex.axis=1)
+ystart=0.5,pch=21,cex=1, yaxt="s",cex.axis=1,texto=TRUE)
 {
 n<-dim(dendat)[1]
 d<-dim(dendat)[2]
@@ -54,9 +54,11 @@ if (is.null(tt)){
             segments(beg,0.5,beg,n+0.5,lty=1,lwd=2)
        }
        segments(origins[j],1,origins[j],n,lty=2)
+       if (texto){
        text(origins[j],ystart,as.character(round(means[j],digits=2)),cex=cex)
        text(starts[j]+shift,ystart,as.character(round(minis[j],digits=2)),
        cex=cex)
+       }
    }
 
 }
@@ -104,9 +106,11 @@ else{
             segments(beg,0.5,beg,n+0.5,lty=1,lwd=2)
        }
        segments(origins[j],1,origins[j],n,lty=2)
+       if (texto){
        text(origins[j],ystart,as.character(round(means[j],digits=2)),cex=cex)
        text(starts[j]+shift,ystart,as.character(round(minis[j],digits=2)),
        cex=cex)
+       } 
    }
 
 }  # else

@@ -28,7 +28,7 @@ shift=0, shiftindex=NULL,
 modlabret=FALSE, modecolo=NULL, modepointer=NULL, colometh = "lst", 
 colothre = min(lst$level), lines=TRUE, wedge=FALSE, lty.wedge=2, title=TRUE,
 titletext="coordinate", cex=NULL, nodemag=NULL, cex.sub=1, cex.axis = 1, 
-newtitle = FALSE, cex.lab = 1)
+newtitle = FALSE, cex.lab = 1, lowest="dens")
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -130,6 +130,10 @@ newtitle = FALSE, cex.lab = 1)
   \item{newtitle}{FALSE or TRUE; if TITLE=FALSE, we can put newtitle=TRUE
    to print the title as an x-axis annotation, and not as a subtitle}
   \item{cex.lab}{the magnification to be used for x and y labels; see "par"}
+  \item{lowest}{"dens" or "regr"; if lowest="dens", then it is assumed that the 
+   underlying function is a density function; if lowest="regr", then it is
+   assumed that the underlying function is an arbitrary multivariate real 
+   function}
 }
 \value{
   By default a plot is made on the graphics window. 

@@ -14,7 +14,7 @@ for (i in 1:d){
        insupport<-0
     }
 }
-if (insupport){
+if (insupport==1){
   node<-1
   while (tr$left[node]>0){
       dir<-tr$direc[node]

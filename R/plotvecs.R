@@ -1,7 +1,7 @@
 plotvecs<-function(vecs,
 depths=NULL,segme=T,lift=NULL,
 modetest=NULL,alpha=NULL,
-axes=T,xlim=NULL,ylim=NULL,xaxt=xaxt,col="black",col.axis="black",
+axes=TRUE,xlim=NULL,ylim=NULL,xaxt=xaxt,col="black",col.axis="black",
 modecolors=NULL,modethickness=1,
 leafcolors=NULL,leaflift=0,leafsymbo=20,
 modelabels=NULL,ptext=0,

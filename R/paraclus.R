@@ -108,7 +108,7 @@ else{
 t<-1
 while (t<=times){
    mat<-matrix(c(1:lkm),1,lkm)
-   x11()
+   dev.new()
    layout(mat)
    for (i in 1:lkm){
        coordinate<-(times-1)*lkm+i
@@ -137,7 +137,7 @@ while (t<=times){
 if (reminder>0){
    lkm<-reminder
    mat<-matrix(c(1:lkm),1,lkm)
-   x11()
+   dev.new()
    layout(mat)
    for (i in 1:lkm){
        coordinate<-i
@@ -165,7 +165,7 @@ if (reminder>0){
 
 # scatter plot
 if (scatter){
-   x11()
+   dev.new()
    plot(dendat[,coordi1],dendat[,coordi2], col = ct, xaxt=xaxt, yaxt=yaxt)
 }
 

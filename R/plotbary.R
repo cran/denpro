@@ -9,8 +9,8 @@ shift=0,shiftindex=NULL,
 modlabret=FALSE,modecolo=NULL,modepointer=NULL,colometh="lst",
 colothre=min(lst$level),lines=TRUE,wedge=FALSE,lty.wedge=2,
 title=TRUE,titletext="coordinate",
-cex=NULL,nodemag=NULL,cex.sub=1,cex.axis=1,newtitle=FALSE,cex.lab=1
-)
+cex=NULL,nodemag=NULL,cex.sub=1,cex.axis=1,newtitle=FALSE,cex.lab=1,
+lowest="dens")
 {
 
 parent<-lst$parent
@@ -37,7 +37,8 @@ xcoordinate<-center[coordi,]
 
 if (is.null(xlim))
 xlim<-c(min(xcoordinate)-xmarginleft,max(xcoordinate)+xmarginright)
-ylim<-c(0,max(level)+ptext+ymargin)
+if (lowest=="dens") lowesti<-0 else lowesti<-min(lst$level)
+ylim<-c(lowesti,max(level)+ptext+ymargin)
 
 if (newtitle) xlab<-paste(titletext,as.character(coordi))
 else xlab<-""

@@ -34,7 +34,7 @@ paletti<-c("red","blue","green","turquoise","orange","navy",
 
 low<-matrix(0,hnum,1)
 upp<-matrix(0,hnum,1)
-tot<-moodilkm(treelist[[1]]$parent)$lkm   #tot is the number of modes over all lst:s
+tot<-moodilkm(treelist[[1]]$parent)$lkm  #tot is the number of modes over all lst:s
 low[1]<-1
 upp[1]<-tot
 i<-2
