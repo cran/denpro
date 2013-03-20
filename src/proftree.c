@@ -212,13 +212,13 @@ double *lapu5)
   /*listchangeCCC*/
   int kokoout[2], begs[atomnumIntern+1];
 
-  if (component == NULL) exit(1); 
-  if (pinoComponent == NULL) exit(1); 
-  if (pinoTaso == NULL) exit(1); 
-  if (tobehandled == NULL) exit(1); 
-  if (leafloc == NULL) exit(1);  
-  if (curcente == NULL) exit(1);  
-  if (newcente == NULL) exit(1);  
+  if (component == NULL) return; 
+  if (pinoComponent == NULL) return; 
+  if (pinoTaso == NULL) return; 
+  if (tobehandled == NULL) return; 
+  if (leafloc == NULL) return;  
+  if (curcente == NULL) return;  
+  if (newcente == NULL) return;  
 
   /* Initialize upp, low */
 
@@ -536,9 +536,9 @@ int declevgenCC(int *left,
  int direktiooni, poiju, prevpoiju, aatto, thisnoteempty;
  double splittiini;
 
- if (nextFloor == NULL) exit(1);
- if (currFloor == NULL) exit(1);
- if (already == NULL) exit(1);
+ if (nextFloor == NULL) return 0;
+ if (currFloor == NULL) return 0;
+ if (already == NULL) return 0;
 
   /* Initialize the global variables */
 
@@ -829,7 +829,7 @@ int findleafs(int *left,
  /*   int pino[itemnum+1];  */   /* itemnum=length(left) */
  int *pino = (int *)malloc(sizeof(int) * (itemnum+1));
 
- if (pino == NULL) exit(1);
+ if (pino == NULL) return 0;
 
  for (i=1; i<=itemnum; i++) leafloc[i]=-1;
 
@@ -920,12 +920,12 @@ int joincongenC(int leftbeg,
   /*joinsetsC*/
   int Totalbeg, Totalbegout[2];
 
-  if (startpointsS == NULL) exit(1);
-  if (startpointsB == NULL) exit(1);
-  if (startpointsNewBleft == NULL) exit(1);
-  if (startpointsNewBright == NULL) exit(1);
-  if (outlinkit == NULL) exit(1);
-  if (outtulos == NULL) exit(1);
+  if (startpointsS == NULL) return 0;
+  if (startpointsB == NULL) return 0;
+  if (startpointsNewBleft == NULL) return 0;
+  if (startpointsNewBright == NULL) return 0;
+  if (outlinkit == NULL) return 0;
+  if (outtulos == NULL) return 0;
 
   /* 1. new boundary: left bound. of left child, right b. of right child */
 
@@ -1036,18 +1036,18 @@ int declevnewCCC(int m, int *inlinkit,
  int ** tulos;
  linksit = (int **)malloc((m+1) * sizeof(int *));
  tulos = (int **)malloc((m+1) * sizeof(int *));
- if (NULL == linksit) exit(1);
+ if (NULL == linksit) return 0;
  for (i = 0; i <= m; i++) {
       linksit[i] = (int *)malloc((m+1) * sizeof(int));
-      if (NULL == linksit[i]) exit(1);
+      if (NULL == linksit[i]) return 0;
  }
- if (NULL == tulos) exit(1);
+ if (NULL == tulos) return 0;
  for (i = 0; i <= m; i++) {
       tulos[i] = (int *)malloc((m+1) * sizeof(int));
-      if (NULL == tulos[i]) exit(1);
+      if (NULL == tulos[i]) return 0;
  }
- if (pino == NULL) exit(1); 
- if (merkatut == NULL) exit(1); 
+ if (pino == NULL) return 0; 
+ if (merkatut == NULL) return 0; 
 
   /* initialize */
   for (k=1; k<=m; k++) merkatut[k]=0;
@@ -1184,16 +1184,16 @@ int makelinksC(int mleft, int mright, int direction, int d,
   /*int linkit[m+1][m+1]; */
   int ** linkit;
   linkit = (int **)malloc((m+1) * sizeof(int *));
-  if (NULL == linkit) exit(1);
+  if (NULL == linkit) return 0;
   for (i = 0; i <= m; i++) {
       linkit[i] = (int *)malloc((m+1) * sizeof(int));
-      if (NULL == linkit[i]) exit(1);
+      if (NULL == linkit[i]) return 0;
   }
 
-  if (indelow1 == NULL) exit(1);
-  if (indelow2 == NULL) exit(1);
-  if (indeupp1 == NULL) exit(1);
-  if (indeupp2 == NULL) exit(1);
+  if (indelow1 == NULL) return 0;
+  if (indelow2 == NULL) return 0;
+  if (indeupp1 == NULL) return 0;
+  if (indeupp2 == NULL) return 0;
 
   for (i=1; i<=m; i++){
      for (j=1; j<=m; j++){
@@ -1331,14 +1331,14 @@ int joinsetsC(int leftbeg, int rightbeg, int sepnum, int m,
   int *osoittajaNewBright= (int *)malloc(sizeof(int) * (m+1));
   int ** res;
   res = (int **)malloc((sepnum+1) * sizeof(int *));
-  if (NULL == res) exit(1);
+  if (NULL == res) return 0;
   for (i = 0; i <= m; i++) {
       res[i] = (int *)malloc((m+1) * sizeof(int));
-      if (NULL == res[i]) exit(1);
+      if (NULL == res[i]) return 0;
   }
-  if (osoittajaS == NULL) exit(1);
-  if (osoittajaNewBleft == NULL) exit(1);
-  if (osoittajaNewBright == NULL) exit(1);
+  if (osoittajaS == NULL) return 0;
+  if (osoittajaNewBleft == NULL) return 0;
+  if (osoittajaNewBright == NULL) return 0;
 
   for (i=1; i<=sepnum; i++){
     for (j=1; j<=m; j++){

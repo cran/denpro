@@ -1,4 +1,6 @@
 /* 
+exit(1) -> return 0
+
 gcc -Wall -ansi -pedantic /home/jsk/denpro/src/kereva.c
 
 
@@ -163,32 +165,32 @@ double *outappu9)
  /*double dendat[(*n)+1][(*d)+1];*/
  double ** dendat;
  dendat = (double **)malloc((*n+1) * sizeof(double *));
- if (NULL == dendat) exit(1);
+ if (NULL == dendat) return;
  for (i = 0; i <= *n; i++) {
      dendat[i] = (double *)malloc((*d+1) * sizeof(double));
-     if (NULL == dendat[i]) exit(1);
+     if (NULL == dendat[i]) return;
  }
 
- if (value == NULL) exit(1); 
- if (minim == NULL) exit(1); 
- if (maxim == NULL) exit(1); 
- if (point == NULL) exit(1); 
- if (delta == NULL) exit(1); 
- if (gridlow == NULL) exit(1); 
- if (gridupp == NULL) exit(1); 
- if (base == NULL) exit(1); 
- if (inde == NULL) exit(1); 
- if (epaarg == NULL) exit(1); 
- if (left == NULL) exit(1); 
- if (right == NULL) exit(1); 
- if (parent == NULL) exit(1); 
- if (low == NULL) exit(1); 
- if (upp == NULL) exit(1); 
+ if (value == NULL) return; 
+ if (minim == NULL) return; 
+ if (maxim == NULL) return; 
+ if (point == NULL) return; 
+ if (delta == NULL) return; 
+ if (gridlow == NULL) return; 
+ if (gridupp == NULL) return; 
+ if (base == NULL) return; 
+ if (inde == NULL) return; 
+ if (epaarg == NULL) return; 
+ if (left == NULL) return; 
+ if (right == NULL) return; 
+ if (parent == NULL) return; 
+ if (low == NULL) return; 
+ if (upp == NULL) return; 
 
- if (digitjako == NULL) exit(1); 
- if (digitdigi == NULL) exit(1); 
+ if (digitjako == NULL) return; 
+ if (digitdigi == NULL) return; 
 
- if (depit == NULL) exit(1); 
+ if (depit == NULL) return; 
 
   adNumberOfNodes=1; 
 
@@ -639,8 +641,8 @@ int digit(int luku, int* base, int d, int* inde)
     int *digitjako = (int *)malloc(sizeof(int) * (d+1));
     int *digitdigi = (int *)malloc(sizeof(int) * (d+1));
 
-    if (digitjako == NULL) exit(1); 
-    if (digitdigi == NULL) exit(1); 
+    if (digitjako == NULL) return 0; 
+    if (digitdigi == NULL) return 0; 
 
     digitjako[d]=base[1];
     di=d-1;
@@ -681,8 +683,8 @@ int depth2com(int dep, int* N, int d, int* hacku)
     double *d2clogn = (double *)malloc(sizeof(double) * (d+1));
     double *d2ccusu = (double *)malloc(sizeof(double) * (d+1));
 
-    if (d2clogn == NULL) exit(1); 
-    if (d2ccusu == NULL) exit(1); 
+    if (d2clogn == NULL) return 0; 
+    if (d2ccusu == NULL) return 0; 
 
 
 

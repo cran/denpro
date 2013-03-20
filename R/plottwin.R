@@ -78,7 +78,7 @@ xmin2<-min(vecs[,1])
 xmax2<-max(vecs[,3])
 ymin2<-0
 ymax2<-omamax(vecs[,2])
-x11()
+dev.new()
 plot("","",xlab="",ylab="",xlim=c(xmin2,xmax2),ylim=c(ymin2,ymax2))
 
 ycor<-ymax

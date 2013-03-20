@@ -1,5 +1,6 @@
 dist.func<-function(dendat,xepsi=0,yepsi=0,col="black",type="distr",
-log="y",cex.axis=1)
+log="y",cex.axis=1,dendat2=NULL,dendat3=NULL,col2="red",col3="blue",
+pch2=20,pch3=20,split=median(dendat),xlim=NULL)
 {
 n<-length(dendat)
 
@@ -23,18 +24,21 @@ segments(dendatord[n],ycur+1/n,max(dendat)+xepsi,ycur+1/n,col=col)
 else if ((type=="right.tail") || (type=="left.tail")){
 
   if (type=="right.tail"){
-         redu.ind<-(dendat>0) 
+         redu.ind<-(dendat>split) 
          dendat.redu<-dendat[redu.ind]
   }
   else{
-         redu.ind<-(dendat<0)
+         redu.ind<-(dendat<split)
          dendat.redu<--dendat[redu.ind]
   }
   ordi<-order(dendat.redu)
   dendat.ord<-dendat.redu[ordi]
   nredu<-length(dendat.redu)
   level<-seq(nredu,1)
-  plot(dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis)
+  if (type=="right.tail")
+  plot(dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,xlim=xlim)
+  else
+  plot(-dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,xlim=xlim)
 
   #ordi<-order(dendat)
   #dendat.ord<-dendat[ordi]
@@ -43,6 +47,51 @@ else if ((type=="right.tail") || (type=="left.tail")){
   #nredu<-length(dendat.redu)
   #level<-seq(nredu,1)
   #plot(dendat.redu,level,log="y",xlab="",ylab="")
+
+  if (!is.null(dendat2)){
+
+     if (type=="right.tail"){
+          redu.ind<-(dendat2>split) 
+          dendat.redu<-dendat2[redu.ind]
+     }
+     else{
+          redu.ind<-(dendat2<split)
+          dendat.redu<--dendat2[redu.ind]
+     }
+     ordi<-order(dendat.redu)
+     dendat.ord<-dendat.redu[ordi]
+     nredu<-length(dendat.redu)
+     level<-seq(nredu,1)
+     if (type=="right.tail")
+     matplot(dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,
+     add=TRUE,col=col2,pch=pch2)
+     else
+     matplot(-dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,
+     add=TRUE,col=col2,pch=pch2)
+
+  }
+
+  if (!is.null(dendat3)){
+
+     if (type=="right.tail"){
+          redu.ind<-(dendat3>split) 
+          dendat.redu<-dendat3[redu.ind]
+     }
+     else{
+          redu.ind<-(dendat3<split)
+          dendat.redu<--dendat3[redu.ind]
+     }
+     ordi<-order(dendat.redu)
+     dendat.ord<-dendat.redu[ordi]
+     nredu<-length(dendat.redu)
+     level<-seq(nredu,1)
+      if (type=="right.tail")
+     matplot(dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,
+     add=TRUE,col=col3,pch=pch3)
+     else
+     matplot(-dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,
+     add=TRUE,col=col3,pch=pch3)
+  }
 
 }
 

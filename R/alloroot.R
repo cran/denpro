@@ -15,7 +15,7 @@ gaplen<-(basis-rootsvolume)/(rootnum+1)
 
 rootlinks<-matrix(0,rootnum,1)  #make links in right order
 
-if (rootnum==1) rootlinks[1]<-1
+if (rootnum==1) rootlinks[1]<-roots[1]  #1
 else{
 for (i in 1:rootnum){
   now<-roots[i]

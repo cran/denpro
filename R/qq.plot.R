@@ -1,6 +1,6 @@
 qq.plot<-function(dendat=NULL,compa="gauss",basis="gauss",
 mean=0,sig=1,df=1,
-gnum=1000,d=1,R=3,qqtype="1d",cex.lab=1,cex.axis=1,col="blue",lwd=1)
+gnum=1000,d=1,R=3,qqtype="1d",cex.lab=1,cex.axis=1,col="blue",lwd=1,flip=FALSE)
 {
 if (qqtype=="1d"){
    n<-length(dendat) #dim(dendat)[1]
@@ -10,6 +10,7 @@ if (qqtype=="1d"){
    if (compa=="unif") x<-sig*qunif(p)+mean
    if (compa=="exp") x<-sig*qexp(p)+mean
    if (compa=="doubleexp"){
+       x<-sig*qexp(p)+mean
        alku<-which(p<0.5)
        loppu<-which(p>=0.5)
        x[alku]<--sig*qexp(1-2*p[alku])+mean
@@ -42,10 +43,19 @@ if (qqtype=="p2v"){
      xlab<-"model"
 }
 
+if (!flip){
 plot(x,y,type=tyyppi,ylab=ylab,xlab=xlab,cex.lab=cex.lab,cex.axis=cex.axis)
 maxxy<-max(max(x),max(y))
 minxy<-min(min(x),min(y))
 segments(minxy,minxy,maxxy,maxxy,col=col,lwd=lwd)
+}
+if (flip){
+ plot(y,x,type=tyyppi,ylab=xlab,xlab=ylab,cex.lab=cex.lab,cex.axis=cex.axis)
+ maxxy<-max(max(x),max(y))
+ minxy<-min(min(x),min(y))
+ segments(minxy,minxy,maxxy,maxxy,col=col,lwd=lwd)
+}
+
 }
 
 

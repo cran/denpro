@@ -152,9 +152,9 @@ void decomdyaC(int *numofall,
   double *curcente = (double *)malloc(sizeof(double) * (*d+1));
  
 
-  if (pinoComponent == NULL) exit(1); 
-  if (pinoTaso == NULL) exit(1); 
-  if (curcente == NULL) exit(1); 
+  if (pinoComponent == NULL) return; 
+  if (pinoTaso == NULL) return; 
+  if (curcente == NULL) return; 
 
   /* Initialize indeks */
 
@@ -477,9 +477,9 @@ int declevdyaCC(int beg,
  int leftbeg, rightbeg, direction, akku, totbegSepary, apu;
  int j;
 
- if (nextFloor == NULL) exit(1);
- if (currFloor == NULL) exit(1);
- if (already == NULL) exit(1);
+ if (nextFloor == NULL) return 0;
+ if (currFloor == NULL) return 0;
+ if (already == NULL) return 0;
  
  /* Initialize the global variables */
 
@@ -1072,8 +1072,8 @@ int declevnewCC()   /* int m */
   int touch;  
   /*  resultat.tulos=malloc(m*sizeof(int));  */
 
-  if (pino == NULL) exit(1);
-  if (merkatut == NULL) exit(1);
+  if (pino == NULL) return 0;
+  if (merkatut == NULL) return 0;
 
   /* initialize merkatut */
   for (k=1; k<=m; k++)
@@ -1145,9 +1145,9 @@ int joinSetsCC(int leftbeg,
 
   int sol, len, laskuri, TotalBeg, curre, kL, kR;
 
-  if (osoittajaS == NULL) exit(1);
-  if (osoittajaNewBleft == NULL) exit(1);
-  if (osoittajaNewBright == NULL) exit(1);
+  if (osoittajaS == NULL) return 0;
+  if (osoittajaNewBleft == NULL) return 0;
+  if (osoittajaNewBright == NULL) return 0;
 
   TotalBeg=separy[leftbeg];
 

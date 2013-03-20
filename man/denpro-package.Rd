@@ -7,7 +7,8 @@ Visualization of multivariate, functions, sets, and data
 }
 \description{
 The package provides tools to (1) visualize multivariate
-density functions and density estimates with level set trees,
+functions, in particular density functions and density estimates,
+with level set trees,
 (2) visualize level sets with shape trees, (3) visualize
 multivariate data with tail trees, (4) visualize scales of
 multivariate density estimates with mode graphs and branching
@@ -24,12 +25,12 @@ constant.
 \tabular{ll}{
 Package: \tab denpro\cr
 Version: \tab 0.9.0\cr
-Date: \tab 2009-06-15\cr
+Date: \tab 2013-08-12\cr
 Depends: \tab \cr
 License: \tab GPL(>=2)\cr
 URL: \tab http://www.rni.helsinki.fi/~jsk/denpro/\cr
 Packaged: \tab Mon Jun 15 16:34:17 2009; jsk\cr
-Built: \tab R 2.6.2; i486-pc-linux-gnu; 2009-06-15 16:34:35; unix\cr
+Built: \tab R 3.0.1; i486-pc-linux-gnu; 2013-06-12 16:34:35; unix\cr
 }
 
 The main function:
@@ -165,19 +166,15 @@ tree.segme              Returns the segmentation of the nodes of
 
 }
 \author{
-Jussi Klemela <klemela@oulu.fi>
+Jussi Klemela <jussi.klemela@oulu.fi>
 
-Maintainer: Jussi Klemela <klemela@oulu.fi>
+Maintainer: Jussi Klemela <jussi.klemela@oulu.fi>
 
 }
 
 \references{ http://www.rni.helsinki.fi/~jsk/denpro }
 
 \keyword{ multivariate }
-
-\seealso{ 
-\code{\link[delt]{delt}} 
-}
 
 \examples{
 # level set tree

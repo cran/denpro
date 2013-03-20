@@ -3,12 +3,12 @@ tt=NULL,permu=seq(1:dim(dendat)[1]),col=seq(1:2000),
 config="new",shift=0.1,segme=TRUE,poin=FALSE,epsi=0,ystart=0.5, 
 pch=21, cex=1, cex.axis=1, yaxt="s",
 # profile:
-ylen=100,profcol=rep("black",n))
+ylen=100,profcol=rep("black",n),texto=TRUE)
 {
 if (type=="level") 
  graph.matrix.level(dendat, tt=tt, permu=permu, col=col,
  config=config, shift=shift, segme=segme, poin=poin, epsi=epsi, ystart=ystart,
- pch=pch, cex=cex, yaxt=yaxt, cex.axis=cex.axis)
+ pch=pch, cex=cex, yaxt=yaxt, cex.axis=cex.axis, texto=texto)
 
 else{  # type="profile"
  n<-dim(dendat)[1]

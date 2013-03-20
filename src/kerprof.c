@@ -221,43 +221,43 @@ int levfrekv[*levnum];
  int *infopointer = (int *)malloc(sizeof(int) * (*extMaxnode+1));
  double ** dendat;
  dendat = (double **)malloc((*n+1) * sizeof(double *));
- if (NULL == dendat) exit(1);
+ if (NULL == dendat) return;
  for (i = 0; i <= *n; i++) {
      dendat[i] = (double *)malloc((*d+1) * sizeof(double));
-     if (NULL == dendat[i]) exit(1);
+     if (NULL == dendat[i]) return;
  }
 
- if (value == NULL) exit(1); 
- if (minim == NULL) exit(1); 
- if (maxim == NULL) exit(1); 
- if (point == NULL) exit(1); 
- if (delta == NULL) exit(1); 
- if (gridlow == NULL) exit(1); 
- if (gridupp == NULL) exit(1); 
- if (base == NULL) exit(1); 
- if (inde == NULL) exit(1); 
- if (epaarg == NULL) exit(1); 
- if (left == NULL) exit(1); 
- if (right == NULL) exit(1); 
- if (parentKer == NULL) exit(1); 
- if (low == NULL) exit(1); 
- if (upp == NULL) exit(1); 
-    if (digitjako == NULL) exit(1); 
-    if (digitdigi == NULL) exit(1); 
-    if (depit == NULL) exit(1); 
-    if (d2clogn == NULL) exit(1); 
-    if (d2ccusu == NULL) exit(1); 
-  if (infopointer == NULL) exit(1); 
-  if (value == NULL) exit(1); 
-  if (digitapu == NULL) exit(1); 
+ if (value == NULL) return; 
+ if (minim == NULL) return; 
+ if (maxim == NULL) return; 
+ if (point == NULL) return; 
+ if (delta == NULL) return; 
+ if (gridlow == NULL) return; 
+ if (gridupp == NULL) return; 
+ if (base == NULL) return; 
+ if (inde == NULL) return; 
+ if (epaarg == NULL) return; 
+ if (left == NULL) return; 
+ if (right == NULL) return; 
+ if (parentKer == NULL) return; 
+ if (low == NULL) return; 
+ if (upp == NULL) return; 
+    if (digitjako == NULL) return; 
+    if (digitdigi == NULL) return; 
+    if (depit == NULL) return; 
+    if (d2clogn == NULL) return; 
+    if (d2ccusu == NULL) return; 
+  if (infopointer == NULL) return; 
+  if (value == NULL) return; 
+  if (digitapu == NULL) return; 
 
- if (levseq == NULL) exit(1); 
- if (nodefinder == NULL) exit(1); 
- if (levfrekv == NULL) exit(1); 
+ if (levseq == NULL) return; 
+ if (nodefinder == NULL) return; 
+ if (levfrekv == NULL) return; 
 
- if (pinoComponent == NULL) exit(1); 
- if (pinoTaso == NULL) exit(1); 
- if (curcente == NULL) exit(1); 
+ if (pinoComponent == NULL) return; 
+ if (pinoTaso == NULL) return; 
+ if (curcente == NULL) return; 
 
   adNumberOfNodes=1; 
 
@@ -1104,9 +1104,9 @@ int declevdyaC(int beg,
  int leftbeg, rightbeg, direction, akku, totbegSepary, apu;
  int j;
 
- if (nextFloor == NULL) exit(1);
- if (currFloor == NULL) exit(1);
- if (already == NULL) exit(1);
+ if (nextFloor == NULL) return 0;
+ if (currFloor == NULL) return 0;
+ if (already == NULL) return 0;
 
   /* Initialize the global variables */
 
@@ -1699,8 +1699,8 @@ int declevnewC()   /* int m */
   int touch;  
   /*  resultat.tulos=malloc(m*sizeof(int));  */
 
- if (pino == NULL) exit(1);
- if (merkatut == NULL) exit(1);
+ if (pino == NULL) return 0;
+ if (merkatut == NULL) return 0;
 
   /* initialize merkatut */
   for (k=1; k<=mx; k++)
@@ -1771,9 +1771,9 @@ int joinSets(int leftbeg,
   */
   int sol, len, laskuri, TotalBeg, curre, kL, kR;
 
-  if (osoittajaS == NULL) exit(1);
-  if (osoittajaNewBleft == NULL) exit(1);
-  if (osoittajaNewBright == NULL) exit(1);
+  if (osoittajaS == NULL) return 0;
+  if (osoittajaNewBleft == NULL) return 0;
+  if (osoittajaNewBright == NULL) return 0;
 
   TotalBeg=separyx[leftbeg];
 

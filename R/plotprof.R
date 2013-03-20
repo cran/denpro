@@ -3,7 +3,7 @@ plot=TRUE,data=FALSE,crit=NULL,orderrule="distcenter",
 modelabel=TRUE,ptext=0,leimat=NULL,symbo=NULL,
 info=NULL,infolift=0,infopos=0,
 xmarginleft=0,xmarginright=0,ymargin=0,
-xlim=NULL,ylim=NULL,
+xlim=NULL,ylim=NULL,axes=TRUE,
 col="black",col.axis="black",
 cutlev=NULL,xaxt="n",exmavisu=NULL,cex.axis=1,cex=1)
 {
@@ -63,7 +63,7 @@ if (plot==TRUE){
      if (is.null(ylim)) ylim<-c(0,omamax(vecs[,2])+ptext+ymargin)
    }
    plotvecs(vecs,segme=T,xlim=xlim,ylim=ylim,xaxt=xaxt,
-   col=col,col.axis=col.axis,cex.axis=cex.axis)
+   col=col,col.axis=col.axis,cex.axis=cex.axis,axes=axes)
    # use original vectors (numbering will be correct)
    if (modelabel){
       plottext(parents,orivecs,ptext,leimat,symbo,cex=cex)  

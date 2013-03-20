@@ -92,7 +92,7 @@ heig<-seq(ymin,ymax,step)
 xloc<-0
 
 # control window
-x11(width=2,height=6)
+dev.new(width=2,height=6)
 plot(x="",y="",xlab="",ylab="",xaxt="n",yaxt="n",
 xlim=c(xmin,xmax),ylim=c(ymin,ymax))
 text(xloc,heig[lkm],"I")      #"Mode graph")
@@ -123,7 +123,7 @@ if (!is.null(levnumst)){
 hcur<-estiseq$hseq[indeksi]
 
 # branch map
-x11(width=4,height=5)
+dev.new(width=4,height=5)
 phi<-40
 theta<-10
 persp(x=bm$level,y=bm$h,z=bm$z, xlab="level",ylab="h",zlab="",
@@ -131,7 +131,7 @@ ticktype="detailed",col=bm$col,phi=phi,theta=theta)
 title(main="II Map of branches")
 
 # barycenter plot
-x11(width=3.5,height=4)
+dev.new(width=3.5,height=4)
 coordi<-1
 icolo<-mt$colot[mt$low[1]:mt$upp[1]]
 inodes<-mt$nodepointer[mt$low[1]:mt$upp[1]]
@@ -141,7 +141,7 @@ title(main="IV Barycenter plot",
       sub=paste("coordinate",as.character(coordi)))
 
 # mode tree
-x11(width=4,height=5)
+dev.new(width=4,height=5)
 coordi<-1
 plotmodet(mt,coordi=coordi)
 modelocx<-modlab$modelocat[,coordi]+shift
@@ -151,7 +151,7 @@ text(modelocx,modelocy,labels)
 title(main="I Mode graph",sub=paste("coordinate",as.character(coordi)))
 
 # volume plot
-x11(width=3.5,height=4)
+dev.new(width=3.5,height=4)
 icolo<-mt$colot[mt$low[1]:mt$upp[1]]
 inodes<-mt$nodepointer[mt$low[1]:mt$upp[1]]
 plotvolu(pr,ptext=ptext,modelabel=volu.modelabel,colo=volu.colo,
@@ -168,7 +168,7 @@ if (!is.null(levnumst)){
   refe<-st$bary
   st.bary<-leafsfirst(pcf,lev=lev,refe=refe)
 
-  x11(width=3,height=4)
+  dev.new(width=3,height=4)
   plotvolu(stredu,ptext=ptextst,symbo="T",
            modelabel=st.modelabel,colo=st.colo)
   title(main="V Radius plot",
@@ -178,7 +178,7 @@ if (!is.null(levnumst)){
 
 # location plot
 if (!is.null(levnumst)){
-  x11(width=3,height=4)
+  dev.new(width=3,height=4)
   lcoordi<-1
   plotbary(stredu,coordi=lcoordi,ptext=ptextst,symbo="T")
   title(main="VI Location plot",

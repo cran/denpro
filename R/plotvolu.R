@@ -92,11 +92,13 @@ minnu<-min(xcoor,na.rm=T)
 if (is.null(cutlev)) xcoor<-xcoor-minnu
 else xcoor<-xcoor-oriminnu
 
-
 if (lowest=="dens") lowesti<-0 else lowesti<-min(lst$level)
 #xlim<-c(min(vecs[,1],na.rm=T)-xmarginleft,max(vecs[,3],na.rm=T)+xmarginright)
-if (is.null(ylim)) ylim<-c(lowesti,max(ycoor,na.rm=T)+ptext+ymargin)
-if (!is.null(cutlev)) ylim<-c(cutlev,max(ycoor,na.rm=T)+ptext+ymargin)
+if (is.null(ylim)){
+    ylim<-c(lowesti,max(ycoor,na.rm=T)+ptext+ymargin)
+    if (!is.null(cutlev)) 
+    ylim<-c(cutlev,max(ycoor,na.rm=T)+ptext+ymargin)
+}
 
 if (toplot){
 par(bg=bg)
