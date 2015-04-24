@@ -2,21 +2,21 @@
 \alias{leafsfirst}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Calculates a level set tree, shape tree, or tail tree
+Computes a level set tree, shape tree, or tail tree
 }
 \description{
-Calculates a level set tree or shape tree from a piecewise constant
+Computes a level set tree or shape tree from a piecewise constant
 function, or calculates a tail tree from a data set.
 }
 \usage{
 leafsfirst(pcf = NULL, lev = NULL, refe = NULL, type = "lst", 
 levmet = "radius", ordmet = "etaisrec", ngrid = NULL, dendat = NULL, rho = 0,
-propor= NULL, lowest = "dens")
+propor= NULL, lowest = "dens", f=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{pcf}{piecewise constant function; output of for example "pcf.kern", or
-  "pcf.func"}
+  \item{pcf}{piecewise constant function; output of "pcf.kern", or
+  "pcf.func", for example}
   \item{lev}{positive real number; a level of the level set whose shape tree
    will be calculated}
   \item{refe}{vector of d real numbers; the reference point of the shape tree}
@@ -34,6 +34,8 @@ propor= NULL, lowest = "dens")
    is "propor" times the maximum value of the function will be calculated}
   \item{lowest}{a character; if lowest="dens", then it is assumed that
    the function whose level set tree we calculate is nonnegative}
+  \item{f}{a vector of estimated values of the density at the data points;
+   this is used in the case of tail trees to estimate the volumes of the regions}
 }
 %\details{}
 \value{a level set tree, shape tree, or tail tree}

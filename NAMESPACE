@@ -1,11 +1,14 @@
 export(
-branchmap,    
+branchmap,  
+colors2data,
 draw.levset,  
 draw.pcf,     
 excmas,      
-exmap,       
+exmap,      
+findbnodes, 
 hgrid,
 leafsfirst,  
+leafsfirst.adagrid,  
 locofmax,    
 lstseq.kern, 
 modecent,     
@@ -30,7 +33,16 @@ sim.data,
 slicing,
 stseq,
 treedisc,
-tree.segme
+tree.segme,
+#
+etais,
+colorsofdata,
+kernesti.dens,
+blokitus,
+evanor,
+fs.calc.parti,
+proftree,
+moodilkm
 )
 
 useDynLib(denpro)

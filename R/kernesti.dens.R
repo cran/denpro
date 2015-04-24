@@ -4,6 +4,8 @@ d<-length(arg)
 
 if (d>1){
 
+if (length(h)==1) h<-rep(h,d)
+
 if (kernel=="bart") 
    ker<-function(xx){ return( (1-rowSums(xx^2)) ) }
 if (kernel=="gauss") 
@@ -13,7 +15,8 @@ if (kernel=="uniform")
                       return( ans ) }
 
 argu<-matrix(arg,dim(x)[1],d,byrow=TRUE)
-w<-ker((x-argu)/h)/h^d
+xxx<-sweep(x-argu,2,h,"/")
+w<-ker(xxx)/prod(h)
 est<-sum(w)/length(w)
 
 if (!is.null(g)){
@@ -28,7 +31,7 @@ if (!is.null(g)){
                       return( ans ) }
 
    argui<-matrix(seq(n,1,-1),n,1)
-   w<-ker((x-argu)/h)/h^d*ger((n-argui)/g)/g
+   w<-ker((x-argu)/h)/prod(h)*ger((n-argui)/g)/g
    est<-sum(w)/length(w)
 }
 }

@@ -1,6 +1,6 @@
 leafsfirst<-function(pcf=NULL,lev=NULL,refe=NULL,type="lst",levmet="radius",
 ordmet="etaisrec",ngrid=NULL,
-dendat=NULL,rho=0,propor=NULL,lowest="dens")
+dendat=NULL,rho=0,propor=NULL,lowest="dens",f=NULL)
 {
 # pcf is a piecewise constant object
 # type= "lst"/"shape"
@@ -139,8 +139,12 @@ if (type!="tail"){
   ekamome[node,]<-newcente
   distcenter[node,]<-newcente/vol
 }
-else{
-  volume[node]<-1
+else{  # type=tail
+  if (is.null(f)) volume[node]<-1
+  else{ 
+       ip<-infopointer[node] 
+       volume[node]<-1/(f[ip]*length(f))
+  }
 }
 
 beg<-node             #first without parent
@@ -202,8 +206,12 @@ while (j<=lkm){
        ekamome[node,]<-newcente
        distcenter[node,]<-newcente/vol
     }
-    else{
-       volume[node]<-1
+    else{     #type==tail
+       if (is.null(f)) volume[node]<-1
+       else{ 
+          ip<-infopointer[node] 
+          volume[node]<-1/(f[ip]*length(f))
+       }
     }
 
     curroot<-highestNext[beg]  #node on 1., listassa ainakin 2
@@ -229,7 +237,7 @@ while (j<=lkm){
               proba[node]<-proba[node]+proba[curroot]
               ekamome[node,]<-ekamome[node,]+ekamome[curroot,]
            }
-           else{
+           else{  # type == tail
               volume[node]<-volume[node]+volume[curroot]
            }
 

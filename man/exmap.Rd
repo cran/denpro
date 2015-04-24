@@ -2,7 +2,7 @@
 \alias{exmap}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Calculates a scale of excess mass profiles
+Computes a scale of excess mass profiles
 }
 \description{
 Calculates a scale of excess mass profiles

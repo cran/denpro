@@ -1,6 +1,7 @@
 qq.plot<-function(dendat=NULL,compa="gauss",basis="gauss",
 mean=0,sig=1,df=1,
-gnum=1000,d=1,R=3,qqtype="1d",cex.lab=1,cex.axis=1,col="blue",lwd=1,flip=FALSE)
+gnum=1000,d=1,R=3,qqtype="1d",cex.lab=1,cex.axis=1,col="blue",lwd=1,flip=FALSE,
+xlab="compared quantiles",ylab="empirical quantiles")
 {
 if (qqtype=="1d"){
    n<-length(dendat) #dim(dendat)[1]
@@ -18,8 +19,6 @@ if (qqtype=="1d"){
    }
    y<-dendat[order(dendat)]
    tyyppi<-"p"
-   xlab<-"compared quantiles"
-   ylab<-"empirical quantiles"
 }
 if (qqtype=="lower"){
    n<-length(dendat) #dim(dendat)[1]
@@ -30,8 +29,6 @@ if (qqtype=="lower"){
    if (compa=="exp") x<-sig*qexp(p/2)+mean
    y<-dendat[order(dendat)]
    tyyppi<-"p"
-   xlab<-"compared quantiles"
-   ylab<-"empirical quantiles"
 }
 if (qqtype=="p2v"){
      rp<-tailfunc(R,d,type=compa,gnum=gnum,sig=sig,nu=df)

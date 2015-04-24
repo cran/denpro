@@ -49,7 +49,9 @@ sibling[node]<-0
 # radius
 radius[node]<-distat[ord[node]]
 
-volume[node]<-1  #kappa*pi*rho^2
+simple<-complex[infopointer[node],]
+simp<-dendat[simple,]
+volume[node]<-voltriangle(simp)   #kappa*pi*rho^2
 number[node]<-1
 atomlist[node,1]<-infopointer[node]
 atomnumb[node]<-1
@@ -82,7 +84,9 @@ while (j<=lkm){
     # radius
     radius[node]<-distat[ord[node]]
 
-    volume[node]<-1  #kappa*pi*rho[infopointer[node]]^2
+    simple<-complex[infopointer[node],]
+    simp<-dendat[simple,]
+    volume[node]<-voltriangle(simp)  #kappa*pi*rho[infopointer[node]]^2
     number[node]<-1
     atomlist[node,1]<-infopointer[node]
     atomnumb[node]<-1

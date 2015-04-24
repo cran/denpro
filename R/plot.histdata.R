@@ -4,7 +4,7 @@ xlab="",xlim=NULL,ylim=NULL,cex.axis=1)
 {
 d<-length(pcf$N)
 step<-matrix(0,d,1)
-for (i in 1:d) step[i]=(pcf$support[2*i]-pcf$support[2*i-1])/pcf$N[i];
+for (i in 1:d) step[i]=(pcf$support[2*i]-pcf$support[2*i-1])/pcf$N[i]
 
 ord<-order(dendat[,i3])#,decreasing=TRUE)
 ord<-ord[1:cut]

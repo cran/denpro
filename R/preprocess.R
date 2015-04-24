@@ -8,8 +8,14 @@ if (type=="sphering"){
 
    cova<-cov(dendat)
    eig<-eigen(cova,symmetric=TRUE)
-   sigsqm<-eig$vectors%*%diag(eig$values^{-1/2}) 
+   sigsqm<-eig$vectors%*%diag(eig$values^(-1/2)) 
    prodendat<-t(t(sigsqm)%*%t(dendat-mean(dendat)))   # dendat%*%sigsqm 
+
+}
+else if (type=="sd"){
+   for (ii in 1:d){
+        prodendat[,ii]<-(dendat[,ii]-mean(dendat[,ii]))/sd(dendat[,ii])
+   }
 
 }
 else if (type=="standardcopula"){

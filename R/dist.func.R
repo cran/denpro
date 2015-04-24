@@ -1,6 +1,6 @@
 dist.func<-function(dendat,xepsi=0,yepsi=0,col="black",type="distr",
 log="y",cex.axis=1,dendat2=NULL,dendat3=NULL,col2="red",col3="blue",
-pch2=20,pch3=20,split=median(dendat),xlim=NULL)
+pch2=20,pch3=20,split=median(dendat),xlim=NULL,xaxt="s",yaxt="s")
 {
 n<-length(dendat)
 
@@ -38,7 +38,8 @@ else if ((type=="right.tail") || (type=="left.tail")){
   if (type=="right.tail")
   plot(dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,xlim=xlim)
   else
-  plot(-dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,xlim=xlim)
+  plot(-dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,xlim=xlim,
+  xaxt=xaxt,yaxt=yaxt)
 
   #ordi<-order(dendat)
   #dendat.ord<-dendat[ordi]

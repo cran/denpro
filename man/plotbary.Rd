@@ -28,7 +28,7 @@ shift=0, shiftindex=NULL,
 modlabret=FALSE, modecolo=NULL, modepointer=NULL, colometh = "lst", 
 colothre = min(lst$level), lines=TRUE, wedge=FALSE, lty.wedge=2, title=TRUE,
 titletext="coordinate", cex=NULL, nodemag=NULL, cex.sub=1, cex.axis = 1, 
-newtitle = FALSE, cex.lab = 1, lowest="dens")
+newtitle = FALSE, cex.lab = 1, lowest="dens", subtitle=NULL)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -134,6 +134,7 @@ newtitle = FALSE, cex.lab = 1, lowest="dens")
    underlying function is a density function; if lowest="regr", then it is
    assumed that the underlying function is an arbitrary multivariate real 
    function}
+  \item{subtitle}{NULL or a character string; gives the subtitle of the plot}
 }
 \value{
   By default a plot is made on the graphics window. 

@@ -17,7 +17,8 @@ if (type=="right.tail"){
    dendat.ord<-dendat.redu[ordi]
    nredu<-length(dendat.redu)
    level<-seq(nredu,1)
-   plot(dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,xlim=xlim,pch=pch)
+   plot(dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,xlim=xlim,
+   pch=pch)
 
    if (!is.null(denmat)){
       lkm<-dim(denmat)[2]
@@ -43,7 +44,8 @@ if (type=="left.tail"){
     dendat.ord<-dendat.redu[ordi]
     nredu<-length(dendat.redu)
     level<-seq(nredu,1)
-    plot(-dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,xlim=xlim)
+    plot(-dendat.ord,level,log=log,xlab="",ylab="",cex.axis=cex.axis,xlim=xlim,
+    pch=pch)
 
     if (!is.null(denmat)){
       lkm<-dim(denmat)[2]

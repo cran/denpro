@@ -5,7 +5,7 @@
 Prepares the plotting of a 2D or 1D piecewise constant function
 }
 \description{
-Calculates x, y, and z arguments for a piecewise constant function,
+Computes x, y, and z arguments for a piecewise constant function,
 to be used in "persp" or "contour" functions,
 or the "x" and "y" arguments to be used in "plot".
 }

@@ -12,7 +12,7 @@ paracoor(X, Y=NULL, xmargin = 0.1,
 paletti = matrix("black",dim(X)[1],1),
 noadd = TRUE, verti = NULL, cex.axis = 1,
 points=TRUE, col.verti="black", col.verti.y="red", digits=3,
-arg=NULL, colarg="red", lwd=1, cex=1)
+arg=NULL, colarg="red", lwd=1, cex=1, yaxt="s")
 }
 \arguments{
   \item{X}{n*d data matrix of real numbers}
@@ -33,6 +33,7 @@ arg=NULL, colarg="red", lwd=1, cex=1)
   \item{colarg}{a character; the name of a color}
   \item{lwd}{a positive real number; the width of the lines}
   \item{cex}{a positive real number; the largness of the circles}
+  \item{yaxt}{a character which specifies the y axis type}
 }
 \value{
 Makes a plot on the graphics window

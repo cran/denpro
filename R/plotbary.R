@@ -10,7 +10,7 @@ modlabret=FALSE,modecolo=NULL,modepointer=NULL,colometh="lst",
 colothre=min(lst$level),lines=TRUE,wedge=FALSE,lty.wedge=2,
 title=TRUE,titletext="coordinate",
 cex=NULL,nodemag=NULL,cex.sub=1,cex.axis=1,newtitle=FALSE,cex.lab=1,
-lowest="dens")
+lowest="dens",subtitle=NULL)
 {
 
 parent<-lst$parent
@@ -46,7 +46,12 @@ plot(xcoordinate,level,xlab=xlab,ylab="",
 xlim=xlim,ylim=ylim,xaxt=xaxt,yaxt=yaxt,
 pch=nodesymbo,col=col,col.axis=col.axis,cex=nodemag,
 cex.axis=cex.axis,cex.lab=cex.lab) 
+if (!is.null(subtitle)){ 
+   title<-FALSE
+   title(sub=subtitle,cex.sub=cex.sub)
+}
 if (title) title(sub=paste(titletext,as.character(coordi)),cex.sub=cex.sub)
+
 
 if (lines){
    for (i in 1:nodenum){

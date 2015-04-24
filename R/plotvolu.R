@@ -9,7 +9,7 @@ cutlev=NULL,xaxt="s",yaxt="s",
 exmavisu=NULL,bg="transparent",tyyppi="n",
 lty="solid",colo=FALSE,lowest="dens",proba=FALSE,
 paletti=NULL,cex=NULL,modecolo=NULL,modepointer=NULL,upper=TRUE,
-cex.axis=1)
+cex.axis=1,xlab="",ylab="",cex.lab=1,colothre=NULL,nodes=NULL)
 {
 if (upper) firstlevel<-min(lst$level) else firstlevel<-max(lst$level)
 if (lowest=="dens") firstlevel<-0
@@ -103,9 +103,9 @@ if (is.null(ylim)){
 if (toplot){
 par(bg=bg)
 plot(xcoor[order(xcoor)],ycoor[order(xcoor)],  #xcoor,ycoor,
-xlab="",ylab="",axes=axes,xlim=xlim,ylim=ylim,xaxt=xaxt,
+xlab=xlab,ylab=ylab,axes=axes,xlim=xlim,ylim=ylim,xaxt=xaxt,
 col=col,col.axis=col.axis,yaxt=yaxt,log=log,
-type=tyyppi,lty=lty,cex.axis=cex.axis)
+type=tyyppi,lty=lty,cex.axis=cex.axis,cex.lab=cex.lab)
 }
 ###########################################################
 
@@ -210,6 +210,12 @@ if (colo){
     colors()[50:657],colors()[50:657])
 
   col<-colobary(lst$parent,paletti,modecolo=modecolo,modepointer=modepointer)
+
+  if (!is.null(colothre))
+  col<-colobary.merge(lst$parent,lst$level,colothre,paletti)
+  if (!is.null(nodes))
+  col<-colobary.nodes(lst$parent,nodes,paletti)
+
 }
 else col<-rep("blue",length(lst$parent))
 

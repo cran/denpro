@@ -1,7 +1,7 @@
 paracoor<-function(X,Y=NULL,xmargin=0.1,
 paletti=matrix("black",dim(X)[1],1),noadd=TRUE,verti=NULL,cex.axis=1,
 points=TRUE,col.verti="black",col.verti.y="red",digits=3,
-arg=NULL,colarg="red",lwd=1,cex=1)
+arg=NULL,colarg="red",lwd=1,cex=1,yaxt="s")
 {
 n<-dim(X)[1]
 d<-dim(X)[2]
@@ -11,7 +11,7 @@ if (is.null(Y)) D<-d else D<-d+dim(Y)[2]
 if (noadd)
 plot(x="",y="",
 xlim=c(1-xmargin,D+xmargin),ylim=ylim,
-xlab="",ylab="",xaxt="n",cex.axis=cex.axis)
+xlab="",ylab="",xaxt="n",cex.axis=cex.axis,yaxt=yaxt)
 
 for (i in 1:n){
     if (points) points(X[i,],col=paletti[i],cex=cex)

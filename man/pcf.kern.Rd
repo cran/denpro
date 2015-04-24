@@ -2,23 +2,23 @@
 \alias{pcf.kern}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Calculates a multivariate kernel estimate
+Computes a multivariate kernel estimate
 }
 \description{
-Calculates a multivariate kernel estimate and gives the output as a piecewise
+Computes a multivariate kernel estimate and gives the output as a piecewise
 constant function object.
 }
 \usage{
 pcf.kern(dendat, h, N, kernel = "gauss", weights = NULL, support = NULL,
-lowest = 0)
+lowest = 0, radi = 0)
 }
 \arguments{
   \item{dendat}{n*d matrix of real numbers; the data matrix}
-  \item{h}{positive real; smoothing parameter}
+  \item{h}{d vector of positive real numbers; vector of smoothing parameters}
   \item{N}{vector of d positive dyadic integers; 
    the dimension of the grid where the
    kernel estimate will be evaluated; we evaluate the estimate on a regular
-   grid which contains the support of the kernel estimate }
+   grid which contains the support of the kernel estimate}
   \item{kernel}{"gauss", "epane", "bart", or "uniform"; 
    the kernel is either the standard Gaussian,
    Epanechnikov product kernel, Bartlett kernel, or uniform kernel}
@@ -29,6 +29,9 @@ lowest = 0)
    rectangular support in the form c(low1,upp1,...,lowd,uppd)}
   \item{lowest}{a real value; the density estimate will be truncated to take
    value zero, if the value of the estimate is less or equal to "lowest"}
+  \item{radi}{a nonnegative real number; the support is estimated as the smallest 
+   rectangle containing the observations with an additional band whose
+   width is equal to "radi"}
 }
 %\details{}
 \value{
@@ -49,7 +52,12 @@ dendat<-sim.data(n=n,type="mulmod")
 
 h<-1
 pcf<-pcf.kern(dendat,h=h,N=c(32,32))
+dp<-draw.pcf(pcf)
+contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
 
+d<-2
+h<-(4/(d+2))^(1/(d+4))*n^(-1/(d+4))*apply(dendat,2,sd)
+pcf<-pcf.kern(dendat,h=h,N=c(32,32))
 dp<-draw.pcf(pcf)
 contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
 

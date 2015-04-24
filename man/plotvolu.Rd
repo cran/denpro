@@ -20,7 +20,7 @@ cutlev=NULL, xaxt="s", yaxt="s",
 exmavisu=NULL, bg="transparent", tyyppi="n", lty="solid",colo=FALSE, 
 lowest="dens", proba=FALSE,
 paletti=NULL, cex=NULL, modecolo = NULL, modepointer = NULL, upper = TRUE,
-cex.axis = 1)
+cex.axis = 1, xlab="", ylab="", cex.lab=1, colothre=NULL, nodes=NULL)
 }
 \arguments{
   \item{lst}{level set tree or shape tree; list of vectors.
@@ -114,7 +114,14 @@ cex.axis = 1)
    level set tree is drawn, otherwise a volume plot of a lower level set tree
    is drawn}
   \item{cex.axis}{magnification factor for the axis annotation; see "par"}
- }
+  \item{xlab}{character string; label of the x-axis}
+  \item{ylab}{character string; label of the y-axis}
+  \item{cex.lab}{positive real number; indicates the largeness of the labels of the plot}
+  \item{colothre}{NULL or a postitive real number; used to color the volume plot when
+   it is used to visualize a clustering}
+  \item{nodes}{a vector of positive integers; used to color the volume plot when
+   it is used to visualize a clustering with locally changing levels}
+}
 
 \value{A plot is made on the graphics window.}
 

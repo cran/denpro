@@ -3,34 +3,34 @@
 \alias{denpro}
 \docType{package}
 \title{
-Visualization of multivariate, functions, sets, and data
+Visualization of Multivariate Functions, Sets, and Data
 }
 \description{
-The package provides tools to (1) visualize multivariate
-functions, in particular density functions and density estimates,
-with level set trees,
-(2) visualize level sets with shape trees, (3) visualize
-multivariate data with tail trees, (4) visualize scales of
-multivariate density estimates with mode graphs and branching
-maps, and (5) visualize anisotropic spread with 2D volume
-functions and 2D probability conetent functions. With level set
-trees one visualizes mode structure, with shape trees one
-visualizes shapes of level sets of unimodal densities, and with
-tail trees one visualizes connected data sets. The kernel
-estimator is implemented but the package may be applied for
-visualizing other density estimates, which have to be setwise
-constant.
+We provide tools to 
+(1) visualize multivariate functions and density estimates 
+    with level set trees,
+(2) visualize level sets with shape trees,
+(3) visualize multivariate data with tail trees, 
+(4) visualize scales of multivariate density estimates with 
+    mode graphs and branching maps, and
+(5) visualize anisotropic spread with 2D volume functions and
+    2D probability content functions.
+Level set trees visualize mode structure,
+shape trees visualize shapes of level sets of unimodal densities,
+and tail trees visualize connected data sets.
+The kernel estimator is implemented
+but the package may  also be applied for visualizing other density estimates. 
 }
 \details{
 \tabular{ll}{
 Package: \tab denpro\cr
-Version: \tab 0.9.0\cr
-Date: \tab 2013-08-12\cr
+Version: \tab 0.9.2\cr
+Date: \tab 2015-05-12\cr
 Depends: \tab \cr
 License: \tab GPL(>=2)\cr
-URL: \tab http://www.rni.helsinki.fi/~jsk/denpro/\cr
-Packaged: \tab Mon Jun 15 16:34:17 2009; jsk\cr
-Built: \tab R 3.0.1; i486-pc-linux-gnu; 2013-06-12 16:34:35; unix\cr
+URL: \tab http://www.jussiklemela.com/denpro/\cr
+Packaged: \tab Mon Jun 15 16:34:17 2015; jsk\cr
+Built: \tab R 3.2.0; i486-pc-linux-gnu; 2013-06-12 16:34:35; unix\cr
 }
 
 The main function:
@@ -166,9 +166,9 @@ tree.segme              Returns the segmentation of the nodes of
 
 }
 \author{
-Jussi Klemela <jussi.klemela@oulu.fi>
+Jussi Klemela <jussi.klemela@gmail.com>
 
-Maintainer: Jussi Klemela <jussi.klemela@oulu.fi>
+Maintainer: Jussi Klemela <jussi.klemela@gmail.com>
 
 }
 

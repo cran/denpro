@@ -1,9 +1,11 @@
 pcf.kern<-function(dendat,h,N,kernel="gauss",weights=NULL,support=NULL,
-lowest=0)
+lowest=0,radi=0)
 {
 d<-length(N)
 
 if (d>1){
+
+if (length(h)==1) h<-rep(h,d)
 
 if (kernel=="bart") 
    ker<-function(xx,d){ 
@@ -25,7 +27,7 @@ if (kernel=="epane")
       return( c*apply(xxx,1,prod) ) 
    } 
 
-if (kernel=="gauss") radi<-2*h else radi<-h
+if (is.null(radi)) if (kernel=="gauss") radi<-2*h else radi<-h
 
 recnum<-prod(N)
 value<-matrix(0,recnum,1)
@@ -54,7 +56,8 @@ for (i in 1:recnum){
 #       xred<-dendat[neigh,]
 #       argu<-matrix(arg,dim(xred)[1],d,byrow=TRUE)
 
-       w<-ker((dendat-argu)/h,d)/h^d
+       xxx<-sweep(dendat-argu,2,h,"/")
+       w<-ker(xxx,d)/prod(h)
        valli<-mean(w)
        if (!is.null(weights)) valli<-t(weights)%*%w
 #     }

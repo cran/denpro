@@ -1,7 +1,7 @@
 \name{branchmap}
 \alias{branchmap}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Calculates a branching map from a sequence of level set trees}
+\title{Computes a branching map from a sequence of level set trees}
 \description{
 Branching map visualizes the levels of branching of level set trees
 of estimates belonging to a scale of estimates.

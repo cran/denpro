@@ -2,7 +2,7 @@
 \alias{excmas}
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{
-Calculates the excess masses associated with the 
+Computes the excess masses associated with the 
 nodes of a level set tree
 }
 \description{

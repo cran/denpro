@@ -80,6 +80,7 @@ while (j<=lkm){
         istouch<-touchstep.tail(node,curroot,boundrec,child,sibling,
                                 infopointer,pcfdown,pcfhigh,rho,dendat,
                                 dist.type=dist.type)
+
         if (istouch==1){
 
            # paivita parent, child, sibling, volume 
